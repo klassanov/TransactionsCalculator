@@ -7,6 +7,13 @@ namespace TransactionsCalculator
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Tests();
         }
+
+        private static void Tests()
+        {
+
+        }
+
     }
 }
