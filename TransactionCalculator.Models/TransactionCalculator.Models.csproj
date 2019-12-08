@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="12.2.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TransactionsCalculator.Interfaces\TransactionsCalculator.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
