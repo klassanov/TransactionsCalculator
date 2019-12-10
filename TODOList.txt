@@ -1,0 +1,8 @@
+- ClassMap<Foo> create a class map for trimming the read values
+- Use .NET Core IoC
+- Make CurrencyCodeEUR it as a configuration parameter (maybe rename it as ReferenceCurrencyCode)
+- Rewrite everything depending entirely on interfaces
+- Use a second, backup, API for exchange rates client
+- Use Flurl With an IoC Container???
+- Make the IoC configuration in a separate project?
+- Make a class that will execute the main logic ?? Keep the main method as clean as possible 
