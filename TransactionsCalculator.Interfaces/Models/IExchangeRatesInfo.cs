@@ -4,7 +4,7 @@ namespace TransactionsCalculator.Interfaces.Models
 {
     public interface IExchangeRatesInfo
     {
-        decimal GetExchangeRateToEUR();
+        decimal GetReferenceExchangeRate();
 
         DateTime GetExchangeDate();
     }

@@ -3,7 +3,7 @@ using TransactionsCalculator.Interfaces.Models;
 
 namespace TransactionCalculator.Models.ExchangeRates
 {
-    public class FrakfurterExchangeRatesInfo : IExchangeRatesInfo
+    public class FrakfurterExchangeRatesInfoEUR : IExchangeRatesInfo
     {
         public DateTime Date { get; set; }
 
@@ -18,7 +18,7 @@ namespace TransactionCalculator.Models.ExchangeRates
             return this.Date;
         }
 
-        public decimal GetExchangeRateToEUR()
+        public decimal GetReferenceExchangeRate()
         {
             return this.Rates.EUR;
         }
