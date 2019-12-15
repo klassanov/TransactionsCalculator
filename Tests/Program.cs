@@ -19,14 +19,23 @@ namespace Tests
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello, Gimmy!");
+            Console.WriteLine();
+
             exchangeCurrenciesDict.Add(ReferenceCurrencyCode, 1);
+
+            List<Transaction> transactionList = null;
 
             CurrencyDataAPIClient();
 
             //Read from input
             string saleArrivalCountry = "IT";
 
-            Console.WriteLine("Hello World!");
+            //Read from input
+            string directoryName = args.Length > 0 ? args[0] : "D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Tests\\";
+            string[] filePaths = Directory.GetFiles(directoryName, "*.txt");
+
+
             var bad = new List<string>();
             Configuration config = new Configuration();
             config.Delimiter = "\t";
@@ -35,34 +44,46 @@ namespace Tests
                 bad.Add(context.RawRecord);
             };
 
-            List<Transaction> transactionList = null;
 
-            using (var reader = new StreamReader("D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Docs\\IT178-10.txt"))
-            using (var csv = new CsvReader(reader, config))
+            //string fullFilename = "D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Docs\\IT178-10.txt";
+            //string fullFilename = "D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Docs\\IT120-10.txt";
+
+            Console.WriteLine($"Working directory: {directoryName}");
+            Console.WriteLine();
+
+            foreach (string filePath in filePaths)
             {
-                transactionList = csv.GetRecords<Transaction>().ToList();
+                Console.WriteLine($"Elaboration of { filePath}");
+
+                using (var reader = new StreamReader(filePath))
+                using (var csv = new CsvReader(reader, config))
+                {
+                    transactionList = csv.GetRecords<Transaction>().ToList();
+                }
+
+                //Query 1
+                decimal q1 = Math.Round(transactionList.Where(x => x.SaleArrivalCountry.Equals(saleArrivalCountry) &&
+                                                        x.TotalActivityVatIncludedAmount.HasValue)
+                                            .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
+
+                //Query 2
+                HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
+
+                decimal q2 = Math.Round(transactionList.Where(x => x.SaleDepartureCountry.Equals(saleArrivalCountry) &&
+                                                    x.TotalActivityVatIncludedAmount.HasValue &&
+                                                    !countriesHash.Contains(x.SaleArrivalCountry))
+                                                    .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
 
 
-                //foreach (Transaction transaction in transactionList)
-                //{
-                //    if (transaction.TransactionCurrencyCode.Equals(CurrencyCodeEUR))
-                //    {
 
-                //    }
-                //    else if (!string.IsNullOrEmpty(transaction.TransactionCurrencyCode))
-                //    {
-
-                //    }
-                //}
+                Console.WriteLine($"Step 1: {q1}");
+                Console.WriteLine($"Step 2: {q2}");
+                Console.WriteLine();
             }
 
-
-            decimal q1 = transactionList.Where(x => x.SaleArrivalCountry.Equals(saleArrivalCountry) && x.TotalActivityVatIncludedAmount.HasValue)
-                                        .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode));
-
-
-
-            Console.WriteLine(q1);
+            Console.WriteLine();
+            PrintExchangeRates();
+            Console.WriteLine();
 
         }
 
@@ -121,9 +142,15 @@ namespace Tests
                .SetQueryParam("to", ReferenceCurrencyCode)
                .GetJsonAsync<FrakfurterExchangeRatesInfoEUR>()
                .Result;
+        }
 
-
-
+        static void PrintExchangeRates()
+        {
+            Console.WriteLine("Used exchange rates");
+            foreach (string key in exchangeCurrenciesDict.Keys)
+            {
+                Console.WriteLine($"{key}: {exchangeCurrenciesDict[key]}");
+            }
         }
     }
 }

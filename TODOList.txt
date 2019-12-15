@@ -10,3 +10,9 @@
 - Make GetExchangeRate an extension method
 - Make saleArrivalCountry an external args input parameter
 - Make the file parameter an input parameter or the whole directory as an input parameter
+- Make unit tests vs the logic
+- Make an extention method for summing currencies??
+- Print exchange rates info, wrap a dictionary and store info, enrich the object stored in the dictionary
+- Make each query an interface implementation and schedule them as you want
+- Abstract the data reading (/writing) part from the elaboration part
+- Try/catch block around each file
