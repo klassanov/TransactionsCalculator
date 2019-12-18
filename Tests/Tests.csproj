@@ -6,8 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PDFTemplates\ReportTemplate.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PDFTemplates\ReportTemplate.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CsvHelper" Version="12.2.2" />
     <PackageReference Include="Flurl.Http" Version="2.4.2" />
+    <PackageReference Include="IronPdf" Version="2019.8.9" />
+    <PackageReference Include="RazorEngine.NetCore" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>

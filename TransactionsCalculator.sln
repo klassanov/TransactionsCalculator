@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B99A5BC4-91DA-467F-A752-6CDE3812A7E1}"
 	ProjectSection(SolutionItems) = preProject
 		TODOList.txt = TODOList.txt
+		Tests\bin\Release\transactionsCalculator.zip = Tests\bin\Release\transactionsCalculator.zip
 	EndProjectSection
 EndProject
 Global

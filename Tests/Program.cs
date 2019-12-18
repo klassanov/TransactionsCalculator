@@ -2,6 +2,9 @@
 using CsvHelper.Configuration;
 using Flurl;
 using Flurl.Http;
+using IronPdf;
+using RazorEngine;
+using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +24,8 @@ namespace Tests
         {
             Console.WriteLine("Hello, Gimmy!");
             Console.WriteLine();
+
+            GeneratePDF();
 
             exchangeCurrenciesDict.Add(ReferenceCurrencyCode, 1);
 
@@ -151,6 +156,19 @@ namespace Tests
             {
                 Console.WriteLine($"{key}: {exchangeCurrenciesDict[key]}");
             }
+        }
+
+        static void GeneratePDF()
+        {
+            HtmlToPdf renderer = new HtmlToPdf();
+
+            //Renderer.RenderHtmlAsPdf("<h1>Hello Worldeeeee<h1>").SaveAs("html-string.pdf");
+            // string template = "Hello @Model.Name, welcome to RazorEngine!";
+            //var result = Engine.Razor.RunCompile(template, "templateKey", null, new { Name = "World" });
+
+            string template = File.ReadAllText(@"PDFTemplates/ReportTemplate.cshtml");
+            var result = Engine.Razor.RunCompile(template, "templateKey", null, new { Test = "Kolko e 4asa" });
+            renderer.RenderHtmlAsPdf(result).SaveAs("GimmyReport.pdf");
         }
     }
 }
