@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.Interfaces", "TransactionsCalculator.Interfaces\TransactionsCalculator.Interfaces.csproj", "{DB5E4D8B-0241-4EC7-9789-AC7D833C084C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.Services", "TransactionsCalculator.Services\TransactionsCalculator.Services.csproj", "{19B55239-BB98-4F73-87B9-DF2B9427C30C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.Core", "TransactionsCalculator.Services\TransactionsCalculator.Core.csproj", "{19B55239-BB98-4F73-87B9-DF2B9427C30C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{9240D0AA-BB0E-4260-B83C-C70C24F3DE63}"
 EndProject

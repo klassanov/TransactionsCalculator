@@ -2,5 +2,6 @@
 {
     public interface ITransactionCalculatorService
     {
+        void ProcessDirectory();
     }
 }

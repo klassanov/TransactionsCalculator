@@ -3,6 +3,7 @@ using CsvHelper.Configuration;
 using Flurl;
 using Flurl.Http;
 using IronPdf;
+using Microsoft.Extensions.Configuration;
 using RazorEngine;
 using RazorEngine.Templating;
 using System;
@@ -25,7 +26,14 @@ namespace Tests
             Console.WriteLine("Hello, Gimmy!");
             Console.WriteLine();
 
-            GeneratePDF();
+            //GeneratePDF();
+
+            IConfiguration appSettings = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json")
+                 .Build();
+
+            Console.WriteLine($"Reading from the config: { appSettings["referenceCurrencyCode"]}");
 
             exchangeCurrenciesDict.Add(ReferenceCurrencyCode, 1);
 
