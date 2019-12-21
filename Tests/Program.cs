@@ -217,21 +217,16 @@ namespace Tests
         private static void FormattingTests()
         {
             CultureInfo culture = new CultureInfo(CultureInfo.InvariantCulture.Name);
-            //culture.NumberFormat.NumberDecimalSeparator = ".";
+            culture.NumberFormat.NumberDecimalSeparator = ".";
+            culture.NumberFormat.NumberGroupSeparator = ",";
 
 
-            decimal value = 123456;
-            Console.WriteLine(value.ToString("0.00", culture));
+            decimal value = 889545212345.69m;
+            string format = "0,0.##";
+            string valueString = value.ToString(format, culture);
+            Console.WriteLine(valueString);
 
-            value = 1234.56m;
-            Console.WriteLine(value.ToString("0.00", culture));
-
-            value = 1234.5m;
-            Console.WriteLine(value.ToString("0.00", culture));
-
-
-
-            Console.WriteLine(value.ToString("0.00", culture));
+            value = decimal.Parse(valueString, culture);
         }
     }
 }
