@@ -8,6 +8,7 @@ using RazorEngine;
 using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using TransactionCalculator.Models.ExchangeRates;
@@ -23,6 +24,10 @@ namespace Tests
 
         static void Main(string[] args)
         {
+            //DecimalParsing();
+            FormattingTests();
+            return;
+
             Console.WriteLine("Hello, Gimmy!");
             Console.WriteLine();
 
@@ -177,6 +182,56 @@ namespace Tests
             string template = File.ReadAllText(@"PDFTemplates/ReportTemplate.cshtml");
             var result = Engine.Razor.RunCompile(template, "templateKey", null, new { Test = "Kolko e 4asa" });
             renderer.RenderHtmlAsPdf(result).SaveAs("GimmyReport.pdf");
+        }
+
+        private static void DecimalParsing()
+        {
+            string directoryName = "D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Tests\\DecimalParsing";
+            string[] filePaths = Directory.GetFiles(directoryName, "Salaries-1.txt");
+
+            var bad = new List<string>();
+            Configuration config = new Configuration();
+            config.Delimiter = "\t";
+            config.RegisterClassMap<PersonMap>();
+            config.TrimOptions = TrimOptions.Trim;
+
+            config.BadDataFound = context =>
+            {
+                bad.Add(context.RawRecord);
+            };
+
+            foreach (string filePath in filePaths)
+            {
+                Console.WriteLine($"Elaboration of { filePath}");
+                List<Person> personList = null;
+
+                using (var reader = new StreamReader(filePath))
+                using (var csv = new CsvReader(reader, config))
+                {
+                    personList = csv.GetRecords<Person>().ToList();
+                }
+
+            }
+        }
+
+        private static void FormattingTests()
+        {
+            CultureInfo culture = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            //culture.NumberFormat.NumberDecimalSeparator = ".";
+
+
+            decimal value = 123456;
+            Console.WriteLine(value.ToString("0.00", culture));
+
+            value = 1234.56m;
+            Console.WriteLine(value.ToString("0.00", culture));
+
+            value = 1234.5m;
+            Console.WriteLine(value.ToString("0.00", culture));
+
+
+
+            Console.WriteLine(value.ToString("0.00", culture));
         }
     }
 }

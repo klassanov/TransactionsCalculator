@@ -1,4 +1,4 @@
-- ClassMap<Foo> create a class map for trimming the read values
+- OK ClassMap<Foo> create a class map for trimming the read values
 - Use .NET Core IoC
 - Make CurrencyCodeEUR it as a configuration parameter (maybe rename it as ReferenceCurrencyCode)
 - Rewrite everything depending entirely on interfaces
