@@ -6,6 +6,6 @@
         public string Name { get; set; }
 
         //[Name("SALARY")]
-        public decimal Salary { get; set; }
+        public decimal? Salary { get; set; }
     }
 }

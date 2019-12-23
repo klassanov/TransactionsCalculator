@@ -4,10 +4,15 @@ namespace Tests
 {
     public static class IntelligentCurrencyConverter
     {
-        public static decimal ConvertCurrency(string value)
+        public static decimal? ConvertCurrency(string value)
         {
-            value = value.Replace(',', '.');
-            return decimal.Parse(value, CultureInfo.InvariantCulture);
+            decimal? result = null;
+            if (!string.IsNullOrEmpty(value))
+            {
+                value = value.Replace(',', '.');
+                result = decimal.Parse(value, CultureInfo.InvariantCulture);
+            }
+            return result;
         }
     }
 }

@@ -24,9 +24,8 @@ namespace Tests
 
         static void Main(string[] args)
         {
-            //DecimalParsing();
-            FormattingTests();
-            return;
+            GetExchangeRateFromAPI("GBP");
+
 
             Console.WriteLine("Hello, Gimmy!");
             Console.WriteLine();
@@ -44,19 +43,21 @@ namespace Tests
 
             List<Transaction> transactionList = null;
 
-            CurrencyDataAPIClient();
+            //CurrencyDataAPIClient();
 
             //Read from input
             string saleArrivalCountry = "IT";
 
             //Read from input
-            string directoryName = args.Length > 0 ? args[0] : "D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Tests\\";
+            string directoryName = args.Length > 0 ? args[0] : "D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Tests\\DecimalParsing";
             string[] filePaths = Directory.GetFiles(directoryName, "*.txt");
 
 
             var bad = new List<string>();
             Configuration config = new Configuration();
             config.Delimiter = "\t";
+            config.RegisterClassMap<TransactionMap>();
+            config.TrimOptions = TrimOptions.Trim;
             config.BadDataFound = context =>
             {
                 bad.Add(context.RawRecord);
@@ -71,32 +72,44 @@ namespace Tests
 
             foreach (string filePath in filePaths)
             {
-                Console.WriteLine($"Elaboration of { filePath}");
-
-                using (var reader = new StreamReader(filePath))
-                using (var csv = new CsvReader(reader, config))
+                try
                 {
-                    transactionList = csv.GetRecords<Transaction>().ToList();
+
+                    Console.WriteLine($"Elaboration of { filePath}");
+
+                    using (var reader = new StreamReader(filePath))
+                    using (var csv = new CsvReader(reader, config))
+                    {
+                        transactionList = csv.GetRecords<Transaction>().ToList();
+                    }
+
+                    //Query 1
+                    decimal q1 = Math.Round(transactionList.Where(x => x.SaleArrivalCountry.Equals(saleArrivalCountry) &&
+                                                            x.TotalActivityVatIncludedAmount.HasValue)
+                                                .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
+
+                    //Query 2
+                    HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
+
+                    decimal q2 = Math.Round(transactionList.Where(x => x.SaleDepartureCountry.Equals(saleArrivalCountry) &&
+                                                        x.TotalActivityVatIncludedAmount.HasValue &&
+                                                        !countriesHash.Contains(x.SaleArrivalCountry))
+                                                        .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
+
+
+
+                    Console.WriteLine($"Step 1: {q1}");
+                    Console.WriteLine($"Step 2: {q2}");
+                    Console.WriteLine();
                 }
-
-                //Query 1
-                decimal q1 = Math.Round(transactionList.Where(x => x.SaleArrivalCountry.Equals(saleArrivalCountry) &&
-                                                        x.TotalActivityVatIncludedAmount.HasValue)
-                                            .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
-
-                //Query 2
-                HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
-
-                decimal q2 = Math.Round(transactionList.Where(x => x.SaleDepartureCountry.Equals(saleArrivalCountry) &&
-                                                    x.TotalActivityVatIncludedAmount.HasValue &&
-                                                    !countriesHash.Contains(x.SaleArrivalCountry))
-                                                    .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
-
-
-
-                Console.WriteLine($"Step 1: {q1}");
-                Console.WriteLine($"Step 2: {q2}");
-                Console.WriteLine();
+                catch (Exception ex)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Error during processing {filePath}");
+                    Console.WriteLine(ex);
+                    Console.WriteLine("Procesing will continue with the next files if any");
+                    Console.WriteLine();
+                }
             }
 
             Console.WriteLine();
@@ -123,7 +136,7 @@ namespace Tests
 
         static decimal GetExchangeRateFromAPI(string currencyCode)
         {
-            IExchangeRatesInfo exchangeRateInfo = "https://frankfurter.app/"
+            IExchangeRatesInfo exchangeRateInfo = "https://api.frankfurter.app/"
                .AppendPathSegment("latest")
                .SetQueryParam("from", currencyCode)
                .SetQueryParam("to", ReferenceCurrencyCode)
