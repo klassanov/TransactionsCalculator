@@ -1,6 +1,8 @@
-﻿namespace TransactionCalculator.Models.Transaction
+﻿using TransactionsCalculator.Interfaces.Models;
+
+namespace TransactionCalculator.Models.Transaction
 {
-    public class Transaction
+    public class Transaction : ITransaction
     {
         //[Name("SALE_ARRIVAL_COUNTRY")]
         public string SaleArrivalCountry { get; set; }

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TransactionCalculator.Models\TransactionCalculator.Models.csproj" />
     <ProjectReference Include="..\TransactionsCalculator.Interfaces\TransactionsCalculator.Interfaces.csproj" />
   </ItemGroup>
 

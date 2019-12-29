@@ -1,18 +1,14 @@
-- OK ClassMap<Foo> create a class map for trimming the read values
-- Use .NET Core IoC
-- Make CurrencyCodeEUR it as a configuration parameter (maybe rename it as ReferenceCurrencyCode)
-- Rewrite everything depending entirely on interfaces
+- Make configuration as an interface with indexer and inject it
+- Make CurrencyCodeEUR, the delimiter and the file extention configuration parameters
 - Use a second, backup, API for exchange rates client
 - Use Flurl With an IoC Container???
-- Make the IoC configuration in a separate project?
-- Make a class that will execute the main logic ?? Keep the main method as clean as possible
-- Make the reference currency a parameter via polymorhysm to IExchangeRatesInfo
-- Make GetExchangeRate an extension method
 - Make saleArrivalCountry an external args input parameter
 - Make the file parameter an input parameter or the whole directory as an input parameter
 - Make unit tests vs the logic
-- Make an extention method for summing currencies??
 - Print exchange rates info, wrap a dictionary and store info, enrich the object stored in the dictionary
 - Make each query an interface implementation and schedule them as you want
-- Abstract the data reading (/writing) part from the elaboration part
 - Try/catch block around each file
+- Add logging
+- ? Make the IoC configuration in a separate project
+- ? Make GetExchangeRate an extension method
+- ? Make an extention method for summing currencies??
