@@ -11,9 +11,9 @@ namespace TransactionsCalculator.Core.Services
         //private IConfigurationService configurationService -> how to inject or wrap the built - in one?
 
 
-        public TransactionCalculatorService()
+        public TransactionCalculatorService(IFileReaderService fileReaderService)
         {
-
+            this.fileReaderService = fileReaderService;
         }
 
         public void ProcessDirectory()
