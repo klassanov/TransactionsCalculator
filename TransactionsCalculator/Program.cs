@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,15 +13,13 @@ namespace TransactionsCalculator
     class Program
     {
         private static IServiceProvider serviceProvider;
+        private static AppConfigurationService appConfigurationService;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //IConfiguration appSettings = new ConfigurationBuilder()
-            //     .SetBasePath(Directory.GetCurrentDirectory())
-            //     .AddJsonFile("appsettings.json")
-            //     .Build();
 
+            LoadAppConfiguration();
             RegisterServices();
             Tests();
 
@@ -28,20 +27,32 @@ namespace TransactionsCalculator
             //ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
             //transactionCalculatorService.ProcessDirectory();
 
-
-
-
             Console.WriteLine("All done!");
-
         }
 
         private static void RegisterServices()
         {
             serviceProvider = new ServiceCollection()
+                .AddSingleton<IAppConfigurationService>(appConfigurationService)
                 .AddTransient<IFileReaderService, FileReaderService>()
-                //Add other dependencies
+                //Add other service dependencies
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>() // Biggest service
                 .BuildServiceProvider();
+        }
+
+        private static void LoadAppConfiguration()
+        {
+            IConfiguration appSettings = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            appConfigurationService = new AppConfigurationService()
+            {
+                ReferenceCurrencyCode = appSettings["referenceCurrencyCode"],
+                FileDelimiter = appSettings["fileDelimiter"],
+                FileExtension = appSettings["fileExtension"]
+            };
         }
 
         private static void Tests()
@@ -53,7 +64,6 @@ namespace TransactionsCalculator
             IEnumerable<ITransaction> transactions = fileReaderService.ReadFile(filePaths[0]);
 
             var orderedTransactions = transactions.OrderByDescending(t => t.TotalActivityVatIncludedAmount);
-            int a = 5;
         }
     }
 }

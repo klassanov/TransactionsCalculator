@@ -11,10 +11,12 @@ namespace TransactionsCalculator.Core.Services
 {
     public class FileReaderService : IFileReaderService
     {
-        private Configuration config;
+        private readonly IAppConfigurationService appConfigurationService;
+        private readonly Configuration config;
 
-        public FileReaderService()
+        public FileReaderService(IAppConfigurationService appConfigurationService)
         {
+            this.appConfigurationService = appConfigurationService;
             this.config = this.CreateFileReadingConfiguration();
         }
 
@@ -34,7 +36,7 @@ namespace TransactionsCalculator.Core.Services
         {
             var badData = new List<string>();
             Configuration config = new Configuration();
-            config.Delimiter = "\t";
+            config.Delimiter = this.appConfigurationService.FileDelimiter;
             config.RegisterClassMap<TransactionMap>();
             config.TrimOptions = TrimOptions.Trim;
             config.BadDataFound = context =>
