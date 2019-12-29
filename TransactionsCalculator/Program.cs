@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TransactionsCalculator.Core.Services;
+using TransactionsCalculator.Core.WebApiClients;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
+using TransactionsCalculator.Interfaces.WebApiClients;
 
 namespace TransactionsCalculator
 {
@@ -34,6 +36,8 @@ namespace TransactionsCalculator
         {
             serviceProvider = new ServiceCollection()
                 .AddSingleton<IAppConfigurationService>(appConfigurationService)
+                .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
+                .AddTransient<IExchangeRatesService, ExchangeRatesService>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 //Add other service dependencies
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>() // Biggest service
@@ -64,6 +68,8 @@ namespace TransactionsCalculator
             IEnumerable<ITransaction> transactions = fileReaderService.ReadFile(filePaths[0]);
 
             var orderedTransactions = transactions.OrderByDescending(t => t.TotalActivityVatIncludedAmount);
+
+            var s = serviceProvider.GetService<ITransactionCalculatorService>();
         }
     }
 }

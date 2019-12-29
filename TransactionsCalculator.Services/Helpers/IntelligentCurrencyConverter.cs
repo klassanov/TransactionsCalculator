@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace TransactionsCalculator.Core
+namespace TransactionsCalculator.Core.Helpers
 {
     public static class IntelligentCurrencyConverter
     {

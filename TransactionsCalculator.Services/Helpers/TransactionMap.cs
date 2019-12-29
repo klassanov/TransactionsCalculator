@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration;
 using TransactionCalculator.Models.Transaction;
 
-namespace TransactionsCalculator.Core
+namespace TransactionsCalculator.Core.Helpers
 {
     public class TransactionMap : ClassMap<Transaction>
     {

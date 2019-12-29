@@ -2,10 +2,12 @@
 
 namespace TransactionsCalculator.Interfaces.Models
 {
-    public interface IExchangeRatesInfo
+    public interface IExchangeRateInfo
     {
-        decimal GetReferenceExchangeRate();
+        decimal GetExchangeRate();
 
         DateTime GetExchangeDate();
+
+        string GetFromCurrency();
     }
 }

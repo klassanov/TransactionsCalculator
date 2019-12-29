@@ -136,14 +136,14 @@ namespace Tests
 
         static decimal GetExchangeRateFromAPI(string currencyCode)
         {
-            IExchangeRatesInfo exchangeRateInfo = "https://api.frankfurter.app/"
+            IExchangeRateInfo exchangeRateInfo = "https://api.frankfurter.app/"
                .AppendPathSegment("latest")
                .SetQueryParam("from", currencyCode)
                .SetQueryParam("to", ReferenceCurrencyCode)
                .GetJsonAsync<FrakfurterExchangeRatesInfoEUR>()
                .Result;
 
-            return exchangeRateInfo.GetReferenceExchangeRate();
+            return exchangeRateInfo.GetExchangeRate();
         }
 
 
@@ -167,7 +167,7 @@ namespace Tests
             //     .GetJsonAsync<JObject>()
             //     .Result;
 
-            IExchangeRatesInfo result = "https://frankfurter.app/"
+            IExchangeRateInfo result = "https://frankfurter.app/"
                .AppendPathSegment("latest")
                .SetQueryParam("from", currencyCode)
                .SetQueryParam("to", ReferenceCurrencyCode)

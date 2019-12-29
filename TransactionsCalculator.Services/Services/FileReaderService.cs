@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TransactionCalculator.Models.Transaction;
+using TransactionsCalculator.Core.Helpers;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
 

@@ -5,15 +5,18 @@ namespace TransactionsCalculator.Core.Services
     public class TransactionCalculatorService : ITransactionCalculatorService
     {
         private string processingDirectory;
-        private IFileReaderService fileReaderService;
-        private IExchangeService exchangeService;
-        private IReportGeneratorService reportGeneratorService;
-        //private IConfigurationService configurationService -> how to inject or wrap the built - in one?
+        private readonly IAppConfigurationService appConfigurationService;
+        private readonly IFileReaderService fileReaderService;
+        private readonly IExchangeRatesService exchangeService;
 
-
-        public TransactionCalculatorService(IFileReaderService fileReaderService)
+        public TransactionCalculatorService(
+            IAppConfigurationService appConfigurationService,
+            IFileReaderService fileReaderService,
+            IExchangeRatesService exchangeService)
         {
+            this.appConfigurationService = appConfigurationService;
             this.fileReaderService = fileReaderService;
+            this.exchangeService = exchangeService;
         }
 
         public void ProcessDirectory()
