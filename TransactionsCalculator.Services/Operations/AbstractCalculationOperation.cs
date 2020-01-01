@@ -11,6 +11,7 @@ namespace TransactionsCalculator.Core.Operations
         protected readonly IExchangeRatesService exchangeService;
         protected readonly IAppConfigurationService appConfigurationService;
         protected readonly ICalculationParameters calculationParameters;
+        protected string operationDescription;
 
         public AbstractCalculationOperation(
             IExchangeRatesService exchangeService,
@@ -21,6 +22,8 @@ namespace TransactionsCalculator.Core.Operations
             this.appConfigurationService = appConfigurationService;
             this.calculationParameters = calculationParameters;
         }
+
+        public string OperationDescription => operationDescription;
 
         protected decimal GetExchangeRate(string currencyCode)
         {

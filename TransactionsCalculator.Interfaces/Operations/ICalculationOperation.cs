@@ -5,6 +5,8 @@ namespace TransactionsCalculator.Interfaces.Operations
 {
     public interface ICalculationOperation
     {
-        decimal Calculate(IEnumerable<ITransaction> transactions);
+        string OperationDescription { get; }
+
+        decimal Calculate(IEnumerable<ITransaction> transactionList);
     }
 }

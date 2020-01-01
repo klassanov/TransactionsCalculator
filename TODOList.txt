@@ -1,14 +1,9 @@
-- Make configuration as an interface with indexer and inject it
-- Make CurrencyCodeEUR, the delimiter and the file extention configuration parameters
-- Use a second, backup, API for exchange rates client
-- Use Flurl With an IoC Container???
-- Make saleArrivalCountry an external args input parameter
-- Make the file parameter an input parameter or the whole directory as an input parameter
 - Make unit tests vs the logic
-- Print exchange rates info, wrap a dictionary and store info, enrich the object stored in the dictionary
-- Make each query an interface implementation and schedule them as you want
-- Try/catch block around each file
 - Add logging
+- Make the file parameter an input parameter or the whole directory as an input parameter
+- Print exchange rates info, wrap a dictionary and store info, enrich the object stored in the dictionary
+- Use a second, backup, API for exchange rates client
 - ? Make the IoC configuration in a separate project
 - ? Make GetExchangeRate an extension method
 - ? Make an extention method for summing currencies??
+- ? CreateCalculationOperations() create in a configuration or factory

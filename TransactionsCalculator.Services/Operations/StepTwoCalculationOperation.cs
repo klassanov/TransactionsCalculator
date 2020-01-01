@@ -13,6 +13,7 @@ namespace TransactionsCalculator.Core.Operations
             ICalculationParameters calculationParameters)
             : base(exchangeService, appConfigurationService, calculationParameters)
         {
+            this.operationDescription = "Step 2";
         }
 
         public override decimal Calculate(IEnumerable<ITransaction> transactionList)
