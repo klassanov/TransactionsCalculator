@@ -35,9 +35,9 @@ namespace TransactionsCalculator.Core.Services
                 try
                 {
                     IEnumerable<ITransaction> transactionList = this.fileReaderService.ReadFile(filePath);
-                    foreach (ICalculationOperation calculation in calculationOperations)
+                    foreach (ICalculationOperation operation in calculationOperations)
                     {
-                        decimal result = calculation.Calculate(transactionList);
+                        decimal result = operation.Calculate(transactionList);
                     }
                 }
                 catch (Exception ex)

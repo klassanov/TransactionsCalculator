@@ -32,7 +32,7 @@ namespace TransactionsCalculator.Core.Operations
 
         protected decimal RoundAmount(decimal amount)
         {
-            return Math.Round(amount);
+            return Math.Round(amount, 2);
         }
 
         public abstract decimal Calculate(IEnumerable<ITransaction> transactions);
