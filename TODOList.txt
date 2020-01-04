@@ -1,8 +1,8 @@
 - Make unit tests vs the logic
 - Add logging
-- Make the file parameter an input parameter or the whole directory as an input parameter
 - Print exchange rates info, wrap a dictionary and store info, enrich the object stored in the dictionary
 - Use a second, backup, API for exchange rates client
+- Check if input directory is inserted and if such a directory exists
 - ? Make the IoC configuration in a separate project
 - ? Make GetExchangeRate an extension method
 - ? Make an extention method for summing currencies??

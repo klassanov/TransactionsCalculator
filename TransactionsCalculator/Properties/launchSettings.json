@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TransactionsCalculator": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Tests\\OriginalFiles\""
+    }
+  }
+}

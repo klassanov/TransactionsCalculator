@@ -11,25 +11,27 @@ namespace TransactionsCalculator.Core.Services
 {
     public class TransactionCalculatorService : ITransactionCalculatorService
     {
-        private string processingDirectory;
         private readonly IAppConfigurationService appConfigurationService;
         private readonly IFileReaderService fileReaderService;
         private readonly IExchangeRatesService exchangeService;
+        private readonly IServiceArgs serviceArgs;
 
         public TransactionCalculatorService(
             IAppConfigurationService appConfigurationService,
             IFileReaderService fileReaderService,
-            IExchangeRatesService exchangeService)
+            IExchangeRatesService exchangeService,
+            IServiceArgs serviceArgs)
         {
             this.appConfigurationService = appConfigurationService;
             this.fileReaderService = fileReaderService;
             this.exchangeService = exchangeService;
+            this.serviceArgs = serviceArgs;
         }
 
         public void ProcessDirectory()
         {
             List<ICalculationOperation> calculationOperations = CreateCalculationOperations();
-            string[] filePaths = Directory.GetFiles(this.processingDirectory, appConfigurationService.FileExtension);
+            string[] filePaths = Directory.GetFiles(this.serviceArgs.WorkingDirectory, appConfigurationService.FileExtension);
             foreach (string filePath in filePaths)
             {
                 try
