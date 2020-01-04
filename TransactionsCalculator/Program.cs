@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using log4net;
+using log4net.Config;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using System.Reflection;
 using TransactionCalculator.Models;
 using TransactionsCalculator.Core.Services;
 using TransactionsCalculator.Core.WebApiClients;
@@ -13,19 +16,23 @@ namespace TransactionsCalculator
 {
     class Program
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Program));
         private static IServiceProvider serviceProvider;
         private static AppConfigurationService appConfigurationService;
         private static string[] inputArgs;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            LoadLoggingConfiguration();
+            logger.Debug("Start!");
             inputArgs = args;
+            LoadLoggingConfiguration();
             LoadAppConfiguration();
             RegisterServices();
-            ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
-            transactionCalculatorService.ProcessDirectory();
-            Console.WriteLine("All done!");
+
+            //ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
+            //transactionCalculatorService.ProcessDirectory();
+            logger.Debug("All done!");
         }
 
         private static void RegisterServices()
@@ -53,6 +60,12 @@ namespace TransactionsCalculator
                 FileDelimiter = appSettings["fileDelimiter"],
                 FileExtension = appSettings["fileExtension"]
             };
+        }
+
+        private static void LoadLoggingConfiguration()
+        {
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
     }
 }
