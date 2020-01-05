@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using TransactionCalculator.Models.Operations;
@@ -11,6 +12,7 @@ namespace TransactionsCalculator.Core.Services
 {
     public class TransactionCalculatorService : ITransactionCalculatorService
     {
+        private static ILog logger = LogManager.GetLogger(typeof(TransactionCalculatorService));
         private readonly IAppConfigurationService appConfigurationService;
         private readonly IFileReaderService fileReaderService;
         private readonly IExchangeRatesService exchangeService;
@@ -28,25 +30,51 @@ namespace TransactionsCalculator.Core.Services
             this.serviceArgs = serviceArgs;
         }
 
-        public void ProcessDirectory()
+        public IDirectoryProcessingResult ProcessDirectory()
         {
+            logger.Info($"Processing directory {this.serviceArgs.WorkingDirectory}");
+            DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.serviceArgs.WorkingDirectory);
             List<ICalculationOperation> calculationOperations = CreateCalculationOperations();
-            string[] filePaths = Directory.GetFiles(this.serviceArgs.WorkingDirectory, appConfigurationService.FileExtension);
+            string[] filePaths = this.GetFilePathsInWorkingDirectory();
+            logger.Info($"{filePaths.Length} files found");
+
             foreach (string filePath in filePaths)
             {
+                logger.Info($"{filePath} - processing");
+                FileOperationResult fileOperationResult = new FileOperationResult(filePath);
+                directoryOperationResult.FileOperationResultList.Add(fileOperationResult);
+
                 try
                 {
                     IEnumerable<ITransaction> transactionList = this.fileReaderService.ReadFile(filePath);
+                    List<ICalculationOperationResult> calculationOperationsResultList = new List<ICalculationOperationResult>();
+
                     foreach (ICalculationOperation operation in calculationOperations)
                     {
+                        logger.Debug($"{filePath} - performing {operation.OperationDescription}");
                         decimal result = operation.Calculate(transactionList);
+                        calculationOperationsResultList.Add(new CalculationOperationResult(result, operation.OperationDescription));
+                        logger.Info($"{filePath} - {operation.OperationDescription}: {result}");
                     }
+
+                    fileOperationResult.OperationsResultList = calculationOperationsResultList;
+                    logger.Info($"{filePath} processed successfully");
                 }
                 catch (Exception ex)
                 {
-                    //Log Exception while processing filePath
+                    logger.Error($"{filePath} - Error while processing ", ex);
+                    fileOperationResult.Exception = ex;
                 }
             }
+
+            directoryOperationResult.exchangeRateInfoList = exchangeService.GetAllExchangeRates();
+
+            return directoryOperationResult;
+        }
+
+        private string[] GetFilePathsInWorkingDirectory()
+        {
+            return Directory.GetFiles(this.serviceArgs.WorkingDirectory, $"*.{appConfigurationService.FileExtension}");
         }
 
         private List<ICalculationOperation> CreateCalculationOperations()

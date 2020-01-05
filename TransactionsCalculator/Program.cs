@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Reflection;
-using TransactionCalculator.Models;
+using TransactionCalculator.Models.Operations;
 using TransactionsCalculator.Core.Services;
 using TransactionsCalculator.Core.WebApiClients;
 using TransactionsCalculator.Interfaces.Models;
@@ -23,16 +23,16 @@ namespace TransactionsCalculator
 
         static void Main(string[] args)
         {
-            LoadLoggingConfiguration();
-            logger.Debug("Start!");
             inputArgs = args;
+
             LoadLoggingConfiguration();
             LoadAppConfiguration();
             RegisterServices();
 
-            //ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
-            //transactionCalculatorService.ProcessDirectory();
-            logger.Debug("All done!");
+            ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
+            IDirectoryProcessingResult result = transactionCalculatorService.ProcessDirectory();
+
+            logger.Info("Done!");
         }
 
         private static void RegisterServices()
@@ -40,11 +40,13 @@ namespace TransactionsCalculator
             serviceProvider = new ServiceCollection()
                 .AddSingleton<IServiceArgs>(new ServiceArgs() { WorkingDirectory = inputArgs[0] })
                 .AddSingleton<IAppConfigurationService>(appConfigurationService)
+                .AddSingleton<IExchangeRatesService, ExchangeRatesService>()
                 .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
-                .AddTransient<IExchangeRatesService, ExchangeRatesService>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()
                 .BuildServiceProvider();
+
+            logger.Debug("Services registrated");
         }
 
         private static void LoadAppConfiguration()
@@ -60,12 +62,15 @@ namespace TransactionsCalculator
                 FileDelimiter = appSettings["fileDelimiter"],
                 FileExtension = appSettings["fileExtension"]
             };
+
+            logger.Debug("AppConfiguration Loaded");
         }
 
         private static void LoadLoggingConfiguration()
         {
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+            logger.Debug("Logging Configuration Loaded");
         }
     }
 }

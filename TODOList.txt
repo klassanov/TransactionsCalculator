@@ -3,6 +3,7 @@
 - Print exchange rates info, wrap a dictionary and store info, enrich the object stored in the dictionary
 - Use a second, backup, API for exchange rates client
 - Check if input directory is inserted and if such a directory exists
+- ? Currency code as enum
 - ? Make the IoC configuration in a separate project
 - ? Make GetExchangeRate an extension method
 - ? Make an extention method for summing currencies??

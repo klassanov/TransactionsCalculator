@@ -1,7 +1,9 @@
-﻿namespace TransactionsCalculator.Interfaces.Services
+﻿using TransactionsCalculator.Interfaces.Models;
+
+namespace TransactionsCalculator.Interfaces.Services
 {
     public interface ITransactionCalculatorService
     {
-        void ProcessDirectory();
+        IDirectoryProcessingResult ProcessDirectory();
     }
 }
