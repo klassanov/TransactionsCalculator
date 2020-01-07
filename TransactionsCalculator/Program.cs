@@ -40,7 +40,7 @@ namespace TransactionsCalculator
             serviceProvider = new ServiceCollection()
                 .AddSingleton<IServiceArgs>(new ServiceArgs() { WorkingDirectory = inputArgs[0] })
                 .AddSingleton<IAppConfigurationService>(appConfigurationService)
-                .AddSingleton<IExchangeRatesService, ExchangeRatesService>()
+                .AddTransient<IExchangeRatesService, ExchangeRatesService>()
                 .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()

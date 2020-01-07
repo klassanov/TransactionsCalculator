@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using TransactionCalculator.Models.ExchangeRates;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
@@ -8,7 +10,7 @@ namespace TransactionsCalculator.Core.Services
 {
     public class ExchangeRatesService : IExchangeRatesService
     {
-        private Dictionary<string, IExchangeRateInfo> exchangeCurrenciesDict = new Dictionary<string, IExchangeRateInfo>();
+        private static ConcurrentDictionary<string, IExchangeRateInfo> exchangeCurrenciesDict = new ConcurrentDictionary<string, IExchangeRateInfo>();
         private readonly IExchangeRatesApiClient exchangeRatesWebApiClient;
         private readonly IAppConfigurationService appConfiguratuinService;
 
@@ -18,21 +20,22 @@ namespace TransactionsCalculator.Core.Services
         {
             this.exchangeRatesWebApiClient = exchangeRatesWebApiClient;
             this.appConfiguratuinService = appConfiguratuinService;
-            exchangeCurrenciesDict.Add(this.appConfiguratuinService.ReferenceCurrencyCode, new ReferenceExchangeRatesInfo(this.appConfiguratuinService.ReferenceCurrencyCode));
+            this.AddReferenceExchangeRatesInfo();
         }
 
-        public decimal GetExchangeRate(string currencyCode)
+        public decimal GetExchangeRate(string currencyCode, DateTime exchangeDate)
         {
             IExchangeRateInfo ratesInfo = null;
+            string exchangeRateInfoUniqueKey = ExchangeRateInfoHelper.GetExchangeRateInfoUniqueKey(currencyCode, exchangeDate);
 
-            if (exchangeCurrenciesDict.ContainsKey(currencyCode))
+            if (exchangeCurrenciesDict.ContainsKey(exchangeRateInfoUniqueKey))
             {
-                ratesInfo = exchangeCurrenciesDict[currencyCode];
+                ratesInfo = exchangeCurrenciesDict[exchangeRateInfoUniqueKey];
             }
             else
             {
-                IExchangeRateInfo exchangeRatesInfo = exchangeRatesWebApiClient.GetExchangeRateInfo(currencyCode);
-                exchangeCurrenciesDict.Add(currencyCode, exchangeRatesInfo);
+                IExchangeRateInfo exchangeRatesInfo = exchangeRatesWebApiClient.GetExchangeRateInfo(currencyCode, exchangeDate);
+                exchangeCurrenciesDict.TryAdd(exchangeRateInfoUniqueKey, exchangeRatesInfo);
                 ratesInfo = exchangeRatesInfo;
             }
 
@@ -43,5 +46,14 @@ namespace TransactionsCalculator.Core.Services
         {
             return exchangeCurrenciesDict.Values;
         }
+
+        private void AddReferenceExchangeRatesInfo()
+        {
+            ReferenceExchangeRatesInfo referenceExchangeRatesInfo = new ReferenceExchangeRatesInfo(this.appConfiguratuinService.ReferenceCurrencyCode);
+            string exchangeRateInfoUniqueKey = ExchangeRateInfoHelper.GetExchangeRateInfoUniqueKey(referenceExchangeRatesInfo.GetFromCurrency(), referenceExchangeRatesInfo.GetExchangeDate());
+            exchangeCurrenciesDict.TryAdd(exchangeRateInfoUniqueKey, referenceExchangeRatesInfo);
+        }
+
+
     }
 }

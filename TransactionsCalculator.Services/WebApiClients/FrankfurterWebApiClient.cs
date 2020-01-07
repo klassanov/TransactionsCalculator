@@ -1,5 +1,6 @@
 ﻿using Flurl;
 using Flurl.Http;
+using System;
 using TransactionCalculator.Models.ExchangeRates;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
@@ -26,6 +27,11 @@ namespace TransactionsCalculator.Core.WebApiClients
                .Result;
 
             return exchangeRateInfo;
+        }
+
+        public IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime exchangeDate)
+        {
+            throw new NotImplementedException();
         }
     }
 }
