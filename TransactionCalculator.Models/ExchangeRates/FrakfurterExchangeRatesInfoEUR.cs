@@ -13,6 +13,8 @@ namespace TransactionCalculator.Models.ExchangeRates
 
         public EuroRate Rates { get; set; }
 
+        public string Source { get; set; }
+
         public string GetFromCurrency()
         {
             return this.Base;

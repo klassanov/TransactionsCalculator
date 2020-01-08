@@ -2,9 +2,9 @@
 
 namespace TransactionsCalculator.Core.Helpers
 {
-    public static class IntelligentCurrencyConverter
+    public static class IntelligentCurrencyParser
     {
-        public static decimal? ConvertCurrency(string value)
+        public static decimal? ParseCurrency(string value)
         {
             decimal? result = null;
             if (!string.IsNullOrEmpty(value))

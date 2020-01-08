@@ -11,6 +11,7 @@ namespace TransactionsCalculator.Core.WebApiClients
     public class FrankfurterWebApiClient : IExchangeRatesApiClient
     {
         private readonly IAppConfigurationService appConfigurationService;
+        private const string webAPIUrl = "https://api.frankfurter.app/";
 
         public FrankfurterWebApiClient(IAppConfigurationService appConfigurationService)
         {
@@ -19,19 +20,26 @@ namespace TransactionsCalculator.Core.WebApiClients
 
         public IExchangeRateInfo GetExchangeRateInfo(string currencyCode)
         {
-            IExchangeRateInfo exchangeRateInfo = "https://api.frankfurter.app/"
-               .AppendPathSegment("latest")
+            return GetExchangeRateInfoFromWebAPI(currencyCode);
+        }
+
+        public IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime exchangeDate)
+        {
+            return GetExchangeRateInfoFromWebAPI(currencyCode, exchangeDate);
+        }
+
+        private IExchangeRateInfo GetExchangeRateInfoFromWebAPI(string currencyCode, DateTime? exchangeDate = null)
+        {
+            IExchangeRateInfo exchangeRateInfo = webAPIUrl
+               .AppendPathSegment(exchangeDate.HasValue ? exchangeDate.Value.Date.ToString("yyyy-MM-dd") : "latest")
                .SetQueryParam("from", currencyCode)
                .SetQueryParam("to", appConfigurationService.ReferenceCurrencyCode)
                .GetJsonAsync<FrakfurterExchangeRatesInfoEUR>()
                .Result;
 
-            return exchangeRateInfo;
-        }
+            exchangeRateInfo.Source = webAPIUrl;
 
-        public IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime exchangeDate)
-        {
-            throw new NotImplementedException();
+            return exchangeRateInfo;
         }
     }
 }

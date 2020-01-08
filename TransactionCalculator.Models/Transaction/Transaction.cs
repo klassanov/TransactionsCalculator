@@ -1,22 +1,26 @@
-﻿using TransactionsCalculator.Interfaces.Models;
+﻿using System;
+using TransactionsCalculator.Interfaces.Models;
 
 namespace TransactionCalculator.Models.Transaction
 {
     public class Transaction : ITransaction
     {
-        //[Name("SALE_ARRIVAL_COUNTRY")]
+        //"SALE_ARRIVAL_COUNTRY"
         public string SaleArrivalCountry { get; set; }
 
-        //[Name("SALE_DEPART_COUNTRY")]
+        //"SALE_DEPART_COUNTRY"
         public string SaleDepartureCountry { get; set; }
 
-        //[Name("TRANSACTION_SELLER_VAT_NUMBER_COUNTRY")]
+        //"TRANSACTION_SELLER_VAT_NUMBER_COUNTRY"
         public string TransactionSellerVATNumberCountry { get; set; }
 
-        //[Name("TRANSACTION_CURRENCY_CODE")]
+        //"TRANSACTION_CURRENCY_CODE"
         public string TransactionCurrencyCode { get; set; }
 
-        //[Name("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")]
+        //"TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL"
         public decimal? TotalActivityVatIncludedAmount { get; set; }
+
+        //TAX_CALCULATION_DATE
+        public DateTime? TaxCalculationDate { get; set; }
     }
 }

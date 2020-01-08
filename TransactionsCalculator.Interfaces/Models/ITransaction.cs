@@ -1,4 +1,6 @@
-﻿namespace TransactionsCalculator.Interfaces.Models
+﻿using System;
+
+namespace TransactionsCalculator.Interfaces.Models
 {
     public interface ITransaction
     {
@@ -11,5 +13,7 @@
         string TransactionCurrencyCode { get; set; }
 
         decimal? TotalActivityVatIncludedAmount { get; set; }
+
+        DateTime? TaxCalculationDate { get; set; }
     }
 }

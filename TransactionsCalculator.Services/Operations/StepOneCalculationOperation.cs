@@ -20,7 +20,7 @@ namespace TransactionsCalculator.Core.Operations
         {
             return RoundAmount(transactionList.Where(x => x.SaleArrivalCountry.Equals(this.calculationParameters.SaleArrivalCountry) &&
                                                           x.TotalActivityVatIncludedAmount.HasValue)
-                                               .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)));
+                                               .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
         }
     }
 }

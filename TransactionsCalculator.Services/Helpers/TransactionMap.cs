@@ -21,7 +21,12 @@ namespace TransactionsCalculator.Core.Helpers
 
             Map(t => t.TotalActivityVatIncludedAmount)
                 .Name("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")
-                .ConvertUsing(row => IntelligentCurrencyConverter.ConvertCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
+                .ConvertUsing(row => IntelligentCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
+
+            Map(t => t.TaxCalculationDate)
+                .Name("TAX_CALCULATION_DATE")
+                .ConvertUsing(row => DateParser.ParseDate(row.GetField("TAX_CALCULATION_DATE")));
+
         }
     }
 }

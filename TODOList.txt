@@ -1,4 +1,6 @@
 - protected decimal GetExchangeRate(string currencyCode, DateTime exchangeDate) make an overload with 1 argument only
+fix not implemented exception
+- Print used exchange rates with all the info
 - Make unit tests vs the logic
 - Check if input directory is inserted and if such a directory exists
 - Implement step 3 and 4

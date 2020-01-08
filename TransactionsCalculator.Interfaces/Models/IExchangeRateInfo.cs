@@ -9,5 +9,7 @@ namespace TransactionsCalculator.Interfaces.Models
         DateTime GetExchangeDate();
 
         string GetFromCurrency();
+
+        public string Source { get; set; }
     }
 }

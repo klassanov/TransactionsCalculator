@@ -25,7 +25,7 @@ namespace TransactionsCalculator.Core.Operations
 
         public string OperationDescription => operationDescription;
 
-        protected decimal GetExchangeRate(string currencyCode, DateTime exchangeDate)
+        protected decimal GetExchangeRate(string currencyCode, DateTime? exchangeDate)
         {
             return this.exchangeService.GetExchangeRate(currencyCode, exchangeDate);
         }

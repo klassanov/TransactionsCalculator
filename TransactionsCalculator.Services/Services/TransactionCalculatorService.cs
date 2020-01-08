@@ -32,15 +32,15 @@ namespace TransactionsCalculator.Core.Services
 
         public IDirectoryProcessingResult ProcessDirectory()
         {
-            logger.Info($"Processing directory {this.serviceArgs.WorkingDirectory}");
             DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.serviceArgs.WorkingDirectory);
             List<ICalculationOperation> calculationOperations = CreateCalculationOperations();
             string[] filePaths = this.GetFilePathsInWorkingDirectory();
-            logger.Info($"{filePaths.Length} files found");
+            logger.Info($"Processing directory {this.serviceArgs.WorkingDirectory} - {filePaths.Length} files found");
+            logger.Info(string.Empty);
 
             foreach (string filePath in filePaths)
             {
-                logger.Info($"{filePath} - processing");
+                logger.Debug($"{filePath} - processing");
                 FileOperationResult fileOperationResult = new FileOperationResult(filePath);
                 directoryOperationResult.FileOperationResultList.Add(fileOperationResult);
 
@@ -58,7 +58,8 @@ namespace TransactionsCalculator.Core.Services
                     }
 
                     fileOperationResult.OperationsResultList = calculationOperationsResultList;
-                    logger.Info($"{filePath} processed successfully");
+                    logger.Debug($"{filePath} processed successfully");
+                    logger.Info(string.Empty);
                 }
                 catch (Exception ex)
                 {
