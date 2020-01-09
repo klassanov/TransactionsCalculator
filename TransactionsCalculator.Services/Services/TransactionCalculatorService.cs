@@ -51,7 +51,7 @@ namespace TransactionsCalculator.Core.Services
 
                     foreach (ICalculationOperation operation in calculationOperations)
                     {
-                        logger.Debug($"{filePath} - performing {operation.OperationDescription}");
+                        logger.Debug($"Performing {operation.OperationDescription}");
                         decimal result = operation.Calculate(transactionList);
                         calculationOperationsResultList.Add(new CalculationOperationResult(result, operation.OperationDescription));
                         logger.Info($"{operation.OperationDescription}: {result}");
