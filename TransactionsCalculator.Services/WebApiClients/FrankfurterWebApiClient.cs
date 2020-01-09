@@ -23,23 +23,29 @@ namespace TransactionsCalculator.Core.WebApiClients
             return GetExchangeRateInfoFromWebAPI(currencyCode);
         }
 
-        public IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime exchangeDate)
+        public IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime transactionDate)
         {
-            return GetExchangeRateInfoFromWebAPI(currencyCode, exchangeDate);
+            return GetExchangeRateInfoFromWebAPI(currencyCode, transactionDate);
         }
 
-        private IExchangeRateInfo GetExchangeRateInfoFromWebAPI(string currencyCode, DateTime? exchangeDate = null)
+        private IExchangeRateInfo GetExchangeRateInfoFromWebAPI(string currencyCode, DateTime? transactionDate = null)
         {
             IExchangeRateInfo exchangeRateInfo = webAPIUrl
-               .AppendPathSegment(exchangeDate.HasValue ? exchangeDate.Value.Date.ToString("yyyy-MM-dd") : "latest")
+               .AppendPathSegment(GetDateSegment(transactionDate))
                .SetQueryParam("from", currencyCode)
                .SetQueryParam("to", appConfigurationService.ReferenceCurrencyCode)
                .GetJsonAsync<FrakfurterExchangeRatesInfoEUR>()
                .Result;
 
             exchangeRateInfo.Source = webAPIUrl;
+            exchangeRateInfo.TransactionDate = transactionDate;
 
             return exchangeRateInfo;
+        }
+
+        private string GetDateSegment(DateTime? exchangeDate)
+        {
+            return exchangeDate.HasValue ? exchangeDate.Value.Date.ToString("yyyy-MM-dd") : "latest";
         }
     }
 }

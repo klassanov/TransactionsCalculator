@@ -1,10 +1,7 @@
-- protected decimal GetExchangeRate(string currencyCode, DateTime exchangeDate) make an overload with 1 argument only
-fix not implemented exception
-- Print used exchange rates with all the info
+- fix not implemented exception
 - Make unit tests vs the logic
 - Check if input directory is inserted and if such a directory exists
 - Implement step 3 and 4
-- Make unique the couple (exchange date, currency code) 
 - ? Use a second, backup, API for exchange rates client
 - ? Currency code as enum
 - ? Make the IoC configuration in a separate project

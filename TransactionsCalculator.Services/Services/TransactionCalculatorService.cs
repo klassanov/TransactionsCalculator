@@ -40,7 +40,7 @@ namespace TransactionsCalculator.Core.Services
 
             foreach (string filePath in filePaths)
             {
-                logger.Debug($"{filePath} - processing");
+                logger.Info($"Processing {filePath}");
                 FileOperationResult fileOperationResult = new FileOperationResult(filePath);
                 directoryOperationResult.FileOperationResultList.Add(fileOperationResult);
 
@@ -54,7 +54,7 @@ namespace TransactionsCalculator.Core.Services
                         logger.Debug($"{filePath} - performing {operation.OperationDescription}");
                         decimal result = operation.Calculate(transactionList);
                         calculationOperationsResultList.Add(new CalculationOperationResult(result, operation.OperationDescription));
-                        logger.Info($"{filePath} - {operation.OperationDescription}: {result}");
+                        logger.Info($"{operation.OperationDescription}: {result}");
                     }
 
                     fileOperationResult.OperationsResultList = calculationOperationsResultList;
@@ -68,7 +68,7 @@ namespace TransactionsCalculator.Core.Services
                 }
             }
 
-            directoryOperationResult.exchangeRateInfoList = exchangeService.GetAllExchangeRates();
+            directoryOperationResult.ExchangeRateInfoList = exchangeService.GetAllExchangeRates();
 
             return directoryOperationResult;
         }

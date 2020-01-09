@@ -7,6 +7,6 @@ namespace TransactionsCalculator.Interfaces.WebApiClients
     {
         IExchangeRateInfo GetExchangeRateInfo(string currencyCode);
 
-        IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime exchangeDate);
+        IExchangeRateInfo GetExchangeRateInfo(string currencyCode, DateTime transactionDate);
     }
 }

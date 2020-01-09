@@ -7,7 +7,7 @@ namespace TransactionsCalculator.Interfaces.Services
     public interface IExchangeRatesService
     {
 
-        decimal GetExchangeRate(string currencyCode, DateTime? exchangeDate);
+        decimal GetExchangeRate(string currencyCode, DateTime? transactionDate);
 
         IEnumerable<IExchangeRateInfo> GetAllExchangeRates();
     }

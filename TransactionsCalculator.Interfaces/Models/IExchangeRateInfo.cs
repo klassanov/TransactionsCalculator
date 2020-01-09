@@ -6,10 +6,12 @@ namespace TransactionsCalculator.Interfaces.Models
     {
         decimal GetExchangeRate();
 
-        DateTime GetExchangeDate();
+        DateTime GetEffectiveExchangeDate();
 
         string GetFromCurrency();
 
         public string Source { get; set; }
+
+        public DateTime? TransactionDate { get; set; }
     }
 }

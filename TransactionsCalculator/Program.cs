@@ -30,8 +30,12 @@ namespace TransactionsCalculator
             RegisterServices();
 
             ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
-            IDirectoryProcessingResult result = transactionCalculatorService.ProcessDirectory();
+            IDirectoryProcessingResult processResult = transactionCalculatorService.ProcessDirectory();
 
+            IDirectoryProcessingResultPrinterService directoryProcessingResultPrinterService = serviceProvider.GetService<IDirectoryProcessingResultPrinterService>();
+            directoryProcessingResultPrinterService.PrintExchangeRatesToConsole(processResult);
+
+            logger.Info(string.Empty);
             logger.Info("Done!");
         }
 
@@ -44,6 +48,7 @@ namespace TransactionsCalculator
                 .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()
+                .AddTransient<IDirectoryProcessingResultPrinterService, DirectoryProcessingResultConsolePrinterService>()
                 .BuildServiceProvider();
 
             logger.Debug("Services registrated");

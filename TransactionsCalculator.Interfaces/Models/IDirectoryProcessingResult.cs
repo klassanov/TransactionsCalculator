@@ -8,6 +8,6 @@ namespace TransactionsCalculator.Interfaces.Models
 
         List<IFileOperationResult> FileOperationResultList { get; }
 
-        IEnumerable<IExchangeRateInfo> exchangeRateInfoList { get; }
+        IEnumerable<IExchangeRateInfo> ExchangeRateInfoList { get; }
     }
 }

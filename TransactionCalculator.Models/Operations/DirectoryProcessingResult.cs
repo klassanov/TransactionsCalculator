@@ -9,7 +9,7 @@ namespace TransactionCalculator.Models.Operations
 
         public List<IFileOperationResult> FileOperationResultList { get; set; }
 
-        public IEnumerable<IExchangeRateInfo> exchangeRateInfoList { get; set; }
+        public IEnumerable<IExchangeRateInfo> ExchangeRateInfoList { get; set; }
 
         public DirectoryProcessingResult(string workingDirectory)
         {

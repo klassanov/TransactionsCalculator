@@ -21,12 +21,12 @@ namespace TransactionsCalculator.Core.Services
             this.appConfigurationService = appConfiguratuinService;
         }
 
-        public decimal GetExchangeRate(string currencyCode, DateTime? exchangeDate)
+        public decimal GetExchangeRate(string currencyCode, DateTime? tansactionDate)
         {
             if (currencyCode == this.appConfigurationService.ReferenceCurrencyCode) { return 1; }
 
             IExchangeRateInfo ratesInfo = null;
-            string exchangeRateInfoUniqueKey = this.GetExchangeRateInfoKey(currencyCode, exchangeDate.Value);
+            string exchangeRateInfoUniqueKey = this.GetExchangeRateInfoKey(currencyCode, tansactionDate.Value);
 
             if (exchangeCurrenciesDict.ContainsKey(exchangeRateInfoUniqueKey))
             {
@@ -34,7 +34,7 @@ namespace TransactionsCalculator.Core.Services
             }
             else
             {
-                IExchangeRateInfo exchangeRatesInfo = exchangeRatesWebApiClient.GetExchangeRateInfo(currencyCode, exchangeDate.Value);
+                IExchangeRateInfo exchangeRatesInfo = exchangeRatesWebApiClient.GetExchangeRateInfo(currencyCode, tansactionDate.Value);
                 exchangeCurrenciesDict.TryAdd(exchangeRateInfoUniqueKey, exchangeRatesInfo);
                 ratesInfo = exchangeRatesInfo;
             }

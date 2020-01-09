@@ -15,12 +15,14 @@ namespace TransactionCalculator.Models.ExchangeRates
 
         public string Source { get; set; }
 
+        public DateTime? TransactionDate { get; set; }
+
         public string GetFromCurrency()
         {
             return this.Base;
         }
 
-        public DateTime GetExchangeDate()
+        public DateTime GetEffectiveExchangeDate()
         {
             return this.Date;
         }
