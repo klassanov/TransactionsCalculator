@@ -5,22 +5,22 @@ namespace TransactionCalculator.Models.Transaction
 {
     public class Transaction : ITransaction
     {
-        //"SALE_ARRIVAL_COUNTRY"
+        //BP: SALE_ARRIVAL_COUNTRY
         public string SaleArrivalCountry { get; set; }
 
-        //"SALE_DEPART_COUNTRY"
+        //SALE_DEPART_COUNTRY
         public string SaleDepartureCountry { get; set; }
 
-        //"TRANSACTION_SELLER_VAT_NUMBER_COUNTRY"
+        //TRANSACTION_SELLER_VAT_NUMBER_COUNTRY
         public string TransactionSellerVATNumberCountry { get; set; }
 
-        //"TRANSACTION_CURRENCY_CODE"
+        //TRANSACTION_CURRENCY_CODE
         public string TransactionCurrencyCode { get; set; }
 
-        //"TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL"
+        //AZ: TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL
         public decimal? TotalActivityVatIncludedAmount { get; set; }
 
-        //TAX_CALCULATION_DATE
+        //H: TAX_CALCULATION_DATE
         public DateTime? TaxCalculationDate { get; set; }
     }
 }
