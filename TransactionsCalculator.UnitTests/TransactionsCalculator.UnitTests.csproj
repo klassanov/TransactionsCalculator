@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TransactionCalculator.Models\TransactionCalculator.Models.csproj" />
+    <ProjectReference Include="..\TransactionsCalculator.Core\TransactionsCalculator.Core.csproj" />
     <ProjectReference Include="..\TransactionsCalculator.Interfaces\TransactionsCalculator.Interfaces.csproj" />
-    <ProjectReference Include="..\TransactionsCalculator.Services\TransactionsCalculator.Core.csproj" />
   </ItemGroup>
 
 </Project>
