@@ -4,6 +4,6 @@ namespace TransactionCalculator.Models.Operations
 {
     public class CalculationParameters : ICalculationParameters
     {
-        public string SaleArrivalCountry { get; set; }
+        public string ReferenceCountry { get; set; }
     }
 }

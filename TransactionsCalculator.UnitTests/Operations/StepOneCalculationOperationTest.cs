@@ -24,7 +24,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
 
             this.calculationParametersMock = new Mock<ICalculationParameters>();
-            this.calculationParametersMock.SetupGet<string>(x => x.SaleArrivalCountry).Returns(this.referenceSaleArrivalCountry);
+            this.calculationParametersMock.SetupGet<string>(x => x.ReferenceCountry).Returns(this.referenceSaleArrivalCountry);
         }
 
         [Fact]

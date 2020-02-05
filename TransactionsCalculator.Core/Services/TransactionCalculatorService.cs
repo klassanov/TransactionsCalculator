@@ -82,7 +82,7 @@ namespace TransactionsCalculator.Core.Services
         {
             ICalculationParameters calculationParameters = new CalculationParameters()
             {
-                SaleArrivalCountry = "IT"
+                ReferenceCountry = "IT"
             };
 
             return new List<ICalculationOperation>()

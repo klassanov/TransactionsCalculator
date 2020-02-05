@@ -2,6 +2,6 @@
 {
     public interface ICalculationParameters
     {
-        string SaleArrivalCountry { get; }
+        string ReferenceCountry { get; }
     }
 }
