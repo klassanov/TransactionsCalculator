@@ -28,7 +28,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateSumsTotalActivityVatIncludedAmountFilteringsBySaleArrivalCountry()
+        public void CalculateSumsTotalActivityVatIncludedAmountFilteringBySaleArrivalCountry()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
             List<ITransaction> transactionList = new List<ITransaction>()
@@ -45,7 +45,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateIngonresTotalActivityVatIncludedAmountIfNull()
+        public void CalculateIgnoresTotalActivityVatIncludedAmountIfNull()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
             List<ITransaction> transactionList = new List<ITransaction>()
