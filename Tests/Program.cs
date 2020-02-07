@@ -85,16 +85,16 @@ namespace Tests
 
                     //Query 1
                     decimal q1 = Math.Round(transactionList.Where(x => x.SaleArrivalCountry.Equals(saleArrivalCountry) &&
-                                                            x.TotalActivityVatIncludedAmount.HasValue)
-                                                .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
+                                                            x.TotalActivityVATIncludedAmount.HasValue)
+                                                .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
 
                     //Query 2
                     HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
 
                     decimal q2 = Math.Round(transactionList.Where(x => x.SaleDepartureCountry.Equals(saleArrivalCountry) &&
-                                                        x.TotalActivityVatIncludedAmount.HasValue &&
+                                                        x.TotalActivityVATIncludedAmount.HasValue &&
                                                         !countriesHash.Contains(x.SaleArrivalCountry))
-                                                        .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
+                                                        .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode)), 2);
 
 
 

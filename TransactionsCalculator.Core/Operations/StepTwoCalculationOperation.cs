@@ -21,9 +21,9 @@ namespace TransactionsCalculator.Core.Operations
             HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
 
             return RoundAmount(transactionList.Where(x => this.calculationParameters.ReferenceCountry.Equals(x.SaleDepartureCountry) &&
-                                                x.TotalActivityVatIncludedAmount.HasValue &&
+                                                x.TotalActivityVATIncludedAmount.HasValue &&
                                                 !countriesHash.Contains(x.SaleArrivalCountry))
-                                                .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
+                                                .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
         }
     }
 }

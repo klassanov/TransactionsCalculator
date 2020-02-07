@@ -10,9 +10,15 @@ namespace TransactionsCalculator.Interfaces.Models
 
         string TransactionSellerVATNumberCountry { get; set; }
 
+        string SellerDepartCountryVATNumber { get; set; }
+
         string TransactionCurrencyCode { get; set; }
 
-        decimal? TotalActivityVatIncludedAmount { get; set; }
+        string BuyerVATNumberCountry { get; set; }
+
+        decimal? TotalActivityVATIncludedAmount { get; set; }
+
+        decimal? TotalActivityVATAmount { get; set; }
 
         DateTime? TaxCalculationDate { get; set; }
     }

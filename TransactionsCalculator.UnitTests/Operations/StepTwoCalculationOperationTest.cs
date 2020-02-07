@@ -34,10 +34,10 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = this.referenceCountry, TotalActivityVatIncludedAmount = 100, SaleArrivalCountry = "BUL", SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 200, SaleArrivalCountry = this.referenceCountry,  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 300, SaleArrivalCountry = "CAN",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "XXX", TotalActivityVatIncludedAmount = 400, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = this.referenceCountry, TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = "BUL", SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = this.referenceCountry,  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "CAN",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "XXX", TotalActivityVATIncludedAmount = 400, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
@@ -53,10 +53,10 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 100, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 200, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 400, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 400, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
@@ -74,10 +74,10 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 100, TransactionCurrencyCode ="USD", SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 200, TransactionCurrencyCode ="BGN", SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 300, TransactionCurrencyCode = this.referenceCurrencyCode, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 400, TransactionCurrencyCode = this.referenceCurrencyCode, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, TransactionCurrencyCode ="USD", SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, TransactionCurrencyCode ="BGN", SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, TransactionCurrencyCode = this.referenceCurrencyCode, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 400, TransactionCurrencyCode = this.referenceCurrencyCode, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
@@ -93,10 +93,10 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 100, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 200, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVatIncludedAmount = null, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = null, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountry},
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();

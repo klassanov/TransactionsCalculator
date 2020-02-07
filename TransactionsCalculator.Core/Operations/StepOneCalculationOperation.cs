@@ -19,8 +19,8 @@ namespace TransactionsCalculator.Core.Operations
         public override decimal Calculate(IEnumerable<ITransaction> transactionList)
         {
             return RoundAmount(transactionList.Where(x => this.calculationParameters.ReferenceCountry.Equals(x.SaleArrivalCountry) &&
-                                                          x.TotalActivityVatIncludedAmount.HasValue)
-                                               .Sum(x => x.TotalActivityVatIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
+                                                          x.TotalActivityVATIncludedAmount.HasValue)
+                                               .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
         }
     }
 }

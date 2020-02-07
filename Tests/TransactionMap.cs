@@ -19,7 +19,7 @@ namespace Tests
             Map(t => t.TransactionCurrencyCode)
                 .Name("TRANSACTION_CURRENCY_CODE");
 
-            Map(t => t.TotalActivityVatIncludedAmount)
+            Map(t => t.TotalActivityVATIncludedAmount)
                 .Name("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")
                 .ConvertUsing(row => IntelligentCurrencyConverter.ConvertCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
         }

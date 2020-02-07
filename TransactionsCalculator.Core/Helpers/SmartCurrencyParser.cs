@@ -2,7 +2,7 @@
 
 namespace TransactionsCalculator.Core.Helpers
 {
-    public static class IntelligentCurrencyParser
+    public static class SmartCurrencyParser
     {
         public static decimal? ParseCurrency(string value)
         {

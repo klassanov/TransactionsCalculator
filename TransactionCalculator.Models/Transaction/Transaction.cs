@@ -8,17 +8,26 @@ namespace TransactionCalculator.Models.Transaction
         //BP: SALE_ARRIVAL_COUNTRY
         public string SaleArrivalCountry { get; set; }
 
-        //SALE_DEPART_COUNTRY
+        //BO: SALE_DEPART_COUNTRY
         public string SaleDepartureCountry { get; set; }
 
-        //TRANSACTION_SELLER_VAT_NUMBER_COUNTRY
+        //BW: TRANSACTION_SELLER_VAT_NUMBER_COUNTRY
         public string TransactionSellerVATNumberCountry { get; set; }
 
-        //TRANSACTION_CURRENCY_CODE
+        //BA: TRANSACTION_CURRENCY_CODE
         public string TransactionCurrencyCode { get; set; }
 
+        //BT: SELLER_DEPART_COUNTRY_VAT_NUMBER
+        public string SellerDepartCountryVATNumber { get; set; }
+
+        //BY: BUYER_VAT_NUMBER_COUNTRY
+        public string BuyerVATNumberCountry { get; set; }
+
         //AZ: TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL
-        public decimal? TotalActivityVatIncludedAmount { get; set; }
+        public decimal? TotalActivityVATIncludedAmount { get; set; }
+
+        //AP: TOTAL_ACTIVITY_VALUE_VAT_AMT
+        public decimal? TotalActivityVATAmount { get; set; }
 
         //H: TAX_CALCULATION_DATE
         public DateTime? TaxCalculationDate { get; set; }

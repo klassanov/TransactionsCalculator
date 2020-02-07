@@ -19,13 +19,23 @@ namespace TransactionsCalculator.Core.Helpers
             Map(t => t.TransactionCurrencyCode)
                 .Name("TRANSACTION_CURRENCY_CODE");
 
-            Map(t => t.TotalActivityVatIncludedAmount)
+            Map(t => t.TotalActivityVATIncludedAmount)
                 .Name("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")
-                .ConvertUsing(row => IntelligentCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
+                .ConvertUsing(row => SmartCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
 
             Map(t => t.TaxCalculationDate)
                 .Name("TAX_CALCULATION_DATE")
                 .ConvertUsing(row => DateParser.ParseDate(row.GetField("TAX_CALCULATION_DATE")));
+
+            Map(t => t.SellerDepartCountryVATNumber)
+                .Name("SELLER_DEPART_COUNTRY_VAT_NUMBER");
+
+            Map(t => t.BuyerVATNumberCountry)
+                .Name("BUYER_VAT_NUMBER_COUNTRY");
+
+            Map(t => t.TotalActivityVATAmount)
+                .Name("TOTAL_ACTIVITY_VALUE_VAT_AMT")
+                .ConvertUsing(row => SmartCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_VAT_AMT")));
 
         }
     }
