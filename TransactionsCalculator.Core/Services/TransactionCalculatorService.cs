@@ -88,7 +88,8 @@ namespace TransactionsCalculator.Core.Services
             return new List<ICalculationOperation>()
             {
                new StepOneCalculationOperation(exchangeService, appConfigurationService, calculationParameters),
-               new StepTwoCalculationOperation(exchangeService, appConfigurationService, calculationParameters)
+               new StepTwoCalculationOperation(exchangeService, appConfigurationService, calculationParameters),
+               new StepThreeOneCalculationOperation(exchangeService, appConfigurationService, calculationParameters)
             };
         }
     }

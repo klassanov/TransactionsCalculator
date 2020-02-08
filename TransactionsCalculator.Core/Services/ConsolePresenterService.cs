@@ -6,25 +6,20 @@ using TransactionsCalculator.Interfaces.Services;
 
 namespace TransactionsCalculator.Core.Services
 {
-    public class DirectoryProcessingResultConsolePrinterService : IDirectoryProcessingResultPrinterService
+    public class ConsolePresenterService : IPresenterService
     {
-        private static ILog logger = LogManager.GetLogger(typeof(DirectoryProcessingResultConsolePrinterService));
+        private static ILog logger = LogManager.GetLogger(typeof(ConsolePresenterService));
         private readonly IAppConfigurationService appConfigurationService;
         private readonly string dateFormat = "dd-MMM-yyyy";
         private readonly char spaceChar = ' ';
         private readonly string rateFormat = "n4";
 
-        public DirectoryProcessingResultConsolePrinterService(IAppConfigurationService appConfigurationService)
+        public ConsolePresenterService(IAppConfigurationService appConfigurationService)
         {
             this.appConfigurationService = appConfigurationService;
         }
 
-        public void Print(IDirectoryProcessingResult directoryProcessingResult)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void PrintExchangeRatesToConsole(IDirectoryProcessingResult directoryProcessingResult)
+        public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
 
             logger.Info($"Reference currency code: {appConfigurationService.ReferenceCurrencyCode}");
