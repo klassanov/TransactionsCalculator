@@ -10,7 +10,7 @@ namespace TransactionsCalculator.Core.Services
 
         public string ReferenceCurrencyCode { get; set; }
 
-        public string ReferenceCountry { get; set; }
+        public string ReferenceCountryCode { get; set; }
 
         public string WorkingDirectory { get; set; }
     }

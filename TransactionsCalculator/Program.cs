@@ -69,7 +69,7 @@ namespace TransactionsCalculator
             appConfigurationService = new AppConfigurationService()
             {
                 ReferenceCurrencyCode = appSettings["referenceCurrencyCode"],
-                ReferenceCountry = appSettings["referenceCountry"],
+                ReferenceCountryCode = appSettings["referenceCountryCode"],
                 FileDelimiter = appSettings["fileDelimiter"],
                 FileExtension = appSettings["fileExtension"],
                 WorkingDirectory = inputArgs[0]

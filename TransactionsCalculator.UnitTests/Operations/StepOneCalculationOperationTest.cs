@@ -21,7 +21,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.exchangeServiceMock = new Mock<IExchangeRatesService>();
 
             this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
-            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountry).Returns(this.referenceCountry);
+            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountryCode).Returns(this.referenceCountry);
         }
 
         [Fact]

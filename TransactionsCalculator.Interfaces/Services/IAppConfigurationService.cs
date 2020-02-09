@@ -8,7 +8,7 @@
 
         string ReferenceCurrencyCode { get; set; }
 
-        string ReferenceCountry { get; set; }
+        string ReferenceCountryCode { get; set; }
 
         string WorkingDirectory { get; set; }
     }
