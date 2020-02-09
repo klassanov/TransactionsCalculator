@@ -9,9 +9,8 @@ namespace TransactionsCalculator.Core.Operations
     {
         public StepTwoCalculationOperation(
             IExchangeRatesService exchangeService,
-            IAppConfigurationService appConfigurationService,
-            ICalculationParameters calculationParameters)
-            : base(exchangeService, appConfigurationService, calculationParameters)
+            IAppConfigurationService appConfigurationService)
+            : base(exchangeService, appConfigurationService)
         {
             this.operationDescription = "Step 2";
         }
@@ -20,7 +19,7 @@ namespace TransactionsCalculator.Core.Operations
         {
             HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
 
-            return RoundAmount(transactionList.Where(x => this.calculationParameters.ReferenceCountry.Equals(x.SaleDepartureCountry) &&
+            return RoundAmount(transactionList.Where(x => this.appConfigurationService.ReferenceCountry.Equals(x.SaleDepartureCountry) &&
                                                 x.TotalActivityVATIncludedAmount.HasValue &&
                                                 !countriesHash.Contains(x.SaleArrivalCountry))
                                                 .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));

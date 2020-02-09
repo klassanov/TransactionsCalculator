@@ -16,26 +16,23 @@ namespace TransactionsCalculator.Core.Services
         private readonly IAppConfigurationService appConfigurationService;
         private readonly IFileReaderService fileReaderService;
         private readonly IExchangeRatesService exchangeService;
-        private readonly IServiceArgs serviceArgs;
 
         public TransactionCalculatorService(
             IAppConfigurationService appConfigurationService,
             IFileReaderService fileReaderService,
-            IExchangeRatesService exchangeService,
-            IServiceArgs serviceArgs)
+            IExchangeRatesService exchangeService)
         {
             this.appConfigurationService = appConfigurationService;
             this.fileReaderService = fileReaderService;
             this.exchangeService = exchangeService;
-            this.serviceArgs = serviceArgs;
         }
 
         public IDirectoryProcessingResult ProcessDirectory()
         {
-            DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.serviceArgs.WorkingDirectory);
+            DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.appConfigurationService.WorkingDirectory);
             List<ICalculationOperation> calculationOperations = CreateCalculationOperations();
             string[] filePaths = this.GetFilePathsInWorkingDirectory();
-            logger.Info($"Processing directory {this.serviceArgs.WorkingDirectory} - {filePaths.Length} files found");
+            logger.Info($"Processing directory {this.appConfigurationService.WorkingDirectory} - {filePaths.Length} files found");
             logger.Info(string.Empty);
 
             foreach (string filePath in filePaths)
@@ -75,21 +72,16 @@ namespace TransactionsCalculator.Core.Services
 
         private string[] GetFilePathsInWorkingDirectory()
         {
-            return Directory.GetFiles(this.serviceArgs.WorkingDirectory, $"*.{appConfigurationService.FileExtension}");
+            return Directory.GetFiles(this.appConfigurationService.WorkingDirectory, $"*.{appConfigurationService.FileExtension}");
         }
 
         private List<ICalculationOperation> CreateCalculationOperations()
-        {
-            ICalculationParameters calculationParameters = new CalculationParameters()
-            {
-                ReferenceCountry = "IT"
-            };
-
+        {           
             return new List<ICalculationOperation>()
             {
-               new StepOneCalculationOperation(exchangeService, appConfigurationService, calculationParameters),
-               new StepTwoCalculationOperation(exchangeService, appConfigurationService, calculationParameters),
-               new StepThreeOneCalculationOperation(exchangeService, appConfigurationService, calculationParameters)
+               new StepOneCalculationOperation(exchangeService, appConfigurationService),
+               new StepTwoCalculationOperation(exchangeService, appConfigurationService),
+               new StepThreeOneCalculationOperation(exchangeService, appConfigurationService)
             };
         }
     }

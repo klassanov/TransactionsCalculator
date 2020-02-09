@@ -13,7 +13,6 @@ namespace TransactionsCalculator.UnitTests.Operations
     {
         private readonly Mock<IExchangeRatesService> exchangeServiceMock;
         private readonly Mock<IAppConfigurationService> appConfigurationServiceMock;
-        private readonly Mock<ICalculationParameters> calculationParametersMock;
         private readonly string referenceCountry = "ITA";
         private readonly string referenceCurrencyCode = "EUR";
 
@@ -22,9 +21,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.exchangeServiceMock = new Mock<IExchangeRatesService>();
 
             this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
-
-            this.calculationParametersMock = new Mock<ICalculationParameters>();
-            this.calculationParametersMock.SetupGet<string>(x => x.ReferenceCountry).Returns(this.referenceCountry);
+            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountry).Returns(this.referenceCountry);
         }
 
         [Fact]
@@ -107,7 +104,7 @@ namespace TransactionsCalculator.UnitTests.Operations
 
         private StepTwoCalculationOperation CreateStepTwoCalculationOperation()
         {
-            return new StepTwoCalculationOperation(exchangeServiceMock.Object, this.appConfigurationServiceMock.Object, this.calculationParametersMock.Object);
+            return new StepTwoCalculationOperation(exchangeServiceMock.Object, this.appConfigurationServiceMock.Object);
         }
     }
 }

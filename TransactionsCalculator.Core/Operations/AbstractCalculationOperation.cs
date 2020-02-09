@@ -10,17 +10,14 @@ namespace TransactionsCalculator.Core.Operations
     {
         protected readonly IExchangeRatesService exchangeService;
         protected readonly IAppConfigurationService appConfigurationService;
-        protected readonly ICalculationParameters calculationParameters;
         protected string operationDescription;
 
         public AbstractCalculationOperation(
             IExchangeRatesService exchangeService,
-            IAppConfigurationService appConfigurationService,
-            ICalculationParameters calculationParameters)
+            IAppConfigurationService appConfigurationService)
         {
             this.exchangeService = exchangeService;
             this.appConfigurationService = appConfigurationService;
-            this.calculationParameters = calculationParameters;
         }
 
         public string OperationDescription => operationDescription;

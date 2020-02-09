@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Reflection;
-using TransactionCalculator.Models.Operations;
 using TransactionsCalculator.Core.Services;
 using TransactionsCalculator.Core.WebApiClients;
 using TransactionsCalculator.Interfaces.Models;
@@ -26,7 +25,8 @@ namespace TransactionsCalculator
             inputArgs = args;
 
             LoadLoggingConfiguration();
-            LoadAppConfiguration();
+            IConfiguration appSettings = LoadAppConfiguration();
+            CreateAppConfigurationService(appSettings);
             RegisterServices();
 
             ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
@@ -42,7 +42,6 @@ namespace TransactionsCalculator
         private static void RegisterServices()
         {
             serviceProvider = new ServiceCollection()
-                .AddSingleton<IServiceArgs>(new ServiceArgs() { WorkingDirectory = inputArgs[0] })
                 .AddSingleton<IAppConfigurationService>(appConfigurationService)
                 .AddTransient<IExchangeRatesService, ExchangeRatesService>()
                 .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
@@ -54,21 +53,27 @@ namespace TransactionsCalculator
             logger.Debug("Services registrated");
         }
 
-        private static void LoadAppConfiguration()
+        private static IConfiguration LoadAppConfiguration()
         {
             IConfiguration appSettings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
+            logger.Debug("AppConfiguration Loaded");
 
+            return appSettings;
+        }
+
+        private static void CreateAppConfigurationService(IConfiguration appSettings)
+        {
             appConfigurationService = new AppConfigurationService()
             {
                 ReferenceCurrencyCode = appSettings["referenceCurrencyCode"],
+                ReferenceCountry = appSettings["referenceCountry"],
                 FileDelimiter = appSettings["fileDelimiter"],
-                FileExtension = appSettings["fileExtension"]
+                FileExtension = appSettings["fileExtension"],
+                WorkingDirectory = inputArgs[0]
             };
-
-            logger.Debug("AppConfiguration Loaded");
         }
 
         private static void LoadLoggingConfiguration()

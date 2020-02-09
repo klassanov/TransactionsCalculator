@@ -9,18 +9,17 @@ namespace TransactionsCalculator.Core.Operations
     {
         public StepThreeOneCalculationOperation(
             IExchangeRatesService exchangeService,
-            IAppConfigurationService appConfigurationService,
-            ICalculationParameters calculationParameters)
-            : base(exchangeService, appConfigurationService, calculationParameters)
+            IAppConfigurationService appConfigurationService)
+            : base(exchangeService, appConfigurationService)
         {
             this.operationDescription = "Step 3.1";
         }
 
         public override decimal Calculate(IEnumerable<ITransaction> transactions)
         {
-            return RoundAmount(transactions.Where(x => x.SellerDepartCountryVATNumber.StartsWith(this.calculationParameters.ReferenceCountry) &&
+            return RoundAmount(transactions.Where(x => x.SellerDepartCountryVATNumber.StartsWith(this.appConfigurationService.ReferenceCountry) &&
                                                        !string.IsNullOrEmpty(x.BuyerVATNumberCountry) &&
-                                                       !x.BuyerVATNumberCountry.Equals(this.calculationParameters.ReferenceCountry) &&
+                                                       !x.BuyerVATNumberCountry.Equals(this.appConfigurationService.ReferenceCountry) &&
                                                         x.TotalActivityVATAmount.HasValue && x.TotalActivityVATAmount.Value == 0)
                                             .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
         }

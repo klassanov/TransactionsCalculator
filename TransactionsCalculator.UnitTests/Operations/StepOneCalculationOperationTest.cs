@@ -13,8 +13,7 @@ namespace TransactionsCalculator.UnitTests.Operations
     {
         private readonly Mock<IExchangeRatesService> exchangeServiceMock;
         private readonly Mock<IAppConfigurationService> appConfigurationServiceMock;
-        private readonly Mock<ICalculationParameters> calculationParametersMock;
-        private readonly string referenceSaleArrivalCountry = "ITA";
+        private readonly string referenceCountry = "ITA";
         private readonly string referenceCurrencyCode = "EUR";
 
         public StepOneCalculationOperationTest()
@@ -22,9 +21,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.exchangeServiceMock = new Mock<IExchangeRatesService>();
 
             this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
-
-            this.calculationParametersMock = new Mock<ICalculationParameters>();
-            this.calculationParametersMock.SetupGet<string>(x => x.ReferenceCountry).Returns(this.referenceSaleArrivalCountry);
+            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountry).Returns(this.referenceCountry);
         }
 
         [Fact]
@@ -33,8 +30,8 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=100 },
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=100 },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=100 },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=100 },
                 new Transaction{SaleArrivalCountry="USA", TotalActivityVATIncludedAmount=100 },
                 new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=100 }
             };
@@ -50,10 +47,10 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=200 },
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=300 },
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=null},
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=null},
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=200 },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=300 },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=null},
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=null},
                 new Transaction{SaleArrivalCountry="USA", TotalActivityVATIncludedAmount=100 },
                 new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=100 }
             };
@@ -72,9 +69,9 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode=this.referenceCurrencyCode, TaxCalculationDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=200, TransactionCurrencyCode="USD", TaxCalculationDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry=this.referenceSaleArrivalCountry, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode="BGN", TaxCalculationDate=DateTime.Now },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode=this.referenceCurrencyCode, TaxCalculationDate=DateTime.Now },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=200, TransactionCurrencyCode="USD", TaxCalculationDate=DateTime.Now },
+                new Transaction{SaleArrivalCountry=this.referenceCountry, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode="BGN", TaxCalculationDate=DateTime.Now },
                 new Transaction{SaleArrivalCountry="USD", TotalActivityVATIncludedAmount=100 },
                 new Transaction{SaleArrivalCountry="BGN", TotalActivityVATIncludedAmount=100 }
             };
@@ -87,7 +84,7 @@ namespace TransactionsCalculator.UnitTests.Operations
 
         private StepOneCalculationOperation CreateStepOneCalculationOperation()
         {
-            return new StepOneCalculationOperation(exchangeServiceMock.Object, this.appConfigurationServiceMock.Object, this.calculationParametersMock.Object);
+            return new StepOneCalculationOperation(exchangeServiceMock.Object, this.appConfigurationServiceMock.Object);
         }
     }
 }

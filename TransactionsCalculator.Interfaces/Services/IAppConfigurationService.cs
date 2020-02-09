@@ -2,10 +2,14 @@
 {
     public interface IAppConfigurationService
     {
-        public string FileExtension { get; set; }
+        string FileExtension { get; set; }
 
-        public string FileDelimiter { get; set; }
+        string FileDelimiter { get; set; }
 
-        public string ReferenceCurrencyCode { get; set; }
+        string ReferenceCurrencyCode { get; set; }
+
+        string ReferenceCountry { get; set; }
+
+        string WorkingDirectory { get; set; }
     }
 }
