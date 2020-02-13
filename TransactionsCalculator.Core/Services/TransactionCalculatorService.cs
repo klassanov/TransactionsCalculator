@@ -76,12 +76,13 @@ namespace TransactionsCalculator.Core.Services
         }
 
         private List<ICalculationOperation> CreateCalculationOperations()
-        {           
+        {
             return new List<ICalculationOperation>()
             {
                new StepOneCalculationOperation(exchangeService, appConfigurationService),
                new StepTwoCalculationOperation(exchangeService, appConfigurationService),
-               new StepThreeOneCalculationOperation(exchangeService, appConfigurationService)
+               new StepThreeOneCalculationOperation(exchangeService, appConfigurationService),
+               new StepThreeTwoCalculationOperation(exchangeService, appConfigurationService)
             };
         }
     }
