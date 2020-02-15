@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TransactionsCalculator.Interfaces.Models
 {
@@ -9,5 +10,7 @@ namespace TransactionsCalculator.Interfaces.Models
         List<IFileOperationResult> FileOperationResultList { get; }
 
         IEnumerable<IExchangeRateInfo> ExchangeRateInfoList { get; }
+
+        public DateTime Timestamp { get; }
     }
 }

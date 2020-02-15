@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TransactionsCalculator.Interfaces.Models;
 
 namespace TransactionCalculator.Models.Operations
@@ -11,10 +12,13 @@ namespace TransactionCalculator.Models.Operations
 
         public IEnumerable<IExchangeRateInfo> ExchangeRateInfoList { get; set; }
 
+        public DateTime Timestamp { get; }
+
         public DirectoryProcessingResult(string workingDirectory)
         {
             this.WorkingDirectory = workingDirectory;
             this.FileOperationResultList = new List<IFileOperationResult>();
+            this.Timestamp = DateTime.Now;
         }
     }
 }
