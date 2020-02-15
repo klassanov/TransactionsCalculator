@@ -35,6 +35,10 @@ namespace TransactionsCalculator
             IPresenterService directoryProcessingResultPrinterService = serviceProvider.GetService<IPresenterService>();
             directoryProcessingResultPrinterService.PresentInfo(processResult);
 
+            //Use DI eventually
+            IPresenterService presenterService = new PDFPresenterService();
+            presenterService.PresentInfo(processResult);
+
             logger.Info(string.Empty);
             logger.Info("Done!");
         }
