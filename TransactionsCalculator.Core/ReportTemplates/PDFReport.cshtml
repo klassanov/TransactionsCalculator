@@ -1,20 +1,27 @@
-﻿
-<h4>@Model.WorkingDirectory</h4>
-
+﻿<h4>@Model.WorkingDirectory</h4>
 
 <table border="1">
     <thead>
         <tr>
             <th>File</th>
-            <th>Step 1</th>
-            <th>Step 2</th>
+            @foreach (var calculationOperationResult in Model.FileOperationResultList[0].OperationsResultList)
+            {
+                <th>@calculationOperationResult.OperationDescription</th>
+            }
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>File 1.docx</td>
-            <td>100.90</td>
-            <td>2000.89</td>
-        </tr>
+
+        @foreach (var fileOperationResult in Model.FileOperationResultList)
+        {
+            <tr>
+                <td>@fileOperationResult.FilePath</td>
+                @foreach (var calculationOperationResult in fileOperationResult.OperationsResultList)
+                {
+                   <td>@calculationOperationResult.CalulatedAmount</td>
+                }
+            </tr>
+        }
+      
     </tbody>
 </table>
