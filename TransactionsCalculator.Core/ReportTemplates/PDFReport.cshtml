@@ -3,7 +3,7 @@
 </head>
 
 <body>
-    <h4>Timestamp: @Model.Timestamp.ToString("dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)</h4>
+    <h4>Timestamp: @Model.Timestamp.ToString("dd/MM/yyyy       HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)</h4>
     <h4>@Model.WorkingDirectory</h4>
     <div class="container">
         <table class="table table-bordered">
@@ -24,7 +24,7 @@
                     <td>@fileOperationResult.FilePath</td>
                     @foreach (var calculationOperationResult in fileOperationResult.OperationsResultList)
                     {
-                    <td>@calculationOperationResult.CalulatedAmount</td>
+                        <td class="text-right">@calculationOperationResult.CalulatedAmount</td>
                     }
                 </tr>
                 }
