@@ -1,28 +1,36 @@
-﻿<h4>Timestamp: @Model.Timestamp.ToString("dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)</h4>
-<h4>@Model.WorkingDirectory</h4>
+﻿<html>
+<head>
+</head>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>File</th>
-            @foreach (var calculationOperationResult in Model.FileOperationResultList[0].OperationsResultList)
-            {
-            <th>@calculationOperationResult.OperationDescription</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
+<body>
+    <h4>Timestamp: @Model.Timestamp.ToString("dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)</h4>
+    <h4>@Model.WorkingDirectory</h4>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>File</th>
+                    @foreach (var calculationOperationResult in Model.FileOperationResultList[0].OperationsResultList)
+                    {
+                    <th>@calculationOperationResult.OperationDescription</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
 
-        @foreach (var fileOperationResult in Model.FileOperationResultList)
-        {
-        <tr>
-            <td>@fileOperationResult.FilePath</td>
-            @foreach (var calculationOperationResult in fileOperationResult.OperationsResultList)
-            {
-            <td>@calculationOperationResult.CalulatedAmount</td>
-            }
-        </tr>
-        }
+                @foreach (var fileOperationResult in Model.FileOperationResultList)
+                {
+                <tr>
+                    <td>@fileOperationResult.FilePath</td>
+                    @foreach (var calculationOperationResult in fileOperationResult.OperationsResultList)
+                    {
+                    <td>@calculationOperationResult.CalulatedAmount</td>
+                    }
+                </tr>
+                }
 
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

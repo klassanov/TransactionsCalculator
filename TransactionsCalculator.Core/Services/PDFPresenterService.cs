@@ -21,6 +21,8 @@ namespace TransactionsCalculator.Core.Services
                 model: directoryProcessingResult,
                 viewBag: null);
 
+            pdfRenderer.PrintOptions.CustomCssUrl = @"ReportTemplates/bootstrap.min.css";
+
             pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
         }
     }
