@@ -3,11 +3,11 @@ using RazorEngine;
 using RazorEngine.Templating;
 using System.IO;
 using TransactionsCalculator.Interfaces.Models;
-using TransactionsCalculator.Interfaces.Services;
+using TransactionsCalculator.Interfaces.Presenters;
 
 namespace TransactionsCalculator.Presenters
 {
-    public class PDFPresenter : IPresenterService
+    public class PDFPresenter : IPresenter
     {
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
