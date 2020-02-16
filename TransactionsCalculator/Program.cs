@@ -10,6 +10,7 @@ using TransactionsCalculator.Core.WebApiClients;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
 using TransactionsCalculator.Interfaces.WebApiClients;
+using TransactionsCalculator.Presenters;
 
 namespace TransactionsCalculator
 {
@@ -36,7 +37,8 @@ namespace TransactionsCalculator
             directoryProcessingResultPrinterService.PresentInfo(processResult);
 
             //Use DI eventually
-            IPresenterService presenterService = new PDFPresenterService();
+            //IPresenterService presenterService = new PDFPresenterService();
+            IPresenterService presenterService = new PDFPresenter();
             presenterService.PresentInfo(processResult);
 
             logger.Info(string.Empty);
@@ -51,7 +53,7 @@ namespace TransactionsCalculator
                 .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()
-                .AddTransient<IPresenterService, ConsolePresenterService>()
+                .AddTransient<IPresenterService, ConsolePresenter>()
                 .BuildServiceProvider();
 
             logger.Debug("Services registrated");

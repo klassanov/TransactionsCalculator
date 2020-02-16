@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+
+<body>
+    <h1 class="text-center">Elaboration Report</h1>
+    <br />
+    <h6><strong>Timestamp:</strong> @Model.Timestamp.ToString("dd/MM/yyyy       HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture)</h6>
+    <h6><strong>Working Directory:</strong> @Model.WorkingDirectory</h6>
+    <div class="container">
+        <table class="table table-bordered" style="margin-top:30px">
+            <thead>
+                <tr>
+                    <th class="text-center">File</th>
+                    @foreach (var calculationOperationResult in Model.FileOperationResultList[0].OperationsResultList)
+                    {
+                        <th class="text-center">@calculationOperationResult.OperationDescription</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var fileOperationResult in Model.FileOperationResultList)
+                {
+                    <tr>
+                        <td>@fileOperationResult.FileName</td>
+                        @foreach (var calculationOperationResult in fileOperationResult.OperationsResultList)
+                        {
+                            <td class="text-right">@calculationOperationResult.CalulatedAmount</td>
+                        }
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

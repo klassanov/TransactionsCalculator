@@ -20,7 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.UnitTests", "TransactionsCalculator.UnitTests\TransactionsCalculator.UnitTests.csproj", "{B0ED1258-A0FB-4E72-92C7-10438820C2FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionsCalculator.UI", "TransactionsCalculator.UI\TransactionsCalculator.UI.csproj", "{D804DBB1-E333-429D-B59D-49F436AEE365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.UI", "TransactionsCalculator.UI\TransactionsCalculator.UI.csproj", "{D804DBB1-E333-429D-B59D-49F436AEE365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionsCalculator.Presenters", "TransactionsCalculator.Presenters\TransactionsCalculator.Presenters.csproj", "{6D210E51-FCDE-42F8-87AF-731728AB691E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{D804DBB1-E333-429D-B59D-49F436AEE365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D804DBB1-E333-429D-B59D-49F436AEE365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D804DBB1-E333-429D-B59D-49F436AEE365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D210E51-FCDE-42F8-87AF-731728AB691E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D210E51-FCDE-42F8-87AF-731728AB691E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D210E51-FCDE-42F8-87AF-731728AB691E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D210E51-FCDE-42F8-87AF-731728AB691E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
