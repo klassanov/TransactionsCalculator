@@ -22,7 +22,7 @@ namespace TransactionsCalculator.Core.Services
                 viewBag: null);
 
             pdfRenderer.PrintOptions.CustomCssUrl = @"ReportTemplates/bootstrap.min.css";
-            pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Landscape;
+            pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Portrait;
 
             pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
         }
