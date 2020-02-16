@@ -1,11 +1,7 @@
-- Make unit tests vs the logic
-- fix not implemented exception
 - Check if input directory is inserted and if such a directory exists
-- Implement step 3 and 4
-- Use only 1 interface and implementation for config/input parameters
 - ? Use a second, backup, API for exchange rates client
 - ? Currency code as enum
+- ? Operation types as enums
 - ? Make the IoC configuration in a separate project
-- ? Make GetExchangeRate an extension method
 - ? Make an extention method for summing currencies??
 - ? CreateCalculationOperations() create in a configuration or factory
