@@ -4,6 +4,8 @@ using RazorEngine.Templating;
 using System.IO;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Presenters;
+using TransactionsCalculator.Presenters.ViewModelConverters;
+using TransactionsCalculator.Presenters.ViewModels;
 
 namespace TransactionsCalculator.Presenters
 {
@@ -11,6 +13,7 @@ namespace TransactionsCalculator.Presenters
     {
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
+            Test(directoryProcessingResult);
             HtmlToPdf pdfRenderer = new HtmlToPdf();
             string razoPdfTemplate = File.ReadAllText(@"PDFResources/PDFReportTemplate.cshtml");
 
@@ -24,6 +27,13 @@ namespace TransactionsCalculator.Presenters
             //pdfRenderer.PrintOptions.CustomCssUrl = @"PDFResources/bootstrap.min.css";
             pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Portrait;
             pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
+        }
+
+        private void Test(IDirectoryProcessingResult directoryProcessingResult)
+        {
+            ReportViewModelConverter converter = new ReportViewModelConverter();
+            ReportViewModel viewModel = converter.Convert(directoryProcessingResult);
+
         }
     }
 }

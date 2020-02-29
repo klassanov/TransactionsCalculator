@@ -28,8 +28,4 @@
     <ProjectReference Include="..\TransactionsCalculator.Interfaces\TransactionsCalculator.Interfaces.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>
