@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Presenters.ViewModels;
@@ -15,7 +16,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
         public ReportViewModelConverter()
         {
             this.decimalFormatProvider = CreateDecimalFormatProvider();
-            this.timestampFormat = "dd/MM/yyyy       HH:mm:ss";
+            this.timestampFormat = "dd/MM/yyyy  HH:mm:ss";
             this.decimalFormat = "0,0.00";
         }
 
@@ -48,7 +49,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
             foreach (var fileOperationResult in source.FileOperationResultList)
             {
                 TableDataRow row = new TableDataRow();
-                row.Filename = fileOperationResult.FileName;
+                row.Filename = Path.GetFileName(fileOperationResult.FilePath);
                 row.OperationExitCode = fileOperationResult.Exception is null ? "OK" : "ERROR";
 
                 if (fileOperationResult.OperationsResultList != null && fileOperationResult.OperationsResultList.Count > 0)

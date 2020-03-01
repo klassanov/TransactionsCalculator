@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <None Remove="PDFResources\bootstrap.min.css" />
-    <None Remove="PDFResources\PDFReportTemplate.cshtml" />
     <None Remove="PDFResources\PDFReportTemplate2.cshtml" />
   </ItemGroup>
 
@@ -15,9 +14,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PDFResources\PDFReportTemplate2.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PDFResources\PDFReportTemplate.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

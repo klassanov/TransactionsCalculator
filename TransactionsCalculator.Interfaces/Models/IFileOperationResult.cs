@@ -7,8 +7,6 @@ namespace TransactionsCalculator.Interfaces.Models
     {
         string FilePath { get; }
 
-        string FileName { get; }
-
         List<ICalculationOperationResult> OperationsResultList { get; }
 
         public Exception Exception { get; }

@@ -13,24 +13,6 @@ namespace TransactionsCalculator.Presenters
     {
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
-            Test(directoryProcessingResult);
-            //HtmlToPdf pdfRenderer = new HtmlToPdf();
-            //string razoPdfTemplate = File.ReadAllText(@"PDFResources/PDFReportTemplate.cshtml");
-
-            //var pdfHtmlResult = Engine.Razor.RunCompile(
-            //    templateSource: razoPdfTemplate,
-            //    name: "pdfreport",
-            //    modelType: typeof(IDirectoryProcessingResult),
-            //    model: directoryProcessingResult,
-            //    viewBag: null);
-
-            ////pdfRenderer.PrintOptions.CustomCssUrl = @"PDFResources/bootstrap.min.css";
-            //pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Portrait;
-            //pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
-        }
-
-        private void Test(IDirectoryProcessingResult directoryProcessingResult)
-        {
             ReportViewModelConverter converter = new ReportViewModelConverter();
             ReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
@@ -46,7 +28,7 @@ namespace TransactionsCalculator.Presenters
 
             //pdfRenderer.PrintOptions.CustomCssUrl = @"PDFResources/bootstrap.min.css";
             pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Portrait;
-            pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport2.pdf");
+            pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
         }
     }
 }
