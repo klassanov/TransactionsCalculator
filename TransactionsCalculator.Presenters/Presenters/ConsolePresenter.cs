@@ -5,7 +5,7 @@ using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Presenters;
 using TransactionsCalculator.Interfaces.Services;
 
-namespace TransactionsCalculator.Presenters
+namespace TransactionsCalculator.Presenters.Presenters
 {
     public class ConsolePresenter : IPresenter
     {

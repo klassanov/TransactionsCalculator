@@ -7,7 +7,7 @@ using TransactionsCalculator.Interfaces.Presenters;
 using TransactionsCalculator.Presenters.ViewModelConverters;
 using TransactionsCalculator.Presenters.ViewModels;
 
-namespace TransactionsCalculator.Presenters
+namespace TransactionsCalculator.Presenters.Presenters
 {
     public class PDFPresenter : IPresenter
     {

@@ -11,7 +11,7 @@ using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Presenters;
 using TransactionsCalculator.Interfaces.Services;
 using TransactionsCalculator.Interfaces.WebApiClients;
-using TransactionsCalculator.Presenters;
+using TransactionsCalculator.Presenters.Presenters;
 
 namespace TransactionsCalculator
 {
@@ -38,9 +38,11 @@ namespace TransactionsCalculator
             directoryProcessingResultPrinterService.PresentInfo(processResult);
 
             //Use DI eventually
-            //IPresenterService presenterService = new PDFPresenterService();
-            IPresenter presenterService = new PDFPresenter();
-            presenterService.PresentInfo(processResult);
+            IPresenter pdfPresenter = new PDFPresenter();
+            pdfPresenter.PresentInfo(processResult);
+
+            IPresenter excelPresenter = new ExcelPresenter();
+            excelPresenter.PresentInfo(processResult);
 
             logger.Info(string.Empty);
             logger.Info("Done!");

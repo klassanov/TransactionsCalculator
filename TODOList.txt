@@ -1,4 +1,6 @@
+- Create a new excel view model
 - Check if input directory is inserted and if such a directory exists
+- Take the excel and pdf file paths as input parameters and predispose the presenters to take that paths
 - ? Use a second, backup, API for exchange rates client
 - ? Currency code as enum
 - ? Operation types as enums
