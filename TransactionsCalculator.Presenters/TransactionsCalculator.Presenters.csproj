@@ -5,15 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PDFResources\bootstrap.min.css" />
-    <None Remove="PDFResources\PDFReportTemplate2.cshtml" />
+    <None Remove="Resources\bootstrap.min.css" />
+    <None Remove="Resources\PDFReportTemplate.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="PDFResources\bootstrap.min.css">
+    <Content Include="Resources\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PDFResources\PDFReportTemplate2.cshtml">
+    <Content Include="Resources\PDFReportTemplate.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -17,7 +17,7 @@ namespace TransactionsCalculator.Presenters
             ReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
             HtmlToPdf pdfRenderer = new HtmlToPdf();
-            string razoPdfTemplate = File.ReadAllText(@"PDFResources/PDFReportTemplate2.cshtml");
+            string razoPdfTemplate = File.ReadAllText(@"Resources/PDFReportTemplate.cshtml");
 
             var pdfHtmlResult = Engine.Razor.RunCompile(
                 templateSource: razoPdfTemplate,
