@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="PDFResources/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <h1 class="text-center">@Model.Title</h1>
+    <br />
+    <h6><strong>Timestamp:</strong> @Model.Timestamp</h6>
+    <h6><strong>Working Directory:</strong> @Model.WorkingDirectory</h6>
+    <div class="container">
+        <table class="table table-bordered" style="margin-top:30px">
+            <thead>
+                <tr>
+                    @foreach (var header in Model.TableHeaders)
+                    {
+                        <th class="text-center">@header</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dataRow in Model.TableDataRows)
+                {
+                    <tr>
+                        <td class="text-left">@dataRow.Filename</td>
+                        @foreach (var cellValue in dataRow.CellValues)
+                        {
+                            <td class="text-right">@cellValue</td>
+                        }
+                        <td class="text-center">@dataRow.OperationExitCode</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

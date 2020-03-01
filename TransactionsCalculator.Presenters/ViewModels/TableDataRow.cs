@@ -11,7 +11,7 @@ namespace TransactionsCalculator.Presenters.ViewModels
 
         public string Filename { get; set; }
 
-        public string OperationResult { get; set; }
+        public string OperationExitCode { get; set; }
 
         public List<string> CellValues { get; set; }
     }

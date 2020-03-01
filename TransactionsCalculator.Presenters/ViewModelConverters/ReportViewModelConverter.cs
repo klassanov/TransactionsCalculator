@@ -35,12 +35,12 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
 
         private void AssignTableHeaderValues(IDirectoryProcessingResult source, ReportViewModel viewModel)
         {
-            viewModel.TableHeaders.Add("Filename");
+            viewModel.TableHeaders.Add("File");
             if (source.FileOperationResultList != null && source.FileOperationResultList.Count > 0)
             {
                 viewModel.TableHeaders.AddRange(source.FileOperationResultList[0].OperationsResultList.Select(x => x.OperationDescription));
             }
-            viewModel.TableHeaders.Add("Result");
+            viewModel.TableHeaders.Add("Outcome");
         }
 
         private void AssignTableDataRows(IDirectoryProcessingResult source, ReportViewModel viewModel)
@@ -49,7 +49,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
             {
                 TableDataRow row = new TableDataRow();
                 row.Filename = fileOperationResult.FileName;
-                row.OperationResult = fileOperationResult.Exception is null ? "OK" : "Error";
+                row.OperationExitCode = fileOperationResult.Exception is null ? "OK" : "ERROR";
 
                 if (fileOperationResult.OperationsResultList != null && fileOperationResult.OperationsResultList.Count > 0)
                 {
