@@ -7,22 +7,22 @@ using TransactionsCalculator.Presenters.ViewModels;
 
 namespace TransactionsCalculator.Presenters.ViewModelConverters
 {
-    public class ReportViewModelConverter : BaseViewModelConverter<IDirectoryProcessingResult, ReportViewModel>
+    public class PDFReportViewModelConverter : BaseViewModelConverter<IDirectoryProcessingResult, PDFReportViewModel>
     {
         private IFormatProvider decimalFormatProvider;
         private string timestampFormat;
         private string decimalFormat;
 
-        public ReportViewModelConverter()
+        public PDFReportViewModelConverter()
         {
             this.decimalFormatProvider = CreateDecimalFormatProvider();
             this.timestampFormat = "dd/MM/yyyy  HH:mm:ss";
             this.decimalFormat = "0,0.00";
         }
 
-        public override ReportViewModel Convert(IDirectoryProcessingResult source)
+        public override PDFReportViewModel Convert(IDirectoryProcessingResult source)
         {
-            ReportViewModel viewModel = new ReportViewModel();
+            PDFReportViewModel viewModel = new PDFReportViewModel();
             if (source != null)
             {
                 viewModel.Title = "Elaboration Report";
@@ -34,7 +34,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
             return viewModel;
         }
 
-        private void AssignTableHeaderValues(IDirectoryProcessingResult source, ReportViewModel viewModel)
+        private void AssignTableHeaderValues(IDirectoryProcessingResult source, PDFReportViewModel viewModel)
         {
             viewModel.TableHeaders.Add("File");
             if (source.FileOperationResultList != null && source.FileOperationResultList.Count > 0)
@@ -44,7 +44,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
             viewModel.TableHeaders.Add("Outcome");
         }
 
-        private void AssignTableDataRows(IDirectoryProcessingResult source, ReportViewModel viewModel)
+        private void AssignTableDataRows(IDirectoryProcessingResult source, PDFReportViewModel viewModel)
         {
             foreach (var fileOperationResult in source.FileOperationResultList)
             {

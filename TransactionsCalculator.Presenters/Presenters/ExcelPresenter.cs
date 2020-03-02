@@ -13,8 +13,8 @@ namespace TransactionsCalculator.Presenters.Presenters
 
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
-            ReportViewModelConverter converter = new ReportViewModelConverter();
-            ReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
+            PDFReportViewModelConverter converter = new PDFReportViewModelConverter();
+            PDFReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
             this.CreateWorkbookAndSheet();
 

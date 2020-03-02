@@ -2,9 +2,9 @@
 
 namespace TransactionsCalculator.Presenters.ViewModels
 {
-    public class ReportViewModel
+    public class PDFReportViewModel
     {
-        public ReportViewModel()
+        public PDFReportViewModel()
         {
             this.Title = string.Empty;
             this.Timestamp = string.Empty;

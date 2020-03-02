@@ -13,8 +13,8 @@ namespace TransactionsCalculator.Presenters.Presenters
     {
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
-            ReportViewModelConverter converter = new ReportViewModelConverter();
-            ReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
+            PDFReportViewModelConverter converter = new PDFReportViewModelConverter();
+            PDFReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
             HtmlToPdf pdfRenderer = new HtmlToPdf();
             string razoPdfTemplate = File.ReadAllText(@"Resources/PDFReportTemplate.cshtml");
@@ -22,7 +22,7 @@ namespace TransactionsCalculator.Presenters.Presenters
             var pdfHtmlResult = Engine.Razor.RunCompile(
                 templateSource: razoPdfTemplate,
                 name: "pdfreport",
-                modelType: typeof(ReportViewModel),
+                modelType: typeof(PDFReportViewModel),
                 model: reportViewModel,
                 viewBag: null);
 
