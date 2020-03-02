@@ -89,8 +89,8 @@ namespace TransactionsCalculator.Presenters.Presenters
         private void CreateWorkbookAndSheet()
         {
             this.xlsWorkbook = WorkBook.Create(ExcelFileFormat.XLS);
-            this.xlsWorkbook.Metadata.Author = "Gimmy Schettini";
-            this.xlsSheet = this.xlsWorkbook.CreateWorkSheet("report");
+            this.xlsWorkbook.Metadata.Author = "TransactionsCalculator";
+            this.xlsSheet = this.xlsWorkbook.CreateWorkSheet("elaboration_report");
         }
 
         private void ResetCurrentChar()
@@ -117,7 +117,6 @@ namespace TransactionsCalculator.Presenters.Presenters
 
             return nextChar;
         }
-
     }
 }
 
