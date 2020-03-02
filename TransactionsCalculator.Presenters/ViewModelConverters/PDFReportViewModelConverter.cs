@@ -48,7 +48,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
         {
             foreach (var fileOperationResult in source.FileOperationResultList)
             {
-                TableDataRow row = new TableDataRow();
+                PDFTableDataRow row = new PDFTableDataRow();
                 row.Filename = Path.GetFileName(fileOperationResult.FilePath);
                 row.OperationExitCode = fileOperationResult.Exception is null ? "OK" : "ERROR";
 

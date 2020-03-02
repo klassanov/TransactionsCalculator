@@ -1,26 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TransactionsCalculator.Presenters.ViewModels
 {
-    public class PDFReportViewModel
+    public class ExcelReportViewModel
     {
-        public PDFReportViewModel()
+        public ExcelReportViewModel()
         {
             this.Title = string.Empty;
-            this.Timestamp = string.Empty;
+            this.Timestamp = DateTime.Now;
             this.WorkingDirectory = string.Empty;
             this.TableHeaders = new List<string>();
-            this.TableDataRows = new List<PDFTableDataRow>();
+            this.TableDataRows = new List<ExcelTableDataRow>();
         }
 
         public string Title { get; set; }
 
-        public string Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public string WorkingDirectory { get; set; }
 
         public List<string> TableHeaders { get; set; }
 
-        public List<PDFTableDataRow> TableDataRows { get; set; }
+        public List<ExcelTableDataRow> TableDataRows { get; set; }
     }
 }

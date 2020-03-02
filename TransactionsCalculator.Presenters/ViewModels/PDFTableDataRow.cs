@@ -2,9 +2,9 @@
 
 namespace TransactionsCalculator.Presenters.ViewModels
 {
-    public class TableDataRow
+    public class PDFTableDataRow
     {
-        public TableDataRow()
+        public PDFTableDataRow()
         {
             this.CellValues = new List<string>();
         }

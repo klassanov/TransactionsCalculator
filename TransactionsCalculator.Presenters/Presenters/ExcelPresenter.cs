@@ -13,8 +13,8 @@ namespace TransactionsCalculator.Presenters.Presenters
 
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
-            PDFReportViewModelConverter converter = new PDFReportViewModelConverter();
-            PDFReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
+            ExcelReportViewModelConverter converter = new ExcelReportViewModelConverter();
+            ExcelReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
             this.CreateWorkbookAndSheet();
 
@@ -35,7 +35,7 @@ namespace TransactionsCalculator.Presenters.Presenters
             {
                 this.xlsSheet[$"{currentChar}{headerRowIndex}"].StringValue = header;
                 this.xlsSheet[$"{currentChar}{headerRowIndex}"].Style.Font.Bold = true;
-                currentChar = GetNextChar(currentChar);
+                currentChar = GetNextAlphabetChar(currentChar);
             }
 
             //Data rows
@@ -44,12 +44,12 @@ namespace TransactionsCalculator.Presenters.Presenters
             {
                 currentChar = 'B';
                 this.xlsSheet[$"{currentChar}{dataRowIndex}"].Value = dataRow.Filename;
-                currentChar = GetNextChar(currentChar);
+                currentChar = GetNextAlphabetChar(currentChar);
 
                 foreach (var cellValue in dataRow.CellValues)
                 {
                     this.xlsSheet[$"{currentChar}{dataRowIndex}"].Value = cellValue;
-                    currentChar = GetNextChar(currentChar);
+                    currentChar = GetNextAlphabetChar(currentChar);
                 }
 
                 this.xlsSheet[$"{currentChar}{dataRowIndex}"].Value = dataRow.OperationExitCode;
@@ -67,7 +67,7 @@ namespace TransactionsCalculator.Presenters.Presenters
             this.xlsSheet = this.xlsWorkbook.CreateWorkSheet("report");
         }
 
-        private char GetNextChar(char c)
+        private char GetNextAlphabetChar(char c)
         {
             char nextChar;
 
