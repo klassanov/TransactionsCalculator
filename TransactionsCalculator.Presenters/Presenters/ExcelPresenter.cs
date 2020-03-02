@@ -10,6 +10,13 @@ namespace TransactionsCalculator.Presenters.Presenters
     {
         private WorkBook xlsWorkbook;
         private WorkSheet xlsSheet;
+        private int tableHeaderRowIndex = 8;
+        private char currentChar;
+
+        public ExcelPresenter()
+        {
+            ResetCurrentChar();
+        }
 
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
@@ -17,54 +24,78 @@ namespace TransactionsCalculator.Presenters.Presenters
             ExcelReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
             this.CreateWorkbookAndSheet();
+            this.WriteTitle(reportViewModel);
+            this.WriteTimestamp(reportViewModel);
+            this.WriteWorkingDirectory(reportViewModel);
+            this.WriteTableHeaders(reportViewModel);
+            this.WriteTableDataRows(reportViewModel);
 
-            //Title
-            this.xlsSheet["C2"].StringValue = reportViewModel.Title;
-            this.xlsSheet["C2"].Style.Font.Bold = true;
+            xlsWorkbook.SaveAs("GimmyReport.xlsx");
+        }
 
-            //Timestamp
-            this.xlsSheet["B5"].Value = reportViewModel.Timestamp;
-
-            //Working directory
-            this.xlsSheet["B6"].StringValue = reportViewModel.WorkingDirectory;
-
-            //Headers
-            char currentChar = 'B';
-            int headerRowIndex = 8;
-            foreach (var header in reportViewModel.TableHeaders)
-            {
-                this.xlsSheet[$"{currentChar}{headerRowIndex}"].StringValue = header;
-                this.xlsSheet[$"{currentChar}{headerRowIndex}"].Style.Font.Bold = true;
-                currentChar = GetNextAlphabetChar(currentChar);
-            }
-
-            //Data rows
-            int dataRowIndex = 9;
+        private void WriteTableDataRows(ExcelReportViewModel reportViewModel)
+        {
+            int dataRowIndex = this.tableHeaderRowIndex + 1;
             foreach (var dataRow in reportViewModel.TableDataRows)
             {
-                currentChar = 'B';
-                this.xlsSheet[$"{currentChar}{dataRowIndex}"].Value = dataRow.Filename;
-                currentChar = GetNextAlphabetChar(currentChar);
+                this.ResetCurrentChar();
+                this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].StringValue = dataRow.Filename;
+                this.currentChar = GetNextAlphabetChar(this.currentChar);
 
                 foreach (var cellValue in dataRow.CellValues)
                 {
-                    this.xlsSheet[$"{currentChar}{dataRowIndex}"].Value = cellValue;
-                    currentChar = GetNextAlphabetChar(currentChar);
+                    this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].DecimalValue = cellValue;
+                    this.currentChar = GetNextAlphabetChar(this.currentChar);
                 }
 
-                this.xlsSheet[$"{currentChar}{dataRowIndex}"].Value = dataRow.OperationExitCode;
+                this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].StringValue = dataRow.OperationExitCode;
+                this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].Style.HorizontalAlignment = IronXL.Styles.HorizontalAlignment.Center;
 
                 dataRowIndex++;
             }
-
-            //Save the excel file
-            xlsWorkbook.SaveAs("GimmyReport.xlsx");
         }
+
+        private void WriteTableHeaders(ExcelReportViewModel reportViewModel)
+        {
+            foreach (var header in reportViewModel.TableHeaders)
+            {
+                this.xlsSheet[$"{this.currentChar}{tableHeaderRowIndex}"].StringValue = header;
+                this.xlsSheet[$"{this.currentChar}{tableHeaderRowIndex}"].Style.Font.Bold = true;
+                this.xlsSheet[$"{this.currentChar}{tableHeaderRowIndex}"].Style.HorizontalAlignment = IronXL.Styles.HorizontalAlignment.Center;
+                this.currentChar = GetNextAlphabetChar(this.currentChar);
+            }
+        }
+
+        private void WriteWorkingDirectory(ExcelReportViewModel reportViewModel)
+        {
+            this.xlsSheet["B6"].StringValue = "Working Directory";
+            this.xlsSheet["B6"].Style.Font.Bold = true;
+            this.xlsSheet["C6"].StringValue = reportViewModel.WorkingDirectory;
+        }
+
+        private void WriteTimestamp(ExcelReportViewModel reportViewModel)
+        {
+            this.xlsSheet["B5"].StringValue = "Timestamp";
+            this.xlsSheet["B5"].Style.Font.Bold = true;
+            this.xlsSheet["C5"].DateTimeValue = reportViewModel.Timestamp;
+        }
+
+        private void WriteTitle(ExcelReportViewModel reportViewModel)
+        {
+            this.xlsSheet["C2"].StringValue = reportViewModel.Title;
+            this.xlsSheet["C2"].Style.Font.Bold = true;
+        }
+
         private void CreateWorkbookAndSheet()
         {
             this.xlsWorkbook = WorkBook.Create(ExcelFileFormat.XLS);
             this.xlsWorkbook.Metadata.Author = "Gimmy Schettini";
             this.xlsSheet = this.xlsWorkbook.CreateWorkSheet("report");
+        }
+
+        private void ResetCurrentChar()
+        {
+            this.currentChar = 'B';
         }
 
         private char GetNextAlphabetChar(char c)
