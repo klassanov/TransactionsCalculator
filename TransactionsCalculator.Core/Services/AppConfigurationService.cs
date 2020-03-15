@@ -13,5 +13,7 @@ namespace TransactionsCalculator.Core.Services
         public string ReferenceCountryCode { get; set; }
 
         public string WorkingDirectory { get; set; }
+
+        public string ReferenceTaxableJurisdiction { get; set; }
     }
 }

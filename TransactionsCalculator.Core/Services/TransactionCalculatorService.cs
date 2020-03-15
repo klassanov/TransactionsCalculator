@@ -83,7 +83,8 @@ namespace TransactionsCalculator.Core.Services
                new StepTwoCalculationOperation(exchangeService, appConfigurationService),
                new StepThreeOneCalculationOperation(exchangeService, appConfigurationService),
                new StepThreeTwoCalculationOperation(exchangeService, appConfigurationService),
-               new StepThreeThreeCalculationOperation(exchangeService, appConfigurationService)
+               new StepThreeThreeCalculationOperation(exchangeService, appConfigurationService),
+               new StepFourOneCalculationOperation(exchangeService, appConfigurationService)
             };
         }
     }

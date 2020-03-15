@@ -11,5 +11,7 @@
         string ReferenceCountryCode { get; set; }
 
         string WorkingDirectory { get; set; }
+
+        public string ReferenceTaxableJurisdiction { get; set; }
     }
 }

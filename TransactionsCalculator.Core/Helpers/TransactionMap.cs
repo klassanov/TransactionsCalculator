@@ -37,6 +37,9 @@ namespace TransactionsCalculator.Core.Helpers
                 .Name("TOTAL_ACTIVITY_VALUE_VAT_AMT")
                 .ConvertUsing(row => SmartCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_VAT_AMT")));
 
+            Map(t => t.TaxableJurisdiction)
+                .Name("TAXABLE_JURISDICTION");
+
         }
     }
 }

@@ -81,6 +81,7 @@ namespace TransactionsCalculator
                 ReferenceCountryCode = appSettings["referenceCountryCode"],
                 FileDelimiter = appSettings["fileDelimiter"],
                 FileExtension = appSettings["fileExtension"],
+                ReferenceTaxableJurisdiction = appSettings["referenceTaxableJurisdiction"],
                 WorkingDirectory = inputArgs[0]
             };
         }
