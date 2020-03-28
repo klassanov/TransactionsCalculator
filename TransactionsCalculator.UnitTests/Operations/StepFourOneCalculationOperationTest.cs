@@ -74,7 +74,6 @@ namespace TransactionsCalculator.UnitTests.Operations
             var actualResult = target.Calculate(transactionList);
 
             Assert.Equal(20500, actualResult);
-
         }
 
         private StepFourOneCalculationOperation CreateStepFourOneCalculationOperation()
