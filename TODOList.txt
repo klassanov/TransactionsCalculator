@@ -4,7 +4,6 @@
 
 - Handle case of exchange date = null (currently we throw an error which also a valid solution)
 - Check if input directory is inserted and if such a directory exists
-- Create an operations factory instead of instantiating the operations in the TransactionCalculatorService
 
 - ?Reduce code duplication in tests??
 - Take the excel and pdf file paths as input parameters and predispose the presenters to take that paths

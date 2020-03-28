@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using TransactionCalculator.Models.Operations;
-using TransactionsCalculator.Core.Operations;
+using TransactionsCalculator.Interfaces.Factories;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Operations;
 using TransactionsCalculator.Interfaces.Services;
@@ -16,21 +16,24 @@ namespace TransactionsCalculator.Core.Services
         private readonly IAppConfigurationService appConfigurationService;
         private readonly IFileReaderService fileReaderService;
         private readonly IExchangeRatesService exchangeService;
+        private readonly ICalculationOperationsFactory calculationOperationsFactory;
 
         public TransactionCalculatorService(
             IAppConfigurationService appConfigurationService,
             IFileReaderService fileReaderService,
-            IExchangeRatesService exchangeService)
+            IExchangeRatesService exchangeService,
+            ICalculationOperationsFactory calculationOperationFactory)
         {
             this.appConfigurationService = appConfigurationService;
             this.fileReaderService = fileReaderService;
             this.exchangeService = exchangeService;
+            this.calculationOperationsFactory = calculationOperationFactory;
         }
 
         public IDirectoryProcessingResult ProcessDirectory()
         {
             DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.appConfigurationService.WorkingDirectory);
-            List<ICalculationOperation> calculationOperations = CreateCalculationOperations();
+            IEnumerable<ICalculationOperation> calculationOperations = calculationOperationsFactory.CreateCalculationOperations();
             string[] filePaths = this.GetFilePathsInWorkingDirectory();
             logger.Info($"Processing directory {this.appConfigurationService.WorkingDirectory} - {filePaths.Length} files found");
             logger.Info(string.Empty);
@@ -73,20 +76,6 @@ namespace TransactionsCalculator.Core.Services
         private string[] GetFilePathsInWorkingDirectory()
         {
             return Directory.GetFiles(this.appConfigurationService.WorkingDirectory, $"*.{appConfigurationService.FileExtension}");
-        }
-
-        private List<ICalculationOperation> CreateCalculationOperations()
-        {
-            return new List<ICalculationOperation>()
-            {
-               new StepOneCalculationOperation(exchangeService, appConfigurationService),
-               new StepTwoCalculationOperation(exchangeService, appConfigurationService),
-               new StepThreeOneCalculationOperation(exchangeService, appConfigurationService),
-               new StepThreeTwoCalculationOperation(exchangeService, appConfigurationService),
-               new StepThreeThreeCalculationOperation(exchangeService, appConfigurationService),
-               new StepFourOneCalculationOperation(exchangeService, appConfigurationService),
-               new StepFourTwoCalculationOperation(exchangeService, appConfigurationService)
-            };
         }
     }
 }

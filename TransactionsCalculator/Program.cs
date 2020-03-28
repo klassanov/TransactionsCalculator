@@ -5,8 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Reflection;
+using TransactionsCalculator.Core.Factories;
 using TransactionsCalculator.Core.Services;
 using TransactionsCalculator.Core.WebApiClients;
+using TransactionsCalculator.Interfaces.Factories;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Presenters;
 using TransactionsCalculator.Interfaces.Services;
@@ -54,6 +56,7 @@ namespace TransactionsCalculator
                 .AddSingleton<IAppConfigurationService>(appConfigurationService)
                 .AddTransient<IExchangeRatesService, ExchangeRatesService>()
                 .AddTransient<IExchangeRatesApiClient, FrankfurterWebApiClient>()
+                .AddTransient<ICalculationOperationsFactory, CalculationOperationsFactory>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()
                 .AddTransient<IPresenter, ConsolePresenter>()
