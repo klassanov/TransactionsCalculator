@@ -23,5 +23,8 @@ namespace TransactionsCalculator.Interfaces.Models
         DateTime? TaxCalculationDate { get; set; }
 
         public string TaxableJurisdiction { get; set; }
+
+        public DateTime? TransactionCompleteDate { get; set; }
+
     }
 }

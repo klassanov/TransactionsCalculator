@@ -1,5 +1,12 @@
-- Create a new excel view model
+- Fix issue operation with error only on one file....exit code on operation level, advance input of all operations and updating the results and exit codes upon executing the single operation
+  pre-populate the DirectoryProcessingResult
+- Reduce code duplication in exchange rate logic
+
+- Handle case of exchange date = null (currently we throw an error which also a valid solution)
 - Check if input directory is inserted and if such a directory exists
+- Create an operations factory instead of instantiating the operations in the TransactionCalculatorService
+
+- ?Reduce code duplication in tests??
 - Take the excel and pdf file paths as input parameters and predispose the presenters to take that paths
 - ? Use a second, backup, API for exchange rates client
 - ? Currency code as enum

@@ -34,5 +34,8 @@ namespace TransactionCalculator.Models.Transaction
 
         //CB: TAXABLE_JURISDICTION
         public string TaxableJurisdiction { get; set; }
+
+        //K: TRANSACTION_COMPLETE_DATE
+        public DateTime? TransactionCompleteDate { get; set; }
     }
 }

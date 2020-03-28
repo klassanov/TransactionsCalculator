@@ -40,6 +40,10 @@ namespace TransactionsCalculator.Core.Helpers
             Map(t => t.TaxableJurisdiction)
                 .Name("TAXABLE_JURISDICTION");
 
+            Map(t => t.TransactionCompleteDate)
+                .Name("TRANSACTION_COMPLETE_DATE")
+                .ConvertUsing(row => DateParser.ParseDate(row.GetField("TRANSACTION_COMPLETE_DATE")));
+
         }
     }
 }
