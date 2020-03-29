@@ -38,11 +38,11 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
             {
                 ExcelTableDataRow row = new ExcelTableDataRow();
                 row.Filename = Path.GetFileName(fileOperationResult.FilePath);
-                row.OperationExitCode = fileOperationResult.Exception is null ? "OK" : "ERROR";
+                row.OperationExitCode = fileOperationResult.Exception is null ? PresentationConstants.ResultOK : PresentationConstants.ResultKO;
 
                 if (fileOperationResult.OperationsResultList != null && fileOperationResult.OperationsResultList.Count > 0)
                 {
-                    row.CellValues.AddRange(fileOperationResult.OperationsResultList.Select(x => x.CalulatedAmount));
+                    row.CellValueModels.AddRange(fileOperationResult.OperationsResultList.Select(x => new CellValueModel { DecimalValue = x.CalulatedAmount, IsError = x.Exception != null }));
                 }
 
                 viewModel.TableDataRows.Add(row);

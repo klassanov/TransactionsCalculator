@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TransactionCalculator.Models.Operations;
 using TransactionsCalculator.Interfaces.Factories;
 using TransactionsCalculator.Interfaces.Models;
@@ -32,38 +33,21 @@ namespace TransactionsCalculator.Core.Services
 
         public IDirectoryProcessingResult ProcessDirectory()
         {
-            DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.appConfigurationService.WorkingDirectory);
-            IEnumerable<ICalculationOperation> calculationOperations = calculationOperationsFactory.CreateCalculationOperations();
-            string[] filePaths = this.GetFilePathsInWorkingDirectory();
-            logger.Info($"Processing directory {this.appConfigurationService.WorkingDirectory} - {filePaths.Length} files found");
-            logger.Info(string.Empty);
+            DirectoryProcessingResult directoryOperationResult = new DirectoryProcessingResult(this.appConfigurationService.WorkingDirectory, this.GetFilePaths(), this.GetCalculationOperations());
 
-            foreach (string filePath in filePaths)
+            foreach (var fileOperationResult in directoryOperationResult.FileOperationResultList)
             {
-                logger.Info($"Processing {filePath}");
-                FileOperationResult fileOperationResult = new FileOperationResult(filePath);
-                directoryOperationResult.FileOperationResultList.Add(fileOperationResult);
-
+                logger.Info($"Processing {fileOperationResult.FilePath}");
                 try
                 {
-                    IEnumerable<ITransaction> transactionList = this.fileReaderService.ReadFile(filePath);
-                    List<ICalculationOperationResult> calculationOperationsResultList = new List<ICalculationOperationResult>();
-
-                    foreach (ICalculationOperation operation in calculationOperations)
-                    {
-                        logger.Debug($"Performing {operation.OperationDescription}");
-                        decimal result = operation.Calculate(transactionList);
-                        calculationOperationsResultList.Add(new CalculationOperationResult(result, operation.OperationDescription));
-                        logger.Info($"{operation.OperationDescription}: {result}");
-                    }
-
-                    fileOperationResult.OperationsResultList = calculationOperationsResultList;
-                    logger.Debug($"{filePath} processed successfully");
+                    IEnumerable<ITransaction> transactionList = this.fileReaderService.ReadFile(fileOperationResult.FilePath);
+                    this.PerformCalculationOperations(fileOperationResult, transactionList);
+                    logger.Debug($"{fileOperationResult.FilePath} processed successfully");
                     logger.Info(string.Empty);
                 }
                 catch (Exception ex)
                 {
-                    logger.Error($"{filePath} - Error while processing ", ex);
+                    logger.Error($"{fileOperationResult.FilePath} - Error while processing ", ex);
                     fileOperationResult.Exception = ex;
                 }
             }
@@ -73,9 +57,39 @@ namespace TransactionsCalculator.Core.Services
             return directoryOperationResult;
         }
 
-        private string[] GetFilePathsInWorkingDirectory()
+        private void PerformCalculationOperations(IFileOperationResult fileOperationResult, IEnumerable<ITransaction> transactionList)
         {
-            return Directory.GetFiles(this.appConfigurationService.WorkingDirectory, $"*.{appConfigurationService.FileExtension}");
+            foreach (var calculationOperationResult in fileOperationResult.OperationsResultList)
+            {
+                logger.Debug($"Performing {calculationOperationResult.OperationDescription}");
+                try
+                {
+                    decimal result = calculationOperationResult.CalculationOperation.Calculate(transactionList);
+                    calculationOperationResult.CalulatedAmount = result;
+                    logger.Info($"{calculationOperationResult.OperationDescription}: {result}");
+                }
+                catch (Exception ex)
+                {
+                    calculationOperationResult.Exception = ex;
+                    logger.Error($"Error durning performing {calculationOperationResult.OperationDescription} ", ex);
+                }
+            }
+        }
+
+        private IEnumerable<ICalculationOperation> GetCalculationOperations()
+        {
+            IEnumerable<ICalculationOperation> calculationOperations = calculationOperationsFactory.CreateCalculationOperations();
+            logger.Info($"{calculationOperations.Count()} calulations will be executed on each file: {string.Join(";", calculationOperations.Select(x => x.OperationDescription))}");
+            logger.Info(string.Empty);
+            return calculationOperations;
+        }
+
+        private string[] GetFilePaths()
+        {
+            string[] filePaths = Directory.GetFiles(this.appConfigurationService.WorkingDirectory, $"*.{appConfigurationService.FileExtension}");
+            logger.Info($"Processing directory {this.appConfigurationService.WorkingDirectory} - {filePaths.Length} files found");
+            logger.Info(string.Empty);
+            return filePaths;
         }
     }
 }

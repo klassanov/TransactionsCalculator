@@ -27,7 +27,7 @@ namespace TransactionsCalculator.Presenters.Presenters
                 viewBag: null);
 
             //pdfRenderer.PrintOptions.CustomCssUrl = @"PDFResources/bootstrap.min.css";
-            pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Portrait;
+            pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Landscape;
             pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
         }
     }

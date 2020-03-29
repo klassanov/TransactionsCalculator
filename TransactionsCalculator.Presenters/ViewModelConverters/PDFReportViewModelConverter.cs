@@ -50,15 +50,22 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
             {
                 PDFTableDataRow row = new PDFTableDataRow();
                 row.Filename = Path.GetFileName(fileOperationResult.FilePath);
-                row.OperationExitCode = fileOperationResult.Exception is null ? "OK" : "ERROR";
+                row.OperationExitCode = fileOperationResult.Exception is null ? PresentationConstants.ResultOK : PresentationConstants.ResultKO;
 
                 if (fileOperationResult.OperationsResultList != null && fileOperationResult.OperationsResultList.Count > 0)
                 {
-                    row.CellValues.AddRange(fileOperationResult.OperationsResultList.Select(x => x.CalulatedAmount.ToString(this.decimalFormat, this.decimalFormatProvider)));
+                    row.CellValues.AddRange(fileOperationResult.OperationsResultList.Select(x => GetCalculationOperationResultCellValue(x)));
                 }
 
                 viewModel.TableDataRows.Add(row);
             }
+        }
+
+        private string GetCalculationOperationResultCellValue(ICalculationOperationResult calculationOperationResult)
+        {
+            return calculationOperationResult.Exception != null
+                ? PresentationConstants.ResultKO
+                : calculationOperationResult.CalulatedAmount.ToString(this.decimalFormat, this.decimalFormatProvider);
         }
 
         private IFormatProvider CreateDecimalFormatProvider()

@@ -9,6 +9,6 @@ namespace TransactionsCalculator.Interfaces.Models
 
         List<ICalculationOperationResult> OperationsResultList { get; }
 
-        public Exception Exception { get; }
+        public Exception Exception { get; set; }
     }
 }

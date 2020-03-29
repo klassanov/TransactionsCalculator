@@ -42,9 +42,9 @@ namespace TransactionsCalculator.Presenters.Presenters
                 this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].StringValue = dataRow.Filename;
                 this.currentChar = GetNextAlphabetChar(this.currentChar);
 
-                foreach (var cellValue in dataRow.CellValues)
+                foreach (var cellValueModel in dataRow.CellValueModels)
                 {
-                    this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].DecimalValue = cellValue;
+                    AssignCellValue(this.xlsSheet[$"{this.currentChar}{dataRowIndex}"], cellValueModel);
                     this.currentChar = GetNextAlphabetChar(this.currentChar);
                 }
 
@@ -52,6 +52,18 @@ namespace TransactionsCalculator.Presenters.Presenters
                 this.xlsSheet[$"{this.currentChar}{dataRowIndex}"].Style.HorizontalAlignment = IronXL.Styles.HorizontalAlignment.Center;
 
                 dataRowIndex++;
+            }
+        }
+
+        private void AssignCellValue(Range cellRange, CellValueModel excelCellValueModel)
+        {
+            if (excelCellValueModel.IsError)
+            {
+                cellRange.StringValue = PresentationConstants.ResultKO;
+            }
+            else
+            {
+                cellRange.DecimalValue = excelCellValueModel.DecimalValue;
             }
         }
 
