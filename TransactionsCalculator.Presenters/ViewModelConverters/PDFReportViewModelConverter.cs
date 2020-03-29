@@ -17,7 +17,7 @@ namespace TransactionsCalculator.Presenters.ViewModelConverters
         {
             this.decimalFormatProvider = CreateDecimalFormatProvider();
             this.timestampFormat = "dd/MM/yyyy  HH:mm:ss";
-            this.decimalFormat = "0,0.00";
+            this.decimalFormat = "#,0.00";
         }
 
         public override PDFReportViewModel Convert(IDirectoryProcessingResult source)
