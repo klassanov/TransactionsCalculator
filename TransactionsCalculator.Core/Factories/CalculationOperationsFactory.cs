@@ -27,7 +27,8 @@ namespace TransactionsCalculator.Core.Factories
                new StepThreeTwoCalculationOperation(exchangeService, appConfigurationService),
                new StepThreeThreeCalculationOperation(exchangeService, appConfigurationService),
                new StepFourOneCalculationOperation(exchangeService, appConfigurationService),
-               new StepFourTwoCalculationOperation(exchangeService, appConfigurationService)
+               new StepFourTwoCalculationOperation(exchangeService, appConfigurationService),
+               new StepFourThreeCalculationOperation(exchangeService, appConfigurationService)
             };
         }
     }
