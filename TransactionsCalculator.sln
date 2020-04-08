@@ -15,12 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionCalculator.Model
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B99A5BC4-91DA-467F-A752-6CDE3812A7E1}"
 	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 		TODOList.txt = TODOList.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.UnitTests", "TransactionsCalculator.UnitTests\TransactionsCalculator.UnitTests.csproj", "{B0ED1258-A0FB-4E72-92C7-10438820C2FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionsCalculator.Presenters", "TransactionsCalculator.Presenters\TransactionsCalculator.Presenters.csproj", "{6D210E51-FCDE-42F8-87AF-731728AB691E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionsCalculator.Presenters", "TransactionsCalculator.Presenters\TransactionsCalculator.Presenters.csproj", "{6D210E51-FCDE-42F8-87AF-731728AB691E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
