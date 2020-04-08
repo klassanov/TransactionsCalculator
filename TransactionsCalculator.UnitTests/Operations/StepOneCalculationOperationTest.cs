@@ -36,7 +36,7 @@ namespace TransactionsCalculator.UnitTests.Operations
                 new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=100 }
             };
             StepOneCalculationOperation target = this.CreateStepOneCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(200, actualResult);
         }
@@ -55,7 +55,7 @@ namespace TransactionsCalculator.UnitTests.Operations
                 new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=100 }
             };
             StepOneCalculationOperation target = this.CreateStepOneCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(500, actualResult);
         }
@@ -77,7 +77,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepOneCalculationOperation target = this.CreateStepOneCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(1000, actualResult);
         }

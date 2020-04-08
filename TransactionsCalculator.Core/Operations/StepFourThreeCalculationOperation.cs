@@ -15,12 +15,12 @@ namespace TransactionsCalculator.Core.Operations
             this.operationDescription = "Step 4.3";
         }
 
-        public override decimal Calculate(IEnumerable<ITransaction> transactions)
+        protected override decimal Calculate(IEnumerable<ITransaction> transactions)
         {
-            return RoundAmount(transactions.Where(x => string.IsNullOrEmpty(x.TaxableJurisdiction) &&
+            return transactions.Where(x => string.IsNullOrEmpty(x.TaxableJurisdiction) &&
                                                        this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleArrivalCountry) &&
                                                        x.TotalActivityVATIncludedAmount.HasValue)
-                                            .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate)));
+                                            .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate));
         }
     }
 }

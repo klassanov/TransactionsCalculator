@@ -7,6 +7,6 @@ namespace TransactionsCalculator.Interfaces.Operations
     {
         string OperationDescription { get; }
 
-        decimal Calculate(IEnumerable<ITransaction> transactionList);
+        decimal CalculateAmount(IEnumerable<ITransaction> transactionList);
     }
 }

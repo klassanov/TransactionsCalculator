@@ -15,14 +15,14 @@ namespace TransactionsCalculator.Core.Operations
             this.operationDescription = "Step 2";
         }
 
-        public override decimal Calculate(IEnumerable<ITransaction> transactionList)
+        protected override decimal Calculate(IEnumerable<ITransaction> transactionList)
         {
             HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
 
-            return RoundAmount(transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleDepartureCountry) &&
+            return transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleDepartureCountry) &&
                                                 x.TotalActivityVATIncludedAmount.HasValue &&
                                                 !countriesHash.Contains(x.SaleArrivalCountry))
-                                                .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate)));
+                                                .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate));
         }
     }
 }

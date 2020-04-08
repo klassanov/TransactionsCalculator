@@ -26,12 +26,16 @@ namespace TransactionsCalculator.Core.Operations
         {
             return this.exchangeService.GetExchangeRate(currencyCode, transactionDate);
         }
-
-        protected decimal RoundAmount(decimal amount)
+        private decimal RoundAmount(decimal amount)
         {
             return Math.Round(amount, 2);
         }
 
-        public abstract decimal Calculate(IEnumerable<ITransaction> transactions);
+        public decimal CalculateAmount(IEnumerable<ITransaction> transactions)
+        {
+            return this.RoundAmount(this.Calculate(transactions));
+        }
+
+        protected abstract decimal Calculate(IEnumerable<ITransaction> transactions);
     }
 }

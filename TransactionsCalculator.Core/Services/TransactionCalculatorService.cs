@@ -64,7 +64,7 @@ namespace TransactionsCalculator.Core.Services
                 logger.Debug($"Performing {calculationOperationResult.OperationDescription}");
                 try
                 {
-                    decimal result = calculationOperationResult.CalculationOperation.Calculate(transactionList);
+                    decimal result = calculationOperationResult.CalculationOperation.CalculateAmount(transactionList);
                     calculationOperationResult.CalulatedAmount = result;
                     logger.Info($"{calculationOperationResult.OperationDescription}: {result}");
                 }

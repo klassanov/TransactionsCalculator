@@ -38,7 +38,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(700, actualResult);
         }
@@ -57,7 +57,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(600, actualResult);
         }
@@ -78,7 +78,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(1500, actualResult);
         }
@@ -97,7 +97,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(600, actualResult);
         }

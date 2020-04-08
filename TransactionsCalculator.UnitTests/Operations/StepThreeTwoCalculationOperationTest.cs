@@ -45,7 +45,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepThreeTwoCalculationOperation target = this.CreateStepThreeTwoCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(400, actualResult);
         }
@@ -74,7 +74,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             };
 
             StepThreeTwoCalculationOperation target = this.CreateStepThreeTwoCalculationOperation();
-            var actualResult = target.Calculate(transactionList);
+            var actualResult = target.CalculateAmount(transactionList);
 
             Assert.Equal(2000, actualResult);
         }
