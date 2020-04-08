@@ -4,24 +4,14 @@ using System.Collections.Generic;
 using TransactionCalculator.Models.Transaction;
 using TransactionsCalculator.Core.Operations;
 using TransactionsCalculator.Interfaces.Models;
-using TransactionsCalculator.Interfaces.Services;
 using Xunit;
 
 namespace TransactionsCalculator.UnitTests.Operations
 {
-    public class StepThreeOneCalculationOperationTest
+    public class StepThreeOneCalculationOperationTest : BaseOperationTest
     {
-        private readonly Mock<IExchangeRatesService> exchangeServiceMock;
-        private readonly Mock<IAppConfigurationService> appConfigurationServiceMock;
-        private readonly string referenceCountryCode = "IT";
-        private readonly string referenceCurrencyCode = "EUR";
-
-        public StepThreeOneCalculationOperationTest()
+        public StepThreeOneCalculationOperationTest() : base()
         {
-            this.exchangeServiceMock = new Mock<IExchangeRatesService>();
-
-            this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
-            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountryCode).Returns(this.referenceCountryCode);
         }
 
         [Fact]

@@ -4,26 +4,14 @@ using System.Collections.Generic;
 using TransactionCalculator.Models.Transaction;
 using TransactionsCalculator.Core.Operations;
 using TransactionsCalculator.Interfaces.Models;
-using TransactionsCalculator.Interfaces.Services;
 using Xunit;
 
 namespace TransactionsCalculator.UnitTests.Operations
 {
-    public class StepFourThreeCalculationOperationTest
+    public class StepFourThreeCalculationOperationTest : BaseOperationTest
     {
-        private readonly Mock<IExchangeRatesService> exchangeServiceMock;
-        private readonly Mock<IAppConfigurationService> appConfigurationServiceMock;
-
-        private readonly string referenceTaxableJurisdiction = "ITALIA";
-        private readonly string referenceCountry = "ITA";
-        private readonly string referenceCurrencyCode = "EUR";
-
-        public StepFourThreeCalculationOperationTest()
+        public StepFourThreeCalculationOperationTest() : base()
         {
-            this.exchangeServiceMock = new Mock<IExchangeRatesService>();
-
-            this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
-            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountryCode).Returns(this.referenceCountry);
         }
 
         [Fact]
@@ -34,9 +22,9 @@ namespace TransactionsCalculator.UnitTests.Operations
             List<ITransaction> transactionList = new List<ITransaction>()
             {
                 //Data that should be taken
-                new Transaction{TaxableJurisdiction=null, TotalActivityVATIncludedAmount=1000, SaleArrivalCountry=this.referenceCountry},
-                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=2000, SaleArrivalCountry=this.referenceCountry},
-                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=3000, SaleArrivalCountry=this.referenceCountry},
+                new Transaction{TaxableJurisdiction=null, TotalActivityVATIncludedAmount=1000, SaleArrivalCountry=this.referenceCountryCode},
+                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=2000, SaleArrivalCountry=this.referenceCountryCode},
+                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=3000, SaleArrivalCountry=this.referenceCountryCode},
 
                 //Data that should be filtered out
                 new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=3000, SaleArrivalCountry="USA"},
@@ -61,9 +49,9 @@ namespace TransactionsCalculator.UnitTests.Operations
             List<ITransaction> transactionList = new List<ITransaction>()
             {
                 //Data that should be taken
-                new Transaction{TaxableJurisdiction=null, TotalActivityVATIncludedAmount=1000, SaleArrivalCountry=this.referenceCountry, TransactionCurrencyCode=this.referenceCurrencyCode},
-                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=2000, SaleArrivalCountry=this.referenceCountry, TransactionCurrencyCode="USD"},
-                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=3000, SaleArrivalCountry=this.referenceCountry, TransactionCurrencyCode="BGN"},
+                new Transaction{TaxableJurisdiction=null, TotalActivityVATIncludedAmount=1000, SaleArrivalCountry=this.referenceCountryCode, TransactionCurrencyCode=this.referenceCurrencyCode},
+                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=2000, SaleArrivalCountry=this.referenceCountryCode, TransactionCurrencyCode="USD"},
+                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=3000, SaleArrivalCountry=this.referenceCountryCode, TransactionCurrencyCode="BGN"},
 
                 //Data that should be filtered out
                 new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATIncludedAmount=3000, SaleArrivalCountry="USA", TransactionCurrencyCode="USD"},

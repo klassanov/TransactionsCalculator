@@ -4,25 +4,14 @@ using System.Collections.Generic;
 using TransactionCalculator.Models.Transaction;
 using TransactionsCalculator.Core.Operations;
 using TransactionsCalculator.Interfaces.Models;
-using TransactionsCalculator.Interfaces.Services;
 using Xunit;
 
 namespace TransactionsCalculator.UnitTests.Operations
 {
-    public class StepFourOneCalculationOperationTest
+    public class StepFourOneCalculationOperationTest : BaseOperationTest
     {
-        private readonly Mock<IExchangeRatesService> exchangeServiceMock;
-        private readonly Mock<IAppConfigurationService> appConfigurationServiceMock;
-
-        private readonly string referenceTaxableJurisdiction = "ITALIA";
-        private readonly string referenceCurrencyCode = "EUR";
-
-        public StepFourOneCalculationOperationTest()
+        public StepFourOneCalculationOperationTest() : base()
         {
-            this.exchangeServiceMock = new Mock<IExchangeRatesService>();
-
-            this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
-            this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceTaxableJurisdiction).Returns(this.referenceTaxableJurisdiction);
         }
 
         [Fact]
