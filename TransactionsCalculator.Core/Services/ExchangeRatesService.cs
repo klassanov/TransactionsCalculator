@@ -49,7 +49,7 @@ namespace TransactionsCalculator.Core.Services
 
         private string GetExchangeRateInfoKey(string currencyCode, DateTime exchangeDate)
         {
-            return $"{exchangeDate.ToString("yyyy-MM-dd")}|{currencyCode}";
+            return $"{exchangeDate:yyyy-MM-dd}|{currencyCode}";
         }
     }
 }
