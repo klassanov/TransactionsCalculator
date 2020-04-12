@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using TransactionCalculator.Models.Transaction;
@@ -13,7 +14,7 @@ namespace TransactionsCalculator.Core.Services
     public class FileReaderService : IFileReaderService
     {
         private readonly IAppConfigurationService appConfigurationService;
-        private readonly Configuration config;
+        private readonly CsvConfiguration config;
 
         public FileReaderService(IAppConfigurationService appConfigurationService)
         {
@@ -33,10 +34,10 @@ namespace TransactionsCalculator.Core.Services
             return transactionsList;
         }
 
-        private Configuration CreateFileReadingConfiguration()
+        private CsvConfiguration CreateFileReadingConfiguration()
         {
             var badData = new List<string>();
-            Configuration config = new Configuration();
+            CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture);
             config.Delimiter = this.appConfigurationService.FileDelimiter;
             config.RegisterClassMap<TransactionMap>();
             config.TrimOptions = TrimOptions.Trim;

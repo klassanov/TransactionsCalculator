@@ -54,7 +54,7 @@ namespace Tests
 
 
             var bad = new List<string>();
-            Configuration config = new Configuration();
+            CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture);
             config.Delimiter = "\t";
             config.RegisterClassMap<TransactionMap>();
             config.TrimOptions = TrimOptions.Trim;
@@ -203,7 +203,7 @@ namespace Tests
             string[] filePaths = Directory.GetFiles(directoryName, "Salaries-1.txt");
 
             var bad = new List<string>();
-            Configuration config = new Configuration();
+            CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture);
             config.Delimiter = "\t";
             config.RegisterClassMap<PersonMap>();
             config.TrimOptions = TrimOptions.Trim;
