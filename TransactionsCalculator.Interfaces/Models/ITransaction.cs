@@ -20,11 +20,8 @@ namespace TransactionsCalculator.Interfaces.Models
 
         decimal? TotalActivityVATAmount { get; set; }
 
-        DateTime? TaxCalculationDate { get; set; }
-
         public string TaxableJurisdiction { get; set; }
 
         public DateTime? TransactionCompleteDate { get; set; }
-
     }
 }

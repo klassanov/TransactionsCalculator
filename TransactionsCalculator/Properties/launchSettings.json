@@ -2,7 +2,7 @@
   "profiles": {
     "TransactionsCalculator": {
       "commandName": "Project",
-      "commandLineArgs": "\"D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Tests\\OriginalFiles\""
+      "commandLineArgs": "\"D:\\SW Development\\Customers\\Gimmy\\TransactionCalculator\\Docs\\Tests\\2020.03 VAT RETURN\""
     }
   }
 }

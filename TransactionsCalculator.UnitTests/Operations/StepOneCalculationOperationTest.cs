@@ -59,9 +59,9 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode=this.referenceCurrencyCode, TaxCalculationDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=200, TransactionCurrencyCode="USD", TaxCalculationDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode="BGN", TaxCalculationDate=DateTime.Now },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode=this.referenceCurrencyCode, TransactionCompleteDate=DateTime.Now },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=200, TransactionCurrencyCode="USD", TransactionCompleteDate=DateTime.Now },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode="BGN", TransactionCompleteDate=DateTime.Now },
                 new Transaction{SaleArrivalCountry="USD", TotalActivityVATIncludedAmount=100 },
                 new Transaction{SaleArrivalCountry="BGN", TotalActivityVATIncludedAmount=100 }
             };

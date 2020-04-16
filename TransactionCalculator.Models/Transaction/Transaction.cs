@@ -29,9 +29,6 @@ namespace TransactionCalculator.Models.Transaction
         //AP: TOTAL_ACTIVITY_VALUE_VAT_AMT
         public decimal? TotalActivityVATAmount { get; set; }
 
-        //H: TAX_CALCULATION_DATE
-        public DateTime? TaxCalculationDate { get; set; }
-
         //CB: TAXABLE_JURISDICTION
         public string TaxableJurisdiction { get; set; }
 

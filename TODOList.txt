@@ -1,6 +1,7 @@
 - Reduce code duplication in exchange rate logic
+- Implement Chain of responsability pattern when calling the presenters and call them all. Implement config properties in order to be able to switch them on/off
+- Implement a csv presenter
 
-- Handle case of exchange date = null (currently we throw an error which also a valid solution)
 - Check if input directory is inserted and if such a directory exists
 
 - Take the excel and pdf file paths as input parameters and predispose the presenters to take that paths
@@ -9,4 +10,3 @@
 - ? Operation types as enums
 - ? Make the IoC configuration in a separate project
 - ? Make an extention method for summing currencies??
-- ? CreateCalculationOperations() create in a configuration or factory

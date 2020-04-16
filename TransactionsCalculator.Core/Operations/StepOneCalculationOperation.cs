@@ -19,7 +19,7 @@ namespace TransactionsCalculator.Core.Operations
         {
             return transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleArrivalCountry) &&
                                                           x.TotalActivityVATIncludedAmount.HasValue)
-                                               .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TaxCalculationDate));
+                                               .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate));
         }
     }
 }

@@ -23,10 +23,6 @@ namespace TransactionsCalculator.Core.Helpers
                 .Name("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")
                 .ConvertUsing(row => SmartCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
 
-            Map(t => t.TaxCalculationDate)
-                .Name("TAX_CALCULATION_DATE")
-                .ConvertUsing(row => DateParser.ParseDate(row.GetField("TAX_CALCULATION_DATE")));
-
             Map(t => t.SellerDepartCountryVATNumber)
                 .Name("SELLER_DEPART_COUNTRY_VAT_NUMBER");
 
