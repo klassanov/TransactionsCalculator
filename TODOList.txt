@@ -1,5 +1,4 @@
 - Reduce code duplication in exchange rate logic
-- Implement Chain of responsability pattern when calling the presenters and call them all. Implement config properties in order to be able to switch them on/off
 - Implement a csv presenter
 
 - Check if input directory is inserted and if such a directory exists

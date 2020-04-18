@@ -12,7 +12,7 @@ namespace TransactionsCalculator.Presenters.Presenters
 {
     public class PDFPresenter : IPresenter
     {
-        private IAppConfigurationService appConfigurationService;
+        private readonly IAppConfigurationService appConfigurationService;
 
         public PDFPresenter(IAppConfigurationService appConfigurationService)
         {

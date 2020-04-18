@@ -36,23 +36,11 @@ namespace TransactionsCalculator
             ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
             IDirectoryProcessingResult processResult = transactionCalculatorService.ProcessDirectory();
 
-            PresentInfo(processResult);
+            IPresentationService presentationService = serviceProvider.GetService<IPresentationService>();
+            presentationService.Present(processResult);
 
             logger.Info(string.Empty);
             logger.Info("Done!");
-        }
-
-        private static void PresentInfo(IDirectoryProcessingResult processResult)
-        {
-            //Put this in a separate service and use DI, use chain of responsability. Take all implementations of IPresenter as a list and call them all
-
-            IAppConfigurationService appConfigurationService = serviceProvider.GetService<IAppConfigurationService>();
-
-            IPresenter pdfPresenter = new PDFPresenter(appConfigurationService);
-            pdfPresenter.PresentInfo(processResult);
-
-            IPresenter excelPresenter = new ExcelPresenter(appConfigurationService);
-            excelPresenter.PresentInfo(processResult);
         }
 
         private static void RegisterServices()
@@ -64,6 +52,9 @@ namespace TransactionsCalculator
                 .AddTransient<ICalculationOperationsFactory, CalculationOperationsFactory>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()
+                .AddTransient<IPresentationService, PresentationService>()
+                .AddTransient<IPresenter, PDFPresenter>()
+                .AddTransient<IPresenter, ExcelPresenter>()
                 .BuildServiceProvider();
 
             logger.Debug("Services registrated");

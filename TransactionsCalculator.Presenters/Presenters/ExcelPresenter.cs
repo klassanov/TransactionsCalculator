@@ -13,7 +13,7 @@ namespace TransactionsCalculator.Presenters.Presenters
         private WorkSheet xlsSheet;
         private int tableHeaderRowIndex = 8;
         private char currentChar;
-        private IAppConfigurationService appConfigurationService;
+        private readonly IAppConfigurationService appConfigurationService;
 
         public ExcelPresenter(IAppConfigurationService appConfigurationService)
         {
