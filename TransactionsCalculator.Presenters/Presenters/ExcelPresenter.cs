@@ -23,17 +23,20 @@ namespace TransactionsCalculator.Presenters.Presenters
 
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
-            ExcelReportViewModelConverter converter = new ExcelReportViewModelConverter();
-            ExcelReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
+            if (this.appConfigurationService.ProduceExcel)
+            {
+                ExcelReportViewModelConverter converter = new ExcelReportViewModelConverter();
+                ExcelReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
-            this.CreateWorkbookAndSheet();
-            this.WriteTitle(reportViewModel);
-            this.WriteTimestamp(reportViewModel);
-            this.WriteWorkingDirectory(reportViewModel);
-            this.WriteTableHeaders(reportViewModel);
-            this.WriteTableDataRows(reportViewModel);
+                this.CreateWorkbookAndSheet();
+                this.WriteTitle(reportViewModel);
+                this.WriteTimestamp(reportViewModel);
+                this.WriteWorkingDirectory(reportViewModel);
+                this.WriteTableHeaders(reportViewModel);
+                this.WriteTableDataRows(reportViewModel);
 
-            xlsWorkbook.SaveAs("GimmyReport.xlsx");
+                xlsWorkbook.SaveAs("GimmyReport.xlsx");
+            }
         }
 
         private void WriteTableDataRows(ExcelReportViewModel reportViewModel)

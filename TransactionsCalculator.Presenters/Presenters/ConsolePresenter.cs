@@ -2,12 +2,11 @@
 using System;
 using System.Linq;
 using TransactionsCalculator.Interfaces.Models;
-using TransactionsCalculator.Interfaces.Presenters;
 using TransactionsCalculator.Interfaces.Services;
 
 namespace TransactionsCalculator.Presenters.Presenters
 {
-    public class ConsolePresenter : IPresenter
+    public class ConsolePresenter
     {
         private static ILog logger = LogManager.GetLogger(typeof(ConsolePresenter));
         private readonly IAppConfigurationService appConfigurationService;

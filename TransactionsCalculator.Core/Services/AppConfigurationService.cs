@@ -15,5 +15,9 @@ namespace TransactionsCalculator.Core.Services
         public string WorkingDirectory { get; set; }
 
         public string ReferenceTaxableJurisdiction { get; set; }
+
+        public bool ProducePdf { get; set; }
+
+        public bool ProduceExcel { get; set; }
     }
 }

@@ -48,9 +48,6 @@ namespace TransactionsCalculator
 
             IAppConfigurationService appConfigurationService = serviceProvider.GetService<IAppConfigurationService>();
 
-            IPresenter consolePresenter = new ConsolePresenter(appConfigurationService);
-            consolePresenter.PresentInfo(processResult);
-
             IPresenter pdfPresenter = new PDFPresenter(appConfigurationService);
             pdfPresenter.PresentInfo(processResult);
 
@@ -92,6 +89,8 @@ namespace TransactionsCalculator
                 FileDelimiter = appSettings["fileDelimiter"],
                 FileExtension = appSettings["fileExtension"],
                 ReferenceTaxableJurisdiction = appSettings["referenceTaxableJurisdiction"],
+                ProduceExcel = bool.Parse(appSettings["produceExcel"]),
+                ProducePdf = bool.Parse(appSettings["producePdf"]),
                 WorkingDirectory = inputArgs[0]
             };
         }

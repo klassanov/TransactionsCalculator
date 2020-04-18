@@ -21,22 +21,26 @@ namespace TransactionsCalculator.Presenters.Presenters
 
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
-            PDFReportViewModelConverter converter = new PDFReportViewModelConverter();
-            PDFReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
+            if (this.appConfigurationService.ProducePdf)
+            {
 
-            HtmlToPdf pdfRenderer = new HtmlToPdf();
-            string razoPdfTemplate = File.ReadAllText(@"Resources/PDFReportTemplate.cshtml");
+                PDFReportViewModelConverter converter = new PDFReportViewModelConverter();
+                PDFReportViewModel reportViewModel = converter.Convert(directoryProcessingResult);
 
-            var pdfHtmlResult = Engine.Razor.RunCompile(
-                templateSource: razoPdfTemplate,
-                name: "pdfreport",
-                modelType: typeof(PDFReportViewModel),
-                model: reportViewModel,
-                viewBag: null);
+                HtmlToPdf pdfRenderer = new HtmlToPdf();
+                string razoPdfTemplate = File.ReadAllText(@"Resources/PDFReportTemplate.cshtml");
 
-            //pdfRenderer.PrintOptions.CustomCssUrl = @"PDFResources/bootstrap.min.css";
-            pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Landscape;
-            pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
+                var pdfHtmlResult = Engine.Razor.RunCompile(
+                    templateSource: razoPdfTemplate,
+                    name: "pdfreport",
+                    modelType: typeof(PDFReportViewModel),
+                    model: reportViewModel,
+                    viewBag: null);
+
+                //pdfRenderer.PrintOptions.CustomCssUrl = @"PDFResources/bootstrap.min.css";
+                pdfRenderer.PrintOptions.PaperOrientation = PdfPrintOptions.PdfPaperOrientation.Landscape;
+                pdfRenderer.RenderHtmlAsPdf(pdfHtmlResult).SaveAs("GimmyReport.pdf");
+            }
         }
     }
 }
