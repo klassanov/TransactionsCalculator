@@ -4,6 +4,7 @@ using RazorEngine.Templating;
 using System.IO;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Presenters;
+using TransactionsCalculator.Interfaces.Services;
 using TransactionsCalculator.Presenters.ViewModelConverters;
 using TransactionsCalculator.Presenters.ViewModels;
 
@@ -11,6 +12,13 @@ namespace TransactionsCalculator.Presenters.Presenters
 {
     public class PDFPresenter : IPresenter
     {
+        private IAppConfigurationService appConfigurationService;
+
+        public PDFPresenter(IAppConfigurationService appConfigurationService)
+        {
+            this.appConfigurationService = appConfigurationService;
+        }
+
         public void PresentInfo(IDirectoryProcessingResult directoryProcessingResult)
         {
             PDFReportViewModelConverter converter = new PDFReportViewModelConverter();

@@ -1,6 +1,7 @@
 ﻿using IronXL;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Presenters;
+using TransactionsCalculator.Interfaces.Services;
 using TransactionsCalculator.Presenters.ViewModelConverters;
 using TransactionsCalculator.Presenters.ViewModels;
 
@@ -12,9 +13,11 @@ namespace TransactionsCalculator.Presenters.Presenters
         private WorkSheet xlsSheet;
         private int tableHeaderRowIndex = 8;
         private char currentChar;
+        private IAppConfigurationService appConfigurationService;
 
-        public ExcelPresenter()
+        public ExcelPresenter(IAppConfigurationService appConfigurationService)
         {
+            this.appConfigurationService = appConfigurationService;
             ResetCurrentChar();
         }
 

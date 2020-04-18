@@ -36,18 +36,26 @@ namespace TransactionsCalculator
             ITransactionCalculatorService transactionCalculatorService = serviceProvider.GetService<ITransactionCalculatorService>();
             IDirectoryProcessingResult processResult = transactionCalculatorService.ProcessDirectory();
 
-            IPresenter directoryProcessingResultPrinterService = serviceProvider.GetService<IPresenter>();
-            directoryProcessingResultPrinterService.PresentInfo(processResult);
-
-            //Use DI eventually
-            IPresenter pdfPresenter = new PDFPresenter();
-            pdfPresenter.PresentInfo(processResult);
-
-            IPresenter excelPresenter = new ExcelPresenter();
-            excelPresenter.PresentInfo(processResult);
+            PresentInfo(processResult);
 
             logger.Info(string.Empty);
             logger.Info("Done!");
+        }
+
+        private static void PresentInfo(IDirectoryProcessingResult processResult)
+        {
+            //Put this in a separate service and use DI, use chain of responsability. Take all implementations of IPresenter as a list and call them all
+
+            IAppConfigurationService appConfigurationService = serviceProvider.GetService<IAppConfigurationService>();
+
+            IPresenter consolePresenter = new ConsolePresenter(appConfigurationService);
+            consolePresenter.PresentInfo(processResult);
+
+            IPresenter pdfPresenter = new PDFPresenter(appConfigurationService);
+            pdfPresenter.PresentInfo(processResult);
+
+            IPresenter excelPresenter = new ExcelPresenter(appConfigurationService);
+            excelPresenter.PresentInfo(processResult);
         }
 
         private static void RegisterServices()
@@ -59,7 +67,6 @@ namespace TransactionsCalculator
                 .AddTransient<ICalculationOperationsFactory, CalculationOperationsFactory>()
                 .AddTransient<IFileReaderService, FileReaderService>()
                 .AddTransient<ITransactionCalculatorService, TransactionCalculatorService>()
-                .AddTransient<IPresenter, ConsolePresenter>()
                 .BuildServiceProvider();
 
             logger.Debug("Services registrated");

@@ -3,7 +3,7 @@
 - Implement a csv presenter
 
 - Check if input directory is inserted and if such a directory exists
-
+- Autobind configuration settings to properties
 
 
 - Take the excel and pdf file paths as input parameters and predispose the presenters to take that paths
