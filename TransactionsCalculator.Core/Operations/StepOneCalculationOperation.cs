@@ -12,7 +12,7 @@ namespace TransactionsCalculator.Core.Operations
             IAppConfigurationService appConfigurationService)
             : base(exchangeService, appConfigurationService)
         {
-            this.operationDescription = "Step 1";
+            this.operationDescription = "SALES-IT";
         }
 
         protected override decimal Calculate(IEnumerable<ITransaction> transactionList)
