@@ -17,5 +17,7 @@
         public bool ProducePdf { get; set; }
 
         public bool ProduceExcel { get; set; }
+
+        public string[] EUCountryCodes { get; set; }
     }
 }

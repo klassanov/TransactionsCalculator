@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using TransactionsCalculator.Core.Factories;
 using TransactionsCalculator.Core.Services;
@@ -82,6 +83,7 @@ namespace TransactionsCalculator
                 ReferenceTaxableJurisdiction = appSettings["referenceTaxableJurisdiction"],
                 ProduceExcel = bool.Parse(appSettings["produceExcel"]),
                 ProducePdf = bool.Parse(appSettings["producePdf"]),
+                EUCountryCodes = appSettings.GetSection("euCountryCodes").GetChildren().Select(x => x.Value).ToArray(),
                 WorkingDirectory = inputArgs[0]
             };
         }
