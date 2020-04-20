@@ -23,9 +23,6 @@ namespace TransactionsCalculator.Core.Helpers
                 .Name("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")
                 .ConvertUsing(row => SmartCurrencyParser.ParseCurrency(row.GetField("TOTAL_ACTIVITY_VALUE_AMT_VAT_INCL")));
 
-            Map(t => t.SellerDepartCountryVATNumber)
-                .Name("SELLER_DEPART_COUNTRY_VAT_NUMBER");
-
             Map(t => t.BuyerVATNumberCountry)
                 .Name("BUYER_VAT_NUMBER_COUNTRY");
 
@@ -39,6 +36,9 @@ namespace TransactionsCalculator.Core.Helpers
             Map(t => t.TransactionCompleteDate)
                 .Name("TRANSACTION_COMPLETE_DATE")
                 .ConvertUsing(row => DateParser.ParseDate(row.GetField("TRANSACTION_COMPLETE_DATE")));
+
+            Map(t => t.TransactionSellerVATNumber)
+                .Name("TRANSACTION_SELLER_VAT_NUMBER");
 
         }
     }

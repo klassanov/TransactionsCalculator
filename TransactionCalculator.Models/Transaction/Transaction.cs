@@ -17,9 +17,6 @@ namespace TransactionCalculator.Models.Transaction
         //BA: TRANSACTION_CURRENCY_CODE
         public string TransactionCurrencyCode { get; set; }
 
-        //BT: SELLER_DEPART_COUNTRY_VAT_NUMBER
-        public string SellerDepartCountryVATNumber { get; set; }
-
         //BY: BUYER_VAT_NUMBER_COUNTRY
         public string BuyerVATNumberCountry { get; set; }
 
@@ -34,5 +31,8 @@ namespace TransactionCalculator.Models.Transaction
 
         //K: TRANSACTION_COMPLETE_DATE
         public DateTime? TransactionCompleteDate { get; set; }
+
+        //BX: TRANSACTION_SELLER_VAT_NUMBER
+        public string TransactionSellerVATNumber { get; set; }
     }
 }

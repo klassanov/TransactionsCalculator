@@ -10,8 +10,6 @@ namespace TransactionsCalculator.Interfaces.Models
 
         string TransactionSellerVATNumberCountry { get; set; }
 
-        string SellerDepartCountryVATNumber { get; set; }
-
         string TransactionCurrencyCode { get; set; }
 
         string BuyerVATNumberCountry { get; set; }
@@ -23,5 +21,7 @@ namespace TransactionsCalculator.Interfaces.Models
         public string TaxableJurisdiction { get; set; }
 
         public DateTime? TransactionCompleteDate { get; set; }
+
+        public string TransactionSellerVATNumber { get; set; }
     }
 }

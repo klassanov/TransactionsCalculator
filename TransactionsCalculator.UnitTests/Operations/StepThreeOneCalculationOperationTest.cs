@@ -22,14 +22,14 @@ namespace TransactionsCalculator.UnitTests.Operations
             List<ITransaction> transactionList = new List<ITransaction>()
             {
                 //Data that should  be taken
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}1234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 100},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 200},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}1234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 100},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 200},
                
                 //Data that should be filtered out
-                new Transaction {SellerDepartCountryVATNumber=$"BG234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry=this.referenceCountryCode, TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 400},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=4, TotalActivityVATIncludedAmount = 500},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=null, TotalActivityVATIncludedAmount = 600},
+                new Transaction {TransactionSellerVATNumber=$"BG234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry=this.referenceCountryCode, TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 400},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=4, TotalActivityVATIncludedAmount = 500},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=null, TotalActivityVATIncludedAmount = 600},
             };
 
             StepThreeOneCalculationOperation target = this.CreateStepThreeOneCalculationOperation();
@@ -48,15 +48,15 @@ namespace TransactionsCalculator.UnitTests.Operations
             List<ITransaction> transactionList = new List<ITransaction>()
             {
                 //Data that should  be taken
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}1234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 100, TransactionCurrencyCode="BGN"},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 200, TransactionCurrencyCode="USD"},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300, TransactionCurrencyCode=this.referenceCurrencyCode},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}1234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 100, TransactionCurrencyCode="BGN"},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 200, TransactionCurrencyCode="USD"},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300, TransactionCurrencyCode=this.referenceCurrencyCode},
                
                 //Data that should be filtered out
-                new Transaction {SellerDepartCountryVATNumber=$"BG234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry=this.referenceCountryCode, TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 400},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=4, TotalActivityVATIncludedAmount = 500},
-                new Transaction {SellerDepartCountryVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=null, TotalActivityVATIncludedAmount = 600},
+                new Transaction {TransactionSellerVATNumber=$"BG234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry=this.referenceCountryCode, TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 400},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=4, TotalActivityVATIncludedAmount = 500},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=null, TotalActivityVATIncludedAmount = 600},
             };
 
             StepThreeOneCalculationOperation target = this.CreateStepThreeOneCalculationOperation();
