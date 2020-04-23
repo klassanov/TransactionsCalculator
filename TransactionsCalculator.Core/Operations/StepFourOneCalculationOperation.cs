@@ -20,7 +20,7 @@ namespace TransactionsCalculator.Core.Operations
             return transactions.Where(x => !string.IsNullOrEmpty(x.TaxableJurisdiction)
                                                    && x.TaxableJurisdiction.Equals(appConfigurationService.ReferenceTaxableJurisdiction)
                                                    && x.TotalActivityVATAmount.HasValue)
-                                           .Sum(x => x.TotalActivityVATAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate));
+                                           .Sum(x => x.TotalActivityVATAmount.Value * GetTransactionExchangeRate(x));
         }
     }
 }

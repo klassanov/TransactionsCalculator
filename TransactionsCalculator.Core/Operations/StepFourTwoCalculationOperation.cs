@@ -19,7 +19,7 @@ namespace TransactionsCalculator.Core.Operations
         {
             return transactions.Where(x => string.IsNullOrEmpty(x.TaxableJurisdiction) &&
                                                   x.TotalActivityVATIncludedAmount.HasValue)
-                                           .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate));
+                                           .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetTransactionExchangeRate(x));
         }
     }
 }

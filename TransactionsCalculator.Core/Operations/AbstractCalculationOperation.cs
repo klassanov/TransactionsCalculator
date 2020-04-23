@@ -12,6 +12,8 @@ namespace TransactionsCalculator.Core.Operations
         protected readonly IAppConfigurationService appConfigurationService;
         protected string operationDescription;
 
+        private readonly int currencyPrecision = 2;
+
         public AbstractCalculationOperation(
             IExchangeRatesService exchangeService,
             IAppConfigurationService appConfigurationService)
@@ -26,14 +28,19 @@ namespace TransactionsCalculator.Core.Operations
         {
             return this.exchangeService.GetExchangeRate(currencyCode, transactionDate);
         }
-        private decimal RoundAmount(decimal amount)
+        protected virtual decimal RoundAmount(decimal amount)
         {
-            return Math.Round(amount, 2);
+            return Math.Round(amount, currencyPrecision);
         }
 
-        public decimal CalculateAmount(IEnumerable<ITransaction> transactions)
+        public virtual decimal CalculateAmount(IEnumerable<ITransaction> transactions)
         {
             return this.RoundAmount(this.Calculate(transactions));
+        }
+
+        protected virtual decimal GetTransactionExchangeRate(ITransaction x)
+        {
+            return GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate);
         }
 
         protected abstract decimal Calculate(IEnumerable<ITransaction> transactions);
