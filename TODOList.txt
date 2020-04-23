@@ -1,9 +1,12 @@
-- Reduce code duplication in exchange rate logic
+- Rename CalculateFiltersData to CalculateFiltersDataAndSums() and CalculateConsidersExchangeRates to CalculateConsidersExchangeRatesAndSums
 - Implement a csv presenter
+
+- Document the steps in GitHub wiki
 
 - Autobind configuration settings to properties
 - Do all requested changes: New Step 3.4 ERORI-INTRA; New Step 4.4 MAG-NO-VAT;
 
+- Test review and corrections if needed
 - Check if input directory is inserted and if such a directory exists
 - Take the excel and pdf file paths as input parameters and predispose the presenters to take that paths
 - ? Use a second, backup, API for exchange rates client

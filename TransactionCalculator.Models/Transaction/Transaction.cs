@@ -34,5 +34,8 @@ namespace TransactionCalculator.Models.Transaction
 
         //BX: TRANSACTION_SELLER_VAT_NUMBER
         public string TransactionSellerVATNumber { get; set; }
+
+        //BZ: BUYER_VAT_NUMBER
+        public string BuyerVATNumber { get; set; }
     }
 }

@@ -40,6 +40,8 @@ namespace TransactionsCalculator.Core.Helpers
             Map(t => t.TransactionSellerVATNumber)
                 .Name("TRANSACTION_SELLER_VAT_NUMBER");
 
+            Map(t => t.BuyerVATNumber)
+                .Name("BUYER_VAT_NUMBER");
         }
     }
 }

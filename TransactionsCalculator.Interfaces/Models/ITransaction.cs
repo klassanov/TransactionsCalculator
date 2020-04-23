@@ -23,5 +23,7 @@ namespace TransactionsCalculator.Interfaces.Models
         public DateTime? TransactionCompleteDate { get; set; }
 
         public string TransactionSellerVATNumber { get; set; }
+
+        public string BuyerVATNumber { get; set; }
     }
 }
