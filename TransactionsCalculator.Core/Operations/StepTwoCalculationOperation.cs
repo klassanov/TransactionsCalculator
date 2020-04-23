@@ -17,12 +17,23 @@ namespace TransactionsCalculator.Core.Operations
 
         protected override decimal Calculate(IEnumerable<ITransaction> transactionList)
         {
-            HashSet<string> countriesHash = transactionList.Select(x => x.TransactionSellerVATNumberCountry).ToHashSet();
+            HashSet<string> excludedCountriesHash = this.GetExcludedCountriesHashSet(transactionList);
 
             return transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleDepartureCountry) &&
                                                 x.TotalActivityVATIncludedAmount.HasValue &&
-                                                !countriesHash.Contains(x.SaleArrivalCountry))
+                                                !excludedCountriesHash.Contains(x.SaleArrivalCountry))
                                                 .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetExchangeRate(x.TransactionCurrencyCode, x.TransactionCompleteDate));
+        }
+
+        public HashSet<string> GetExcludedCountriesHashSet(IEnumerable<ITransaction> transactionList)
+        {
+            List<string> excludedCountriesList = new List<string>();
+
+            excludedCountriesList.AddRange(transactionList.Select(x => x.TransactionSellerVATNumberCountry));
+            excludedCountriesList.AddRange(this.appConfigurationService.EUCountryCodes);
+            excludedCountriesList.Add(this.appConfigurationService.ReferenceCountryCode);
+
+            return excludedCountriesList.ToHashSet();
         }
     }
 }

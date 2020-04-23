@@ -15,41 +15,58 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateConsidersSaleArrivalCountriesNotInTransactionSellerVATNumberCountries()
+        public void GetExcludedCountriesHashSetCreatesHashSetCorrectly()
         {
-            this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
-
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = this.referenceCountryCode, TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = "BUL", SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = this.referenceCountryCode,  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "CAN",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "XXX", TotalActivityVATIncludedAmount = 400, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL" },
+                new Transaction { TransactionSellerVATNumberCountry = "BUL" },
+                new Transaction { TransactionSellerVATNumberCountry = "BUL" },
+                new Transaction { TransactionSellerVATNumberCountry = "XUI" },
+                new Transaction { TransactionSellerVATNumberCountry = "XUI" },
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
-            var actualResult = target.CalculateAmount(transactionList);
+            HashSet<string> exclCountries = target.GetExcludedCountriesHashSet(transactionList);
 
-            Assert.Equal(700, actualResult);
+            //Asserts
+            //BUL, XUI, reference country code, setup eu countries
+            int expectedCountriesNumber = 2 + 1 + this.appConfigurationServiceMock.Object.EUCountryCodes.Length;
+
+            Assert.Equal(exclCountries.Count, expectedCountriesNumber);
+            Assert.Contains("BUL", exclCountries);
+            Assert.Contains("XUI", exclCountries);
+            Assert.Contains(this.referenceCountryCode, exclCountries);
+            Assert.Contains(this.euCountryCodeA, exclCountries);
+            Assert.Contains(this.euCountryCodeB, exclCountries);
         }
 
         [Fact]
-        public void CalculateFiltersBySaleDepartCountry()
+        public void CalculateFiltersData()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 400, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
+                //Records that should be taken
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 1000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 2000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
+
+                //Records that should be filtered put
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = null, SaleArrivalCountry = this.referenceCountryCode,  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = this.referenceCountryCode,  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = "BUL",  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 400, SaleArrivalCountry = this.euCountryCodeA,  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 500, SaleArrivalCountry = this.euCountryCodeB,  SaleDepartureCountry =this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "XYI", TotalActivityVATIncludedAmount = 600, SaleArrivalCountry ="XYI",  SaleDepartureCountry =this.referenceCountryCode}
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
             var actualResult = target.CalculateAmount(transactionList);
 
-            Assert.Equal(600, actualResult);
+            Assert.Equal(6000, actualResult);
         }
 
         [Fact]
@@ -61,35 +78,16 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, TransactionCurrencyCode ="USD", SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, TransactionCurrencyCode ="BGN", SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, TransactionCurrencyCode = this.referenceCurrencyCode, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 400, TransactionCurrencyCode = this.referenceCurrencyCode, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
+                //Records that should be taken
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 1000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode=this.referenceCurrencyCode },
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 2000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="USD" },
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="BGN" },
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
             var actualResult = target.CalculateAmount(transactionList);
 
-            Assert.Equal(1500, actualResult);
-        }
-
-        [Fact]
-        public void CalculateIgnoresTotalActivityVatIncludedAmountIfNull()
-        {
-            this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
-
-            List<ITransaction> transactionList = new List<ITransaction>()
-            {
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = null, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-            };
-
-            StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
-            var actualResult = target.CalculateAmount(transactionList);
-
-            Assert.Equal(600, actualResult);
+            Assert.Equal(20000, actualResult);
         }
 
         private StepTwoCalculationOperation CreateStepTwoCalculationOperation()
