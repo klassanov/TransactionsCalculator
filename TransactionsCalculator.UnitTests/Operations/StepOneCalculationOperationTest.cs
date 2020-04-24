@@ -51,7 +51,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateConsidersExchangeRates()
+        public void CalculateConsidersExchangeRatesWhenSummingAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(this.referenceCurrencyCode, It.IsAny<DateTime?>())).Returns(1);
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate("USD", It.IsAny<DateTime?>())).Returns(2);

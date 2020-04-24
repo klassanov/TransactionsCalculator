@@ -15,7 +15,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateFiltersData()
+        public void CalculateFiltersDataAndSumsAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
 
@@ -39,7 +39,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateConsidersExchangeRates()
+        public void CalculateConsidersExchangeRatesWhenSummingAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(this.referenceCurrencyCode, It.IsAny<DateTime?>())).Returns(1);
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate("USD", It.IsAny<DateTime?>())).Returns(2);
@@ -50,13 +50,7 @@ namespace TransactionsCalculator.UnitTests.Operations
                  //Data that should be taken
                 new Transaction{TaxableJurisdiction=this.referenceTaxableJurisdiction, TotalActivityVATAmount=1500, TransactionCurrencyCode=this.referenceCurrencyCode},
                 new Transaction{TaxableJurisdiction=this.referenceTaxableJurisdiction, TotalActivityVATAmount=2000, TransactionCurrencyCode="USD"},
-                new Transaction{TaxableJurisdiction=this.referenceTaxableJurisdiction, TotalActivityVATAmount=3000, TransactionCurrencyCode="BGN"},
-
-                //Data that should be filtered out
-                new Transaction{TaxableJurisdiction=string.Empty, TotalActivityVATAmount=1, TransactionCurrencyCode=this.referenceCurrencyCode },
-                new Transaction{TaxableJurisdiction=null, TotalActivityVATAmount=2, TransactionCurrencyCode=this.referenceCurrencyCode},
-                new Transaction{TaxableJurisdiction="BLABLA", TotalActivityVATAmount=3, TransactionCurrencyCode=this.referenceCurrencyCode},
-                new Transaction{TaxableJurisdiction=this.referenceTaxableJurisdiction, TotalActivityVATAmount=null, TransactionCurrencyCode=this.referenceCurrencyCode},
+                new Transaction{TaxableJurisdiction=this.referenceTaxableJurisdiction, TotalActivityVATAmount=3000, TransactionCurrencyCode="BGN"}
             };
 
             StepFourOneCalculationOperation target = this.CreateStepFourOneCalculationOperation();

@@ -15,7 +15,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateFiltersData()
+        public void CalculateFiltersDataAndSumsAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
 
@@ -39,7 +39,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateConsidersExchangeRates()
+        public void CalculateConsidersExchangeRatesWhenSummingAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(this.referenceCurrencyCode, It.IsAny<DateTime?>())).Returns(1);
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate("USD", It.IsAny<DateTime?>())).Returns(2);
@@ -50,13 +50,7 @@ namespace TransactionsCalculator.UnitTests.Operations
                 //Data that should  be taken
                 new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}1234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 100, TransactionCurrencyCode="BGN"},
                 new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 200, TransactionCurrencyCode="USD"},
-                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300, TransactionCurrencyCode=this.referenceCurrencyCode},
-               
-                //Data that should be filtered out
-                new Transaction {TransactionSellerVATNumber=$"BG234", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300},
-                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry=this.referenceCountryCode, TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 400},
-                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=4, TotalActivityVATIncludedAmount = 500},
-                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=null, TotalActivityVATIncludedAmount = 600},
+                new Transaction {TransactionSellerVATNumber=$"{this.referenceCountryCode}5678", BuyerVATNumberCountry="CH", TotalActivityVATAmount=0, TotalActivityVATIncludedAmount = 300, TransactionCurrencyCode=this.referenceCurrencyCode}
             };
 
             StepThreeOneCalculationOperation target = this.CreateStepThreeOneCalculationOperation();

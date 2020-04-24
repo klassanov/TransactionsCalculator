@@ -15,7 +15,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateFiltersDataAndSums()
+        public void CalculateFiltersDataAndSumsAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
 
@@ -43,7 +43,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateConsidersExchangeRatesAndSums()
+        public void CalculateConsidersExchangeRatesWhenSummingAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(this.referenceCurrencyCode, It.IsAny<DateTime?>())).Returns(1);
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate("USD", It.IsAny<DateTime?>())).Returns(2);
@@ -54,7 +54,7 @@ namespace TransactionsCalculator.UnitTests.Operations
                 //Records that should be taken
                 new Transaction{ TransactionSellerVATNumber="xyz", BuyerVATNumber="xyz", TotalActivityVATAmount=1000, TotalActivityVATIncludedAmount=1000, TransactionCurrencyCode=this.referenceCurrencyCode },
                 new Transaction{ TransactionSellerVATNumber="abc", BuyerVATNumber="def", TotalActivityVATAmount=1000, TotalActivityVATIncludedAmount=2000, TransactionCurrencyCode="USD" },
-                new Transaction{ TransactionSellerVATNumber="ghh", BuyerVATNumber="gss", TotalActivityVATAmount=1000, TotalActivityVATIncludedAmount=3000, TransactionCurrencyCode="BGN" },
+                new Transaction{ TransactionSellerVATNumber="ghh", BuyerVATNumber="gss", TotalActivityVATAmount=1000, TotalActivityVATIncludedAmount=3000, TransactionCurrencyCode="BGN" }
             };
 
             StepThreeFourCalculationOperation target = this.CreateStepThreeFourCalculationOperation();

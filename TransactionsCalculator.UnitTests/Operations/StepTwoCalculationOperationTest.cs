@@ -42,7 +42,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateFiltersData()
+        public void CalculateFiltersDataAndSumsAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
 
@@ -70,7 +70,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateConsidersExchangeRates()
+        public void CalculateConsidersExchangeRatesWhenSummingAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(this.referenceCurrencyCode, It.IsAny<DateTime?>())).Returns(1);
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate("USD", It.IsAny<DateTime?>())).Returns(2);
@@ -81,7 +81,7 @@ namespace TransactionsCalculator.UnitTests.Operations
                 //Records that should be taken
                 new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 1000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode=this.referenceCurrencyCode },
                 new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 2000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="USD" },
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="BGN" },
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="BGN" }
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
