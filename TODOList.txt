@@ -1,7 +1,8 @@
-- Implement a csv presenter
+- Implement a csv/txt presenter so the file can be opened in excel
 - Document the steps in GitHub wiki
 - Autobind configuration settings to properties
-- Do all requested changes: New Step 4.4 MAG-NO-VAT;
+- Exchange service: throw an exception if the transaction date is null or in future
+
 
 - Test review (step 1) and corrections if needed
 - Check if input directory is inserted and if such a directory exists

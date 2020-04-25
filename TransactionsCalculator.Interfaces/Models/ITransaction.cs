@@ -58,5 +58,10 @@ namespace TransactionsCalculator.Interfaces.Models
         /// BZ: BUYER_VAT_NUMBER
         /// </summary>
         public string BuyerVATNumber { get; set; }
+
+        /// <summary>
+        /// CD: VAT_INV_NUMBER
+        /// </summary>
+        public string VATInvNumber { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace TransactionsCalculator.Core.Operations
         {
             this.exchangeService = exchangeService;
             this.appConfigurationService = appConfigurationService;
+            this.operationDescription = "STEP DESCRIPTION";
         }
 
         public string OperationDescription => operationDescription;
