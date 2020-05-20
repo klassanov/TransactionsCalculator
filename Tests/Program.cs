@@ -24,6 +24,15 @@ namespace Tests
 
         static void Main(string[] args)
         {
+            string value1 = "22-03-2012";
+            string value2 = "22/04/2020";
+
+            string[] formats = { "dd-MM-yyyy", "dd/MM/yyyy" };
+            DateTime date1 = DateTime.ParseExact(value1, formats, CultureInfo.InvariantCulture);
+            DateTime date2 = DateTime.ParseExact(value2, formats, CultureInfo.InvariantCulture);
+
+
+
             GetExchangeRateFromAPI("GBP");
 
 
