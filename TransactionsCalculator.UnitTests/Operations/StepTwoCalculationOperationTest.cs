@@ -1,6 +1,7 @@
 ﻿using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TransactionCalculator.Models.Transaction;
 using TransactionsCalculator.Core.Operations;
 using TransactionsCalculator.Interfaces.Models;
@@ -31,14 +32,14 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             //Asserts
             //BUL, XUI, reference country code, setup eu countries
-            int expectedCountriesNumber = 2 + 1 + this.appConfigurationServiceMock.Object.EUCountryCodes.Length;
+            int expectedCountriesNumber = 3;
 
             Assert.Equal(exclCountries.Count, expectedCountriesNumber);
             Assert.Contains("BUL", exclCountries);
             Assert.Contains("XUI", exclCountries);
             Assert.Contains(this.referenceCountryCode, exclCountries);
-            Assert.Contains(this.euCountryCodeA, exclCountries);
-            Assert.Contains(this.euCountryCodeB, exclCountries);
+            Assert.DoesNotContain(this.euCountryCodeA, exclCountries);
+            Assert.DoesNotContain(this.euCountryCodeB, exclCountries);
         }
 
         [Fact]
@@ -49,24 +50,23 @@ namespace TransactionsCalculator.UnitTests.Operations
             List<ITransaction> transactionList = new List<ITransaction>()
             {
                 //Records that should be taken
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 1000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 2000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry =  appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(1),  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 5000, SaleArrivalCountry =  appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(2),  SaleDepartureCountry = this.referenceCountryCode},
 
                 //Records that should be filtered put
                 new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = null, SaleArrivalCountry = this.referenceCountryCode,  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 100, SaleArrivalCountry = this.referenceCountryCode,  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 200, SaleArrivalCountry = "BUL",  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 300, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 400, SaleArrivalCountry = this.euCountryCodeA,  SaleDepartureCountry = this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 500, SaleArrivalCountry = this.euCountryCodeB,  SaleDepartureCountry =this.referenceCountryCode},
-                new Transaction { TransactionSellerVATNumberCountry = "XYI", TotalActivityVATIncludedAmount = 600, SaleArrivalCountry ="XYI",  SaleDepartureCountry =this.referenceCountryCode}
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 1, SaleArrivalCountry = this.referenceCountryCode,  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 2, SaleArrivalCountry = "BUL",  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = "YYY"},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 4, SaleArrivalCountry = appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(0),  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry =  appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(0), TotalActivityVATIncludedAmount =5, SaleArrivalCountry = appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(0),  SaleDepartureCountry = this.referenceCountryCode},
+                new Transaction { TransactionSellerVATNumberCountry = "XYI", TotalActivityVATIncludedAmount = 7, SaleArrivalCountry ="XYI",  SaleDepartureCountry =this.referenceCountryCode}
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
             var actualResult = target.CalculateAmount(transactionList);
 
-            Assert.Equal(6000, actualResult);
+            Assert.Equal(8000, actualResult);
         }
 
         [Fact]
@@ -79,15 +79,14 @@ namespace TransactionsCalculator.UnitTests.Operations
             List<ITransaction> transactionList = new List<ITransaction>()
             {
                 //Records that should be taken
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 1000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode=this.referenceCurrencyCode },
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 2000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="USD" },
-                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry = "ZZZ",  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="BGN" }
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 3000, SaleArrivalCountry =  appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(1),  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode="USD"},
+                new Transaction { TransactionSellerVATNumberCountry = "BUL", TotalActivityVATIncludedAmount = 5000, SaleArrivalCountry =  appConfigurationServiceMock.Object.EUCountryCodes.ElementAt(2),  SaleDepartureCountry = this.referenceCountryCode, TransactionCurrencyCode=this.referenceCurrencyCode},
             };
 
             StepTwoCalculationOperation target = this.CreateStepTwoCalculationOperation();
             var actualResult = target.CalculateAmount(transactionList);
 
-            Assert.Equal(20000, actualResult);
+            Assert.Equal(11000, actualResult);
         }
 
         private StepTwoCalculationOperation CreateStepTwoCalculationOperation()

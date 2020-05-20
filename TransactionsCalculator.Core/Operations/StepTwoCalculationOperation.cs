@@ -21,18 +21,16 @@ namespace TransactionsCalculator.Core.Operations
 
             return transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleDepartureCountry) &&
                                                 x.TotalActivityVATIncludedAmount.HasValue &&
-                                                !excludedCountriesHash.Contains(x.SaleArrivalCountry))
+                                                !excludedCountriesHash.Contains(x.SaleArrivalCountry) &&
+                                                appConfigurationService.EUCountryCodes.Contains(x.SaleArrivalCountry))
                                                 .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetTransactionExchangeRate(x));
         }
 
         public HashSet<string> GetExcludedCountriesHashSet(IEnumerable<ITransaction> transactionList)
         {
             List<string> excludedCountriesList = new List<string>();
-
             excludedCountriesList.AddRange(transactionList.Select(x => x.TransactionSellerVATNumberCountry));
-            excludedCountriesList.AddRange(this.appConfigurationService.EUCountryCodes);
             excludedCountriesList.Add(this.appConfigurationService.ReferenceCountryCode);
-
             return excludedCountriesList.ToHashSet();
         }
     }

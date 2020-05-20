@@ -13,6 +13,7 @@ namespace TransactionsCalculator.UnitTests.Operations
         protected readonly string referenceTaxableJurisdiction = "ITALIA";
         protected readonly string euCountryCodeA = "EUA";
         protected readonly string euCountryCodeB = "EUB";
+        protected readonly string euCountryCodeC = "EUC";
 
         public BaseOperationTest()
         {
@@ -21,7 +22,7 @@ namespace TransactionsCalculator.UnitTests.Operations
             this.appConfigurationServiceMock = new Mock<IAppConfigurationService>();
             this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceTaxableJurisdiction).Returns(this.referenceTaxableJurisdiction);
             this.appConfigurationServiceMock.SetupGet<string>(x => x.ReferenceCountryCode).Returns(this.referenceCountryCode);
-            this.appConfigurationServiceMock.SetupGet(x => x.EUCountryCodes).Returns(new string[] { euCountryCodeA, euCountryCodeB });
+            this.appConfigurationServiceMock.SetupGet(x => x.EUCountryCodes).Returns(new string[] { euCountryCodeA, euCountryCodeB, euCountryCodeC });
         }
     }
 }
