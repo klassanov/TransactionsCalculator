@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
@@ -18,7 +19,8 @@ namespace TransactionsCalculator.Core.Operations
         protected override decimal Calculate(IEnumerable<ITransaction> transactionList)
         {
             return transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleArrivalCountry) &&
-                                                          x.TotalActivityVATIncludedAmount.HasValue)
+                                              this.appConfigurationService.EUCountryCodes.Contains(x.SaleDepartureCountry, StringComparer.OrdinalIgnoreCase) &&
+                                                         x.TotalActivityVATIncludedAmount.HasValue)
                                                .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetTransactionExchangeRate(x));
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TransactionsCalculator.Interfaces.Models;
 using TransactionsCalculator.Interfaces.Services;
@@ -22,7 +23,7 @@ namespace TransactionsCalculator.Core.Operations
             return transactionList.Where(x => this.appConfigurationService.ReferenceCountryCode.Equals(x.SaleDepartureCountry) &&
                                                 x.TotalActivityVATIncludedAmount.HasValue &&
                                                 !excludedCountriesHash.Contains(x.SaleArrivalCountry) &&
-                                                appConfigurationService.EUCountryCodes.Contains(x.SaleArrivalCountry))
+                                                appConfigurationService.EUCountryCodes.Contains(x.SaleArrivalCountry, StringComparer.OrdinalIgnoreCase))
                                                 .Sum(x => x.TotalActivityVATIncludedAmount.Value * GetTransactionExchangeRate(x));
         }
 

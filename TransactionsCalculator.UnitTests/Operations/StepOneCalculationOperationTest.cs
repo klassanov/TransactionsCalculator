@@ -15,39 +15,26 @@ namespace TransactionsCalculator.UnitTests.Operations
         }
 
         [Fact]
-        public void CalculateSumsTotalActivityVatIncludedAmountFilteringBySaleArrivalCountry()
+        public void CalculateFiltersDataAndSumsAmounts()
         {
             this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100 },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100 },
-                new Transaction{SaleArrivalCountry="USA", TotalActivityVATIncludedAmount=100 },
-                new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=100 }
+                //Data that will be taken
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=1000, SaleDepartureCountry = this.euCountryCodeA },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=2000, SaleDepartureCountry = this.euCountryCodeB },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=3000, SaleDepartureCountry = this.euCountryCodeC },
+
+                //Data that will be filtered
+                new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=1 },
+                new Transaction{SaleArrivalCountry="USA", TotalActivityVATIncludedAmount=2, SaleDepartureCountry = this.euCountryCodeA },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=null, SaleDepartureCountry = "random-1"},
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=3, SaleDepartureCountry = "random-2" },
             };
             StepOneCalculationOperation target = this.CreateStepOneCalculationOperation();
             var actualResult = target.CalculateAmount(transactionList);
 
-            Assert.Equal(200, actualResult);
-        }
-
-        [Fact]
-        public void CalculateIgnoresTotalActivityVatIncludedAmountIfNull()
-        {
-            this.exchangeServiceMock.Setup(x => x.GetExchangeRate(It.IsAny<string>(), It.IsAny<DateTime?>())).Returns(1);
-            List<ITransaction> transactionList = new List<ITransaction>()
-            {
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=200 },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=300 },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=null},
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=null},
-                new Transaction{SaleArrivalCountry="USA", TotalActivityVATIncludedAmount=100 },
-                new Transaction{SaleArrivalCountry="ESP", TotalActivityVATIncludedAmount=100 }
-            };
-            StepOneCalculationOperation target = this.CreateStepOneCalculationOperation();
-            var actualResult = target.CalculateAmount(transactionList);
-
-            Assert.Equal(500, actualResult);
+            Assert.Equal(6000, actualResult);
         }
 
         [Fact]
@@ -59,17 +46,16 @@ namespace TransactionsCalculator.UnitTests.Operations
 
             List<ITransaction> transactionList = new List<ITransaction>()
             {
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode=this.referenceCurrencyCode, TransactionCompleteDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=200, TransactionCurrencyCode="USD", TransactionCompleteDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TotalActivityVATIncludedAmount=100, TransactionCurrencyCode="BGN", TransactionCompleteDate=DateTime.Now },
-                new Transaction{SaleArrivalCountry="USD", TotalActivityVATIncludedAmount=100 },
-                new Transaction{SaleArrivalCountry="BGN", TotalActivityVATIncludedAmount=100 }
+                //Data that will be taken
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TransactionCurrencyCode=this.referenceCountryCode, TotalActivityVATIncludedAmount=1000, SaleDepartureCountry = this.euCountryCodeA },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TransactionCurrencyCode="USD", TotalActivityVATIncludedAmount=2000, SaleDepartureCountry = this.euCountryCodeB },
+                new Transaction{SaleArrivalCountry=this.referenceCountryCode, TransactionCurrencyCode="BGN", TotalActivityVATIncludedAmount=3000, SaleDepartureCountry = this.euCountryCodeC },
             };
 
             StepOneCalculationOperation target = this.CreateStepOneCalculationOperation();
             var actualResult = target.CalculateAmount(transactionList);
 
-            Assert.Equal(1000, actualResult);
+            Assert.Equal(19000, actualResult);
         }
 
         private StepOneCalculationOperation CreateStepOneCalculationOperation()
